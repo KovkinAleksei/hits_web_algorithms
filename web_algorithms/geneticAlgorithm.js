@@ -1,8 +1,8 @@
-let vertexes = [];      // Массив вершин
-var solves = [];        // Решения
-const POPULATION = 10;  // Кол-во решений в популяции
-const CHILDS = 3;       // Кол-во детей при скрещивании
-const MUTPROB = 15;     // Вероятность мутации
+let vertexes = [];        // Массив вершин
+var solves = [];          // Решения
+const POPULATION = 1000;  // Кол-во решений в популяции
+const CHILDS = 300;       // Кол-во детей при скрещивании
+const MUTPROB = 30;       // Вероятность мутации
 
 // Генерация случайного решения
 function getRandomSolve() {

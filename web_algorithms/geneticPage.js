@@ -123,7 +123,7 @@ findStartButton.addEventListener('click', (e) => {
         // Генерация популяции
         let currentSolve = getSolves(vertexes, solves);
         showSolve(currentSolve);
-    }, 100);
+    }, 1);
 });
 
 let clearButton = document.getElementById("clearButton");
