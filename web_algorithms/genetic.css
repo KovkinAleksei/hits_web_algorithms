@@ -1,0 +1,33 @@
+html {
+    padding: 16px;
+}
+
+#buttons {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+}
+
+button {
+    height: 50px;
+    width: 300px;
+    margin: 5px;
+}
+
+canvas {
+    background-color: green;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+}
+
+#vertex {
+    background-color: black;
+    height: 20px;
+    width: 20px;
+    margin: -10px 0 0 -10px;
+    border-radius: 100%;
+    display: inline-block;
+}
