@@ -15,27 +15,43 @@
         <div class="secondCanvas">
             <canvas id="canvasDBSCAN"></canvas>
             <div class="dbscanBar">
-                <input type="button" class="button" id="dbscanButton" value="DBSCAN">
+                <input type="range" id="rangeRadius" min="10" max="50" step="2" value ="26">
+                <span id="radiusValue" value = "Радиус поиска точек: 26"></span>
+                <div>
+                    <input type="range" id="rangePoints" min="3" max="15" step="1" value ="4">
+                    <span id="pointsValue" value = "Количество точек в округе: 4"></span>
+                </div>
+                <div>
+                    <input type="button" class="button" id="dbscanButton" value="DBSCAN">
+                </div>
             </div>
         </div>
         
         <div class = "firstCanvas">
             <canvas id="canvasKMeans"></canvas>
             <div class="kMeansBar">
-                <input type="button" class="button" id="kMeansButton" value="K-Means">
                 <input type="range" id="rangeKMeans" min="1" max="30" step="1" value ="3">
                 <span id="rangeValue" value = "Количество кластеров: 3"></span>
+                <div>
+                    <input type="button" class="button" id="kMeansButton" value="K-Means">
+                </div>
             </div>
         </div>
         
-        <div class="secondCanvas">
+        <div class="thirdCanvas">
             <canvas id="canvas3"></canvas>
-            <div class="threeBar">
-                <input type="button" class="button" id="threeButton" value="3 алгоритм">
+            <div class="hierarchicalBar">
+                <input type="range" id="rangeHierarchical" min="1" max="30" step="1" value ="3">
+                <span id="rangeValueHierarchical" value = "Количество кластеров: 3"></span>
+                <div>
+                    <input type="button" class="button" id="hierarchicalButton" value="Иерархический алгоритм">
+                </div>
             </div>
         </div>
+
     </div>
     
+
     <div class="chooseBar">
         <input type="button" class="button" id="addPointButton" value="Добавить точки">
         <input type="button" class="button" id="removePointButton" value="Удалить точки">

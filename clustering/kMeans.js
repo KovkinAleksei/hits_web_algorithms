@@ -66,15 +66,15 @@ function kMeans(countClusters) {
     let converged = false;
 
     while (!converged) {
-        // Шаг 2: Очистка массивов кластеров
+        //Очистка массивов кластеров
         for (let i = 0; i < clusters.length; i++) {
             clusters[i] = [];
         }
-        // Шаг 3: Назначение точек к ближайшим центроидам
+        //Назначение точек к ближайшим центроидам
         getPointsToNearestCentroids(centroids, clusters);
-        // Шаг 4: Обновление координат центроидов
+        //Обновление координат центроидов
         let newCentroids = updateCentroids(centroids, clusters);
-        // Шаг 5: Проверка сходимости
+        //Проверка сходимости
         converged = true;
         for (let i = 0; i < centroids.length; i++) {
             if (findDistance(centroids[i], newCentroids[i]) > 0.001) {
@@ -82,7 +82,7 @@ function kMeans(countClusters) {
                 break;
             }
         }
-        // Обновление координат центроидов
+        //Обновление координат центроидов
         centroids = newCentroids;
     }
     return clusters;

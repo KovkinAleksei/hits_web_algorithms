@@ -1,8 +1,9 @@
-import { nowButton, pointCoordinates, countClusters } from "./main.js";
+import { nowButton, pointCoordinates, countClusters, countClustersHierarchical, searchRadius, pointsCount } from "./main.js";
 import { Point } from "./pointClass.js";
 import { dbscan } from "./DBSCAN.js";
 import { kMeans } from "./kMeans.js";
-export { drawer, startDrawing, stopDrawing, startDBSCAN, startKMeans, findNearestPointIndex, getAllPointsBlack };
+import { agglomerativeClustering } from "./hierarchical.js";
+export { drawer, startDrawing, stopDrawing, startDBSCAN, startKMeans, findNearestPointIndex, getAllPointsBlack, startHierarchical};
 
 const colors = [
     'rgb(0, 0 ,100)',
@@ -34,22 +35,26 @@ const colors = [
 ];
 
 const blackColor = 'rgb(0, 0, 0)'
-const canvasColor = 'rgb(34, 131, 102)';
+const canvasColor = '#ceccc6';
 const MAXVALUE = 100000000;
 const RADIUS = 7;
-const minDistanceBetweenPoint = 15;
+const minDistanceBetweenPoint = 14;
 
 let algorithm = 1;
-
-function startDBSCAN (){
-    algorithm = 2;
-    console.log(dbscan(pointCoordinates, 30, 4))
-    drawClusters(dbscan(pointCoordinates, 30, 4));
-}
 
 function startKMeans () {
     algorithm = 1;
     drawClusters(kMeans(countClusters));
+}
+
+function startDBSCAN (){
+    algorithm = 2;
+    drawClusters(dbscan(pointCoordinates, searchRadius, pointsCount));
+}
+
+function startHierarchical() { 
+    algorithm = 3;
+    drawClusters(agglomerativeClustering(pointCoordinates, countClustersHierarchical));
 }
 
 function drawClusters(clusters){
@@ -63,6 +68,9 @@ function drawClusters(clusters){
             }
             else if (algorithm === 2) {
                 pointCoordinates[index].drawDBSCAN(colors[colorIndex]);
+            }
+            else if (algorithm === 3) {
+                pointCoordinates[index].drawHierarchical(colors[colorIndex]);
             }
         }
 

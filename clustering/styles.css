@@ -1,11 +1,33 @@
+html {
+    padding: 16px;
+    background-color: #f9f6ee;
+}
+
 #canvasKMeans, #canvasDBSCAN, #canvas3 {
     display: block;
-    background-color: rgb(34, 131, 102);
+    background-color: #ceccc6;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 10px;
+}
+
+.button {
+    height: 30px;
+    width: 200px;
+    margin: 5px;
+    background-color: #efeee8;
 }
 
 .wrapper{
     display: flex;
     justify-content: space-between;
+}
+
+.chooseBar{
+    width: 30%;
+    margin-top: 10px;
+}
+
+canvas{
+    margin: 5px;
 }

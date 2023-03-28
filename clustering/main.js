@@ -1,8 +1,11 @@
-import { drawer, startDrawing, stopDrawing, startDBSCAN, startKMeans, getAllPointsBlack } from "./drawFunctions.js";
+import { drawer, startDrawing, stopDrawing, startDBSCAN, startKMeans, getAllPointsBlack, startHierarchical } from "./drawFunctions.js";
 export { pointCoordinates, ctx, ctx2, ctx3 };
 
 export let nowButton = 0;
 export let countClusters = 3;
+export let countClustersHierarchical = 4;
+export let searchRadius = 26;
+export let pointsCount = 4;
 
 const canvasKMeans = document.getElementById('canvasKMeans');
 const ctx = canvasKMeans.getContext('2d');
@@ -12,6 +15,9 @@ const canvas3 = document.getElementById('canvas3');
 const ctx3 = canvas3.getContext('2d');
 
 document.getElementById('rangeValue').textContent = "Количество кластеров: 3";
+document.getElementById('radiusValue').textContent = "Радиус поиска точек: 26";
+document.getElementById('pointsValue').textContent = "Количество точек в округе: 4";
+document.getElementById('rangeValueHierarchical').textContent = "Количество кластеров: 3";
 
 canvasKMeans.width = 400;
 canvasKMeans.height = 400;
@@ -26,23 +32,53 @@ let pointCoordinates = [];
 
 document.getElementById('canvasKMeans').addEventListener('click', (e) => { drawer(e) });
 
-function handleRange() {
-    const numberInput = document.getElementById('rangeKMeans');
+function handleRange(parameter) {
+    const numberInput = document.getElementById(parameter);
     const number = parseInt(numberInput.value);
-    if (isNaN(number) || number < 1 || number > 30) {
+    if (isNaN(number)) {
         alert("Ты дурак? Введи норм число");
         return;
     }
-    countClusters = number;
+    if (parameter === 'rangeKMeans') { 
+        countClusters = number;
+    }
+    else if (parameter === 'rangeRadius'){
+        searchRadius = number;
+    }
+    else if (parameter === 'rangePoints') { 
+        pointsCount = number;
+    }
+    else if (parameter === 'rangeHierarchical') {
+        countClustersHierarchical = number;
+    }
 }
 
 document.getElementById('rangeKMeans').addEventListener('input', () => {
-    handleRange();
+    handleRange('rangeKMeans');
     document.getElementById('rangeValue').textContent = "Количество кластеров: " + document.getElementById('rangeKMeans').value;
+});
+
+document.getElementById('rangeRadius').addEventListener('input', () => {
+    handleRange('rangeRadius');
+    document.getElementById('radiusValue').textContent = "Радиус поиска точек: " + document.getElementById('rangeRadius').value;
+});
+
+document.getElementById('rangePoints').addEventListener('input', () => {
+    handleRange('rangePoints');
+    document.getElementById('pointsValue').textContent = "Количество точек в округе: " + document.getElementById('rangePoints').value;
+});
+
+document.getElementById('rangeHierarchical').addEventListener('input', () => {
+    handleRange('rangeHierarchical');
+    document.getElementById('rangeValueHierarchical').textContent = "Количество кластеров: " + document.getElementById('rangeHierarchical').value;
 });
 
 document.getElementById('doAllPointsBlack').addEventListener('click', (e) => {
     getAllPointsBlack();
+});
+
+document.getElementById('hierarchicalButton').addEventListener('click', (e) => {
+    startHierarchical();
 });
 
 document.getElementById('addPointButton').addEventListener('click', (e) => {
@@ -55,7 +91,7 @@ document.getElementById('removePointButton').addEventListener('click', (e) => {
 
 document.getElementById('clearButton').addEventListener('click', () => {
     for (let i = 0; i < pointCoordinates.length; i++) { 
-        pointCoordinates[i].drawAndCopy("rgb(34, 131, 102)", 1); 
+        pointCoordinates[i].drawAndCopy("#ceccc6", 1); 
     }
     pointCoordinates = [];
 });

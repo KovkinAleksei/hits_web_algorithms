@@ -43,4 +43,12 @@ export class Point {
         ctx2.fillStyle = color;
         ctx2.fill();
     }
+
+    drawHierarchical(color) {
+        ctx3.beginPath();
+        ctx3.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx3.closePath();
+        ctx3.fillStyle = color;
+        ctx3.fill();
+    }
 }
