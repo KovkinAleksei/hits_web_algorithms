@@ -31,3 +31,27 @@ canvas {
     border-radius: 100%;
     display: inline-block;
 }
+
+#input {
+    width: 590px;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+}
+
+#inputRange {
+    width: 200px;
+}
+
+#counter {
+    display: block;
+    width: 60px;
+    float:right;
+}
+
+#rangeLabel {
+    width: 316px;
+    top: 0px;
+    float: left
+}

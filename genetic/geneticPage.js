@@ -39,6 +39,7 @@ function drawLines() {
         for (let j = 0; j < vertexes.length; j++) {
             ctx.moveTo(vertexes[i].x, vertexes[i].y);
             ctx.lineTo(vertexes[j].x, vertexes[j].y);
+            ctx.strokeStyle = "rgb(200, 200, 200, 0.1)";
             ctx.stroke();
             ctx.beginPath();
         }
@@ -179,27 +180,33 @@ canv.addEventListener('mouseup', (e) => {
 function showSolve(solve) {
     // Обновление поля
     let ctx = canv.getContext('2d');
-    ctx.reset();
-
-    // Обображение всех вершин графа
-    drawVertexes();
-
+   
     // Проведение ребёр в найденном маршруте
     for (let i = 0; i < solve.length - 1; i++) {
         ctx.moveTo(vertexes[solve[i]].x, vertexes[solve[i]].y);
         ctx.lineTo(vertexes[solve[i + 1]].x, vertexes[solve[i + 1]].y);
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = "4";
+        ctx.lineCap = "round";
         ctx.stroke();
         ctx.beginPath();
     }
 
     // Соединение начальной и конечной вершин в маршруте
-    ctx.moveTo(vertexes[solve[0]].x, vertexes[solve[0]].y);
-    ctx.lineTo(vertexes[solve[solve.length - 1]].x, vertexes[solve[solve.length - 1]].y);
+    ctx.moveTo(vertexes[solve[solve.length - 1]].x, vertexes[solve[solve.length - 1]].y);
+    ctx.lineTo(vertexes[solve[0]].x, vertexes[solve[0]].y);
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = "4";
+    ctx.lineCap = "round";
     ctx.stroke();
     ctx.beginPath();
+
+    // Обображение всех вершин графа
+    drawVertexes();
 }
 
 let findPathButton = document.getElementById("findPathButton");
+let timeout = 10;
 
 // Запуск генетического алгоритма
 findPathButton.addEventListener('click', (e) => {
@@ -222,7 +229,7 @@ findPathButton.addEventListener('click', (e) => {
         // Вывод текущего решения
         solves = getSolves(vertexes, solves);
         showSolve(solves[0]);
-    }, 10);
+    }, timeout);
 });
 
 let clearButton = document.getElementById("clearButton");
@@ -241,3 +248,20 @@ clearButton.addEventListener('click', (e) => {
     clearInterval(interval);
     interval = null;
 })
+
+let inputRange = document.getElementById("inputRange");
+
+// Изменение задержки работы алгоритма
+inputRange.addEventListener('change', (e) => {
+    let counter = document.getElementById("counter");
+    counter.innerHTML = inputRange.value;
+    timeout = inputRange.value;
+
+    // Изменение скорости выполнения текущего запущенного алгоритма
+    if (interval) {
+        clearInterval(interval);
+        interval = null;
+
+        findPathButton.click();
+    }
+});
