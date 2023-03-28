@@ -39,7 +39,7 @@ function drawLines() {
         for (let j = 0; j < vertexes.length; j++) {
             ctx.moveTo(vertexes[i].x, vertexes[i].y);
             ctx.lineTo(vertexes[j].x, vertexes[j].y);
-            ctx.strokeStyle = "rgb(200, 200, 200, 0.1)";
+            ctx.strokeStyle = "rgb(0, 0, 0, 0.1)";
             ctx.stroke();
             ctx.beginPath();
         }

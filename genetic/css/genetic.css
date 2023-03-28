@@ -1,5 +1,6 @@
 html {
     padding: 16px;
+    background-color: #f9f6ee;
 }
 
 #buttons {
@@ -16,7 +17,8 @@ button {
 }
 
 canvas {
-    background-color: green;
+    border-radius: 10px;
+    background-color: #ceccc6;
     display: block;
     margin-left: auto;
     margin-right: auto;
