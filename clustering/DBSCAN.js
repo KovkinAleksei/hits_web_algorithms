@@ -1,53 +1,79 @@
-export {dbscan};
+export { dbscan };
 
-function dbscan(points, eps, minPts) {
-  let clusters = [];
-  let visited = new Set();
-  let noise = new Set();
+function findDistance(point1, point2) {
+    let x = point1.x - point2.x;
+    let y = point1.y - point2.y;
+    return Math.sqrt(x * x + y * y);
+}
 
-  function regionQuery(pointIndex) {
+
+function findNeighbors(point, pointCoordinates, eps) { 
     let neighbors = [];
-    for (let i = 0; i < points.length; i++) {
-      if (i === pointIndex) continue;
-      let dist = Math.sqrt((points[i].x - points[pointIndex].x) ** 2 + (points[i].y - points[pointIndex].y) ** 2);
-      if (dist < eps) {
-        neighbors.push(i);
-      }
+
+    for (let i = 0; i < pointCoordinates.length; i++) { 
+        if (point === pointCoordinates[i]) {
+            continue;
+        }
+        let distance = findDistance(point, pointCoordinates[i]);
+        if (distance < eps) {
+            neighbors.push(pointCoordinates[i]);
+        }
     }
     return neighbors;
-  }
+}
 
-  function expandCluster(clusterIndex, pointIndex, neighbors) {
-    clusters[clusterIndex].push(pointIndex);
-    visited.add(pointIndex);
 
-    for (let neighborIndex of neighbors) {
-      if (!visited.has(neighborIndex)) {
-        visited.add(neighborIndex);
-        let neighborNeighbors = regionQuery(neighborIndex);
-        if (neighborNeighbors.length >= minPts) {
-          neighbors = neighbors.concat(neighborNeighbors);
+function dbscan(points, eps, minPts) {
+  // Массив для хранения кластеров
+  let clusters = [];
+  // Флаг для обозначения, была ли точка уже посещена
+  let visited = new Set();
+  // Итерация по всем точкам
+  for (let p of points) {
+    if (visited.has(p)) continue;
+
+    visited.add(p);
+
+    // Получаем всех соседей текущей точки
+    let neighbors = findNeighbors(p, points, eps);
+
+    if (neighbors.length < minPts) {
+      // Точка не является ядром кластера, помечаем ее как выброс и переходим к следующей
+      p.cluster = -1;
+      continue;
+    }
+
+    // Создаем новый кластер
+    let cluster = [p];
+    clusters.push(cluster);
+
+    // Массив точек для обработки
+    let seeds = [...neighbors];
+
+    // Итеративно расширяем кластер
+    while (seeds.length > 0) {
+      let q = seeds.shift();
+
+      if (!visited.has(q)) {
+        visited.add(q);
+
+        // Получаем соседей точки
+        let qNeighbors = findNeighbors(q, points, eps);
+
+        if (qNeighbors.length >= minPts) {
+          seeds = [...seeds, ...qNeighbors];
         }
       }
-      if (!clusters.some(cluster => cluster.includes(neighborIndex))) {
-        clusters[clusterIndex].push(neighborIndex);
+
+      // Если точка не принадлежит кластеру, добавляем ее в него
+      if (q.cluster === undefined || q.cluster === -1) {
+        cluster.push(q);
       }
+
+      // Помечаем точку как посещенную и принадлежащую кластеру
+      q.cluster = clusters.length;
     }
   }
-
-  for (let i = 0; i < points.length; i++) {
-    if (visited.has(i)) continue;
-
-    visited.add(i);
-
-    let neighbors = regionQuery(i);
-    if (neighbors.length < minPts) {
-      noise.add(i);
-    } else {
-      clusters.push([]);
-      expandCluster(clusters.length - 1, i, neighbors);
-    }
-  }
-
-  return {clusters, noise};
+  delete points.cluster;
+  return clusters;
 }
