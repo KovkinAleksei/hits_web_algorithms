@@ -12,24 +12,35 @@
 <body>
     <div class="wrapper" id="wrapper">
 
-        <canvas id="canvas"></canvas>
-        <div class="chooseBar">
-            <input type="button" class="button" id="addPointButton" value="Добавить точки">
-            <input type="button" class="button" id="removePointButton" value="Удалить точки">
-            <input type="button" class="button" id="doAllPointsBlack" value="Сбросить точки">
-            <input type="button" class="button" id="clearButton" value="Отчистить поле">
-        </div>
-
-        <div class="kMeansBar">
-            <input type="button" class="button" id="kMeansButton" value="K-Means">
-            <input type="range" id="rangeKMeans" min="1" max="30" step="1" value ="3">
-            <span id="rangeValue" value = "Количество кластеров: 3"></span>
+        <div class="secondCanvas">
+            <canvas id="canvasDBSCAN"></canvas>
+            <div class="dbscanBar">
+                <input type="button" class="button" id="dbscanButton" value="DBSCAN">
+            </div>
         </div>
         
-        <div class="dbscanBar">
-            <input type="button" class="button" id="dbscanButton" value="DBSCAN">
+        <div class = "firstCanvas">
+            <canvas id="canvasKMeans"></canvas>
+            <div class="kMeansBar">
+                <input type="button" class="button" id="kMeansButton" value="K-Means">
+                <input type="range" id="rangeKMeans" min="1" max="30" step="1" value ="3">
+                <span id="rangeValue" value = "Количество кластеров: 3"></span>
+            </div>
         </div>
-
+        
+        <div class="secondCanvas">
+            <canvas id="canvas3"></canvas>
+            <div class="threeBar">
+                <input type="button" class="button" id="threeButton" value="3 алгоритм">
+            </div>
+        </div>
+    </div>
+    
+    <div class="chooseBar">
+        <input type="button" class="button" id="addPointButton" value="Добавить точки">
+        <input type="button" class="button" id="removePointButton" value="Удалить точки">
+        <input type="button" class="button" id="doAllPointsBlack" value="Сбросить точки">
+        <input type="button" class="button" id="clearButton" value="Отчистить поле">
     </div>
     <script type='module' src="./main.js"></script>
 </body>

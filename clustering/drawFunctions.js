@@ -36,8 +36,8 @@ const colors = [
 const blackColor = 'rgb(0, 0, 0)'
 const canvasColor = 'rgb(34, 131, 102)';
 const MAXVALUE = 100000000;
-const RADIUS = 10;
-const minDistanceBetweenPoint = 30;
+const RADIUS = 7;
+const minDistanceBetweenPoint = 15;
 
 
 function startDBSCAN (){
@@ -54,7 +54,7 @@ function drawClusters(clusters){
 
         for (let j = 0; j < clusters[i].length; j++) { 
             let index = pointCoordinates.indexOf(clusters[i][j]);
-            pointCoordinates[index].draw(colors[colorIndex]);
+            pointCoordinates[index].drawAndCopy(colors[colorIndex]);
         }
 
     }
@@ -75,7 +75,7 @@ function drawer(event) {
 
 function addPoint(x, y) {
     pointCoordinates.push(new Point(x, y, RADIUS));
-    pointCoordinates[pointCoordinates.length - 1].draw();
+    pointCoordinates[pointCoordinates.length - 1].drawAndCopy();
 }
 
 function deletePoint(x, y) {
@@ -136,9 +136,9 @@ function findDistance(x1, y1, x2, y2) {
 }
 
 function startDrawing() {
-    document.getElementById('canvas').addEventListener('mousemove', drawer);
+    document.getElementById('canvasKMeans').addEventListener('mousemove', drawer);
 }
 
 function stopDrawing() {
-    document.getElementById('canvas').removeEventListener('mousemove', drawer);
+    document.getElementById('canvasKMeans').removeEventListener('mousemove', drawer);
 }

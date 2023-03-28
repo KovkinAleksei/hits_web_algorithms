@@ -1,6 +1,11 @@
-#canvas {
-    background-color: rgb(34, 131, 102);
+#canvasKMeans, #canvasDBSCAN, #canvas3 {
     display: block;
+    background-color: rgb(34, 131, 102);
     margin-left: auto;
     margin-right: auto;
+}
+
+.wrapper{
+    display: flex;
+    justify-content: space-between;
 }
