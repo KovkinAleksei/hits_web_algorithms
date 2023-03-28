@@ -66,7 +66,6 @@ function mutate(child) {
 function cross(firstParent, secondParent) {
     // Разделитель между генами первого и второго родителей
     let divider = Math.floor(Math.random() * firstParent.length);
-
     let child = [];
 
     // Гены, доставшиеся от первого родителя
@@ -146,21 +145,21 @@ function sortSolves(distances) {
                 solves[i] = solves[j];
                 solves[j] = temp;
 
-                let temp2 = distances[i];
+                temp = distances[i];
                 distances[i] = distances[j];
-                distances[j] = temp2;
+                distances[j] = temp;
             }
         }
     }
 }
 
-// Нахождение новой популяции решений
+// Нахождение решений задачи коммивояжёра
 export function getSolves(vertexArray, solvesArray) {
     vertexes = vertexArray;
     var distances = [];
     solves = solvesArray;
 
-    // Генерация начальной популяции
+    // Генерация начальной популяции решений
     if (!solves.length) {
         for (let k = 0; k < POPULATION; k++) {
             solves.push(getRandomSolve());
@@ -188,11 +187,11 @@ export function getSolves(vertexArray, solvesArray) {
     // Сортировка решений по возрастанию длины их пути
     sortSolves(distances);
 
-    // Удаление лишних решений
+    // Удаление лишних решений из популяции
     for (let d = 0; d < CHILDS; d++) {
         solves.pop();
     }
 
     // Возврат лучшего решения
-    return solves[0];
+    return solves;
 };

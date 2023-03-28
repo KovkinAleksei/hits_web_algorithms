@@ -7,6 +7,31 @@ let vertexes = [];     // Массив вершин
 let solves = [];       // Решения
 const RADIUS = 10;     // Радиус вершины
 
+// Отображение всех вершин графа
+function drawVertexes() {
+    let ctx = canv.getContext('2d');
+
+    vertexes.forEach(element => {
+        ctx.beginPath();
+        ctx.arc(element.x, element.y, RADIUS, 0, 2 * Math.PI);
+        ctx.fill();
+    });
+}
+
+// Проведение всех рёбер в графе
+function drawLines() {
+    let ctx = canv.getContext('2d');
+
+    for (let i = 0; i < vertexes.length; i++) {
+        for (let j = 0; j < vertexes.length; j++) {
+            ctx.moveTo(vertexes[i].x, vertexes[i].y);
+            ctx.lineTo(vertexes[j].x, vertexes[j].y);
+            ctx.stroke();
+            ctx.beginPath();
+        }
+    }
+}
+
 // Нахождение расстояния между точками
 function findDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
@@ -50,8 +75,22 @@ canv.addEventListener('click', (e) => {
     let yPos = e.clientY - canv.getBoundingClientRect().top;
     
     // Отображение новой вершины
-    if (drawPossibility(xPos, yPos) && !interval) {
+    if (drawPossibility(xPos, yPos)) {
+        // Завершение работы алгоритма
+        clearInterval(interval);
+        interval = null;
+
+        // Очиста поля
         let ctx = canv.getContext('2d');
+        ctx.reset();
+
+        // Обновление текущего решения
+        solves = [];
+
+        // Обображение всех вершин графа
+        drawVertexes();
+
+        // Отображение новой вершины графа
         ctx.beginPath();
         ctx.arc(xPos, yPos, RADIUS, 0, 2 * Math.PI);
         ctx.fill();
@@ -68,11 +107,7 @@ function showSolve(solve) {
     ctx.reset();
 
     // Обображение всех вершин графа
-    vertexes.forEach(element => {
-        ctx.beginPath();
-        ctx.arc(element.x, element.y, RADIUS, 0, 2 * Math.PI);
-        ctx.fill();
-    });
+    drawVertexes();
 
     // Проведение ребёр в найденном маршруте
     for (let i = 0; i < solve.length - 1; i++) {
@@ -82,6 +117,7 @@ function showSolve(solve) {
         ctx.beginPath();
     }
 
+    // Соединение начальной и конечной вершин в маршруте
     ctx.moveTo(vertexes[solve[0]].x, vertexes[solve[0]].y);
     ctx.lineTo(vertexes[solve[solve.length - 1]].x, vertexes[solve[solve.length - 1]].y);
     ctx.stroke();
@@ -92,37 +128,25 @@ let findStartButton = document.getElementById("findPathButton");
 
 // Запуск генетического алгоритма
 findStartButton.addEventListener('click', (e) => {
+    // Сброс работы алгоритма
+    clearInterval(interval);
+    interval = null;
+
+    // Запуск работы алгоритма
     interval = setInterval(function() {
         // Обновление поля
         let ctx = canv.getContext('2d');
         ctx.reset();
 
         // Обображение всех вершин графа
-        vertexes.forEach(element => {
-            ctx.beginPath();
-            ctx.arc(element.x, element.y, RADIUS, 0, 2 * Math.PI);
-            ctx.fill();
-        });
+        drawVertexes();
 
-        // Проведение всех рёбер в графе
-        for (let i = 0; i < vertexes.length; i++) {
-            for (let j = 0; j < vertexes.length; j++) {
-                ctx.moveTo(vertexes[i].x, vertexes[i].y);
-                ctx.lineTo(vertexes[j].x, vertexes[j].y);
-                ctx.stroke();
-                ctx.beginPath();
-            }
-        }
-
-        // Выход из интервала
-        if (vertexes.length == 0) {
-            clearInterval(interval);
-            interval = null;
-        }
-
-        // Генерация популяции
-        let currentSolve = getSolves(vertexes, solves);
-        showSolve(currentSolve);
+        // Проведение всех рёбер в графе 
+        drawLines();
+        
+        // Вывод текущего решения
+        solves = getSolves(vertexes, solves);
+        showSolve(solves[0]);
     }, 10);
 });
 
