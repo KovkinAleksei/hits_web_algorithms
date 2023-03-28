@@ -59,8 +59,7 @@ function startHierarchical() {
 
 function drawClusters(clusters){
     for (let i = 0; i < clusters.length; i++) {
-        let colorIndex = Math.floor((Math.random() * colors.length / countClusters) + (colors.length / countClusters * i));
-
+        let colorIndex = Math.floor((Math.random() * colors.length / clusters.length) + (colors.length / clusters.length * i));
         for (let j = 0; j < clusters[i].length; j++) { 
             let index = pointCoordinates.indexOf(clusters[i][j]);
             if (algorithm === 1) {
@@ -69,11 +68,10 @@ function drawClusters(clusters){
             else if (algorithm === 2) {
                 pointCoordinates[index].drawDBSCAN(colors[colorIndex]);
             }
-            else if (algorithm === 3) {
+            else if (algorithm === 3){
                 pointCoordinates[index].drawHierarchical(colors[colorIndex]);
             }
         }
-
     }
 }
 

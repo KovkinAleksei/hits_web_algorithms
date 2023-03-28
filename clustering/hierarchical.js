@@ -25,14 +25,14 @@ function generateArrayOfDistances (clusters) {
     return distances;
 }
 
-function agglomerativeClustering(pointCoordinates, k) {
+function agglomerativeClustering(pointCoordinates, count) {
     let clusters = [];
   
     for (let i = 0; i < pointCoordinates.length; i++) {
         clusters[i] = [pointCoordinates[i]];
     }
   
-    while (clusters.length > k) {
+    while (clusters.length > count) {
         let distances = generateArrayOfDistances(clusters);
   
         let minDistance = MAXVALUE;

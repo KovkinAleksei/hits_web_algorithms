@@ -3,7 +3,7 @@ export { pointCoordinates, ctx, ctx2, ctx3 };
 
 export let nowButton = 0;
 export let countClusters = 3;
-export let countClustersHierarchical = 4;
+export let countClustersHierarchical = 3;
 export let searchRadius = 26;
 export let pointsCount = 4;
 
