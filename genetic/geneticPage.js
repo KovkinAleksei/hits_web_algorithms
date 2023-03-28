@@ -94,33 +94,6 @@ deleteVertexButton.addEventListener('click', (e) => {
 // Интервал работы генетического алгоритма
 let interval = null
 
-// Добавление новой вершины
-function addNewVertex(e) {
-    // Завершение работы алгоритма
-    clearInterval(interval);
-    interval = null;
-
-    // Нахождение положения новой вершины
-    let xPos = e.clientX - canv.getBoundingClientRect().left;
-    let yPos = e.clientY - canv.getBoundingClientRect().top;
-
-    // Отображение новой вершины
-    if (drawPossibility(xPos, yPos)) {
-        
-        // Сброс текущего решения
-        resetSolve();
-
-        // Отображение новой вершины графа
-        let ctx = canv.getContext('2d');
-        ctx.beginPath();
-        ctx.arc(xPos, yPos, RADIUS, 0, 2 * Math.PI);
-        ctx.fill();
-
-        // Добавление в массив вершин
-        vertexes.push({x: xPos, y: yPos});
-    }
-}
-
 // Удаление вершины
 function deleteVertex(e) {
     // Нахождение положения курсора
@@ -144,11 +117,34 @@ function deleteVertex(e) {
     }
 }
 
-// Создание или удаление вершины
+// Создание новой вершины
 canv.addEventListener('click', (e) => {
-    // Создание новой вершины
-    if (!deleteMode) {
-        addNewVertex(e);
+    if (deleteMode) {
+        return;
+    }
+
+    // Завершение работы алгоритма
+    clearInterval(interval);
+    interval = null;
+
+    // Нахождение положения новой вершины
+    let xPos = e.clientX - canv.getBoundingClientRect().left;
+    let yPos = e.clientY - canv.getBoundingClientRect().top;
+
+    // Отображение новой вершины
+    if (drawPossibility(xPos, yPos)) {
+        
+        // Сброс текущего решения
+        resetSolve();
+
+        // Отображение новой вершины графа
+        let ctx = canv.getContext('2d');
+        ctx.beginPath();
+        ctx.arc(xPos, yPos, RADIUS, 0, 2 * Math.PI);
+        ctx.fill();
+
+        // Добавление в массив вершин
+        vertexes.push({x: xPos, y: yPos});
     }
 });
 
@@ -203,10 +199,10 @@ function showSolve(solve) {
     ctx.beginPath();
 }
 
-let findStartButton = document.getElementById("findPathButton");
+let findPathButton = document.getElementById("findPathButton");
 
 // Запуск генетического алгоритма
-findStartButton.addEventListener('click', (e) => {
+findPathButton.addEventListener('click', (e) => {
     // Сброс работы алгоритма
     clearInterval(interval);
     interval = null;
