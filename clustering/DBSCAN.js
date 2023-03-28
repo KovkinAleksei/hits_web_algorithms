@@ -24,56 +24,54 @@ function findNeighbors(point, pointCoordinates, eps) {
 
 
 function dbscan(points, eps, minPts) {
-  // Массив для хранения кластеров
   let clusters = [];
-  // Флаг для обозначения, была ли точка уже посещена
   let visited = new Set();
+  let noise = new Set();
+
   // Итерация по всем точкам
-  for (let p of points) {
+  for (let i = 0; i < points.length; i++) {
+    const p = points[i];
     if (visited.has(p)) continue;
 
     visited.add(p);
 
     // Получаем всех соседей текущей точки
-    let neighbors = findNeighbors(p, points, eps);
+    const neighbors = findNeighbors(p, points, eps);
 
     if (neighbors.length < minPts) {
-      // Точка не является ядром кластера, помечаем ее как выброс и переходим к следующей
-      p.cluster = -1;
+      // Точка не является ядром кластера или соседей недостаточно, помечаем ее как выброс и переходим к следующей
+      noise.add(p);
       continue;
     }
 
-    // Создаем новый кластер
-    let cluster = [p];
+    // Создаем новый кластер и добавляем в него текущую точку
+    const cluster = [p];
     clusters.push(cluster);
 
-    // Массив точек для обработки
-    let seeds = [...neighbors];
-
     // Итеративно расширяем кластер
-    while (seeds.length > 0) {
-      let q = seeds.shift();
+    let seedSet = new Set(neighbors);
+    while (seedSet.size > 0) {
+      const q = seedSet.values().next().value;
+      visited.add(q);
 
-      if (!visited.has(q)) {
-        visited.add(q);
+      const qNeighbors = findNeighbors(q, points, eps);
 
-        // Получаем соседей точки
-        let qNeighbors = findNeighbors(q, points, eps);
-
-        if (qNeighbors.length >= minPts) {
-          seeds = [...seeds, ...qNeighbors];
-        }
+      if (qNeighbors.length >= minPts) {
+        qNeighbors.forEach(n => {
+          if (!visited.has(n)) {
+            seedSet.add(n);
+            visited.add(n);
+          }
+        });
       }
 
-      // Если точка не принадлежит кластеру, добавляем ее в него
-      if (q.cluster === undefined || q.cluster === -1) {
+      if (!noise.has(q)) {
         cluster.push(q);
       }
 
-      // Помечаем точку как посещенную и принадлежащую кластеру
-      q.cluster = clusters.length;
+      seedSet.delete(q);
     }
   }
-  delete points.cluster;
+
   return clusters;
 }
