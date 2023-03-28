@@ -158,6 +158,11 @@ export function getSolves(vertexArray, solvesArray) {
     vertexes = vertexArray;
     var distances = [];
     solves = solvesArray;
+    
+    // Проверка возможности построения пути
+    if (vertexArray.length < 2) {
+        return solvesArray;
+    }
 
     // Генерация начальной популяции решений
     if (!solves.length) {

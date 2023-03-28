@@ -18,6 +18,19 @@ function drawVertexes() {
     });
 }
 
+// Сброс текущего решения
+function resetSolve() {
+    // Очиста поля
+    let ctx = canv.getContext('2d');
+    ctx.reset();
+
+    // Обновление текущего решения
+    solves = [];
+
+    // Обображение всех вершин графа
+    drawVertexes();
+}
+
 // Проведение всех рёбер в графе
 function drawLines() {
     let ctx = canv.getContext('2d');
@@ -65,32 +78,40 @@ function drawPossibility(x, y) {
         x > RADIUS && x < canv.clientWidth - RADIUS && y > RADIUS && y < canv.clientHeight - RADIUS);
 }
 
+let deleteVertexButton = document.getElementById("deleteVertexButton");
+let deleteMode = false;
+
+// Переключение режима добавления/удаления вершины
+deleteVertexButton.addEventListener('click', (e) => {
+    if (!deleteMode) {
+        deleteMode = true;
+    }
+    else {
+        deleteMode = false;
+    }
+})
+
 // Интервал работы генетического алгоритма
 let interval = null
 
-// Создание новой вершины
-canv.addEventListener('click', (e) => {
+// Добавление новой вершины
+function addNewVertex(e) {
+    // Завершение работы алгоритма
+    clearInterval(interval);
+    interval = null;
+
     // Нахождение положения новой вершины
     let xPos = e.clientX - canv.getBoundingClientRect().left;
     let yPos = e.clientY - canv.getBoundingClientRect().top;
-    
+
     // Отображение новой вершины
     if (drawPossibility(xPos, yPos)) {
-        // Завершение работы алгоритма
-        clearInterval(interval);
-        interval = null;
-
-        // Очиста поля
-        let ctx = canv.getContext('2d');
-        ctx.reset();
-
-        // Обновление текущего решения
-        solves = [];
-
-        // Обображение всех вершин графа
-        drawVertexes();
+        
+        // Сброс текущего решения
+        resetSolve();
 
         // Отображение новой вершины графа
+        let ctx = canv.getContext('2d');
         ctx.beginPath();
         ctx.arc(xPos, yPos, RADIUS, 0, 2 * Math.PI);
         ctx.fill();
@@ -98,7 +119,65 @@ canv.addEventListener('click', (e) => {
         // Добавление в массив вершин
         vertexes.push({x: xPos, y: yPos});
     }
-})
+}
+
+// Удаление вершины
+function deleteVertex(e) {
+    // Нахождение положения курсора
+    let xPos = e.clientX - canv.getBoundingClientRect().left;
+    let yPos = e.clientY - canv.getBoundingClientRect().top;
+
+    // Нахождение ближайшей к курсору вершины
+    let nearestVertex = findNearestPointIndex(xPos, yPos);
+
+    // Удаление выбранной вершины
+    if (Math.abs(vertexes[nearestVertex].x - xPos) <= RADIUS &&
+    Math.abs(vertexes[nearestVertex].y - yPos) <= RADIUS) {
+        vertexes.splice(nearestVertex, 1);
+
+        // Завершение работы алгоритма
+        clearInterval(interval);
+        interval = null;
+
+        // Сброс текущего решения
+        resetSolve();
+    }
+}
+
+// Создание или удаление вершины
+canv.addEventListener('click', (e) => {
+    // Создание новой вершины
+    if (!deleteMode) {
+        addNewVertex(e);
+    }
+});
+
+// Удаление вершин по зажатию мыши
+let mouseIsDown = false;
+
+// Удаление вершины по нажатию
+canv.addEventListener('mousedown', (e) => {
+    // Завершение работы алгоритма
+    clearInterval(interval);
+    interval = null;
+
+    if (deleteMode) {
+        deleteVertex(e);
+        mouseIsDown = true;
+    }
+});
+
+// Удаление вершины при движении мыши
+canv.addEventListener('mousemove', (e) => {
+    if (mouseIsDown && deleteMode) {
+        deleteVertex(e);
+    }
+});
+
+// Остановка удаления вершин при разжатии мыши
+canv.addEventListener('mouseup', (e) => {
+    mouseIsDown = false;
+});
 
 // Отображение найденного решения
 function showSolve(solve) {
