@@ -39,22 +39,31 @@ const MAXVALUE = 100000000;
 const RADIUS = 7;
 const minDistanceBetweenPoint = 15;
 
+let algorithm = 1;
 
 function startDBSCAN (){
-    console.log(dbscan(pointCoordinates, 50, 4));
+    algorithm = 2;
+    console.log(dbscan(pointCoordinates, 30, 4))
+    drawClusters(dbscan(pointCoordinates, 30, 4));
 }
 
 function startKMeans () {
+    algorithm = 1;
     drawClusters(kMeans(countClusters));
 }
 
 function drawClusters(clusters){
-    for (let i = 0; i < countClusters; i++) {
+    for (let i = 0; i < clusters.length; i++) {
         let colorIndex = Math.floor((Math.random() * colors.length / countClusters) + (colors.length / countClusters * i));
 
         for (let j = 0; j < clusters[i].length; j++) { 
             let index = pointCoordinates.indexOf(clusters[i][j]);
-            pointCoordinates[index].drawAndCopy(colors[colorIndex]);
+            if (algorithm === 1) {
+                pointCoordinates[index].drawKMeans(colors[colorIndex]);
+            }
+            else if (algorithm === 2) {
+                pointCoordinates[index].drawDBSCAN(colors[colorIndex]);
+            }
         }
 
     }

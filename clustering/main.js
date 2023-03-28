@@ -15,8 +15,10 @@ document.getElementById('rangeValue').textContent = "Количество кла
 
 canvasKMeans.width = 400;
 canvasKMeans.height = 400;
+
 canvasDBSCAN.width = 400;
 canvasDBSCAN.height = 400;
+
 canvas3.width = 400;
 canvas3.height = 400;
 
@@ -53,7 +55,7 @@ document.getElementById('removePointButton').addEventListener('click', (e) => {
 
 document.getElementById('clearButton').addEventListener('click', () => {
     for (let i = 0; i < pointCoordinates.length; i++) { 
-        pointCoordinates[i].draw("rgb(34, 131, 102)", 1); 
+        pointCoordinates[i].drawAndCopy("rgb(34, 131, 102)", 1); 
     }
     pointCoordinates = [];
 });

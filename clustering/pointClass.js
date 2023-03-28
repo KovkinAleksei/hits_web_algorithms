@@ -28,4 +28,19 @@ export class Point {
         ctx3.fill();
     }
 
+    drawKMeans(color) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+    }
+
+    drawDBSCAN(color) {
+        ctx2.beginPath();
+        ctx2.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx2.closePath();
+        ctx2.fillStyle = color;
+        ctx2.fill();
+    }
 }

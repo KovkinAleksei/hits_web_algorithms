@@ -6,7 +6,6 @@ function findDistance(point1, point2) {
     return Math.sqrt(x * x + y * y);
 }
 
-
 function findNeighbors(point, pointCoordinates, eps) { 
     let neighbors = [];
 
@@ -22,56 +21,48 @@ function findNeighbors(point, pointCoordinates, eps) {
     return neighbors;
 }
 
+function dbscan(pointCoordinates, eps, minPoints) {
+    let clusters = [];
+    let visited = new Set();
+    let noise = new Set();
 
-function dbscan(points, eps, minPts) {
-  let clusters = [];
-  let visited = new Set();
-  let noise = new Set();
+    for (let i = 0; i < pointCoordinates.length; i++) { 
+        const nowPoint = pointCoordinates[i];
+        if (visited.has(nowPoint)){
+            continue;
+        }
 
-  // Итерация по всем точкам
-  for (let i = 0; i < points.length; i++) {
-    const p = points[i];
-    if (visited.has(p)) continue;
+        visited.add(nowPoint);
+        const neighbors = findNeighbors(nowPoint, pointCoordinates, eps);
 
-    visited.add(p);
+        if (neighbors.length < minPoints) { 
+            noise.add(nowPoint);
+            continue;
+        }
+        const cluster = [nowPoint];
+        clusters.push(cluster);
 
-    // Получаем всех соседей текущей точки
-    const neighbors = findNeighbors(p, points, eps);
+        let checks = new Set(neighbors);
+        while (checks.size > 0) { 
+            const checkPoint = checks.values().next().value;
+            visited.add(checkPoint);
 
-    if (neighbors.length < minPts) {
-      // Точка не является ядром кластера или соседей недостаточно, помечаем ее как выброс и переходим к следующей
-      noise.add(p);
-      continue;
+            const checkPointNeighbors = findNeighbors(checkPoint, pointCoordinates, eps);
+
+            if (checkPointNeighbors.length >= minPoints){
+                checkPointNeighbors.forEach(j =>{
+                    if (!visited.has(j)) {
+                        checks.add(j);
+                        visited.add(j);
+                    }
+                });
+            }
+
+            if (!noise.has(checkPoint)) {
+                cluster.push(checkPoint);
+            }
+            checks.delete(checkPoint);
+        }
     }
-
-    // Создаем новый кластер и добавляем в него текущую точку
-    const cluster = [p];
-    clusters.push(cluster);
-
-    // Итеративно расширяем кластер
-    let seedSet = new Set(neighbors);
-    while (seedSet.size > 0) {
-      const q = seedSet.values().next().value;
-      visited.add(q);
-
-      const qNeighbors = findNeighbors(q, points, eps);
-
-      if (qNeighbors.length >= minPts) {
-        qNeighbors.forEach(n => {
-          if (!visited.has(n)) {
-            seedSet.add(n);
-            visited.add(n);
-          }
-        });
-      }
-
-      if (!noise.has(q)) {
-        cluster.push(q);
-      }
-
-      seedSet.delete(q);
-    }
-  }
-
-  return clusters;
+    return clusters;
 }
