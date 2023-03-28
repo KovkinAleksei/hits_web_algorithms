@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="a-star.css" type="text/css">
+    <title>Алгоритмы Hits</title>
+</head>
+<body>
+    <div id="titleBlock">
+        <p id="title">Алгоритм поиска пути А* (a-star)</p>
+    </div>
+    <div class = "mainList">
+        <div id="inputBlock">
+
+            <input id="tableSize" type="number" onchange="createTable()" autofocus step = "2" min = "5" max = "99" value = "21"/>
+        </div>
+
+        <div id="tableBlock">
+            <button id="primmButton" type="button" onclick="createPrimmLabyrinth()">Сгенерировать лабиринт</button>
+        </div>
+    </div>
+</body>
+<script src="a-star.js"></script>
+</html>
