@@ -82,7 +82,7 @@ function deletePoint(x, y) {
     let index = pointPresenceCheck(x, y);
 
     if (index !== null) {
-        pointCoordinates[index].draw(canvasColor, 1);
+        pointCoordinates[index].drawAndCopy(canvasColor, 1);
         pointCoordinates.splice(index, 1);
     }
 }
@@ -111,7 +111,7 @@ function pointPresenceCheck(x, y){
 
 function getAllPointsBlack(){
     for (let i = 0; i < pointCoordinates.length; i++) {
-        pointCoordinates[i].draw(blackColor);
+        pointCoordinates[i].drawAndCopy(blackColor);
     }
 }
 
