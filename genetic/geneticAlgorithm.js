@@ -98,45 +98,6 @@ function cross(firstParent, secondParent) {
 }
 
 // Сортировка решений в популяции по возрастанию длины их пути
-/*function sortSolves(begin, end) {
-    let mid = (begin + end) / 2;
-
-    let i = begin;
-    let j = end;
-
-    while (i < j) {
-        while (distances[i] < distances[mid]) {
-            i++;
-        }
-
-        while (distnaces[j] > distnaces[mid]) {
-            j--;
-        }
-
-        if (i <= j) {
-            let temp = solves[i];
-            solves[i] = solves[j];
-            solves[j] = temp;
-
-            let temp2 = distances[i];
-            distances[i] = distances[j];
-            distances[j] = temp2;
-
-            i++;
-            j--;
-        }
-    }
-
-    if (begin < j) {
-        sortSolves(begin, j);
-    }
-
-    if (i < end) {
-        sortSolves(i, end);
-    }
-}*/
-
-// Сортировка решений в популяции по возрастанию длины их пути
 function sortSolves(distances) {
     for (let i = 0; i < distances.length; i++) {
         for (let j = i + 1; j < distances.length; j++) {

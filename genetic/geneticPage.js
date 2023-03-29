@@ -84,12 +84,7 @@ let deleteMode = false;
 
 // Переключение режима добавления/удаления вершины
 deleteVertexButton.addEventListener('click', (e) => {
-    if (!deleteMode) {
-        deleteMode = true;
-    }
-    else {
-        deleteMode = false;
-    }
+    deleteMode = !deleteMode;
 })
 
 // Интервал работы генетического алгоритма

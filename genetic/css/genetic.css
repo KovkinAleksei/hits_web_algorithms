@@ -13,6 +13,10 @@ html {
 button {
     height: 50px;
     width: 300px;
+    border-radius: 10px;
+    background-color: #efeee8;
+    border-color: #f9f6ee;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
     margin: 5px;
 }
 
