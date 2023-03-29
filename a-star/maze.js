@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-
-=======
-export { sleep };
->>>>>>> 32161bc56ca1101053d46da7886fd6439997dfb8
 
 class Coords {
     x = null;
@@ -13,11 +8,7 @@ class Coords {
     }
 }
 
-<<<<<<< HEAD
 let map = new Array();
-=======
-let map = [];
->>>>>>> 32161bc56ca1101053d46da7886fd6439997dfb8
 
 function sleep(milliseconds) {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
