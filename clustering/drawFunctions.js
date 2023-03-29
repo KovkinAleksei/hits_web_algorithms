@@ -49,6 +49,7 @@ function startKMeans () {
 
 function startDBSCAN (){
     algorithm = 2;
+    getAllPointsBlack();
     drawClusters(dbscan(pointCoordinates, searchRadius, pointsCount));
 }
 
