@@ -1,3 +1,5 @@
+
+
 class Coords {
     x = null;
     y = null;
@@ -7,9 +9,9 @@ class Coords {
     }
 }
 
-export let map = new Array();
+let map = new Array();
 
-export function sleep(milliseconds) {
+function sleep(milliseconds) {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 

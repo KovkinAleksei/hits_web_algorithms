@@ -1,5 +1,3 @@
-import { map, sleep } from "./maze.js";
-
 class Node {
     x
     y
