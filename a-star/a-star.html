@@ -11,7 +11,7 @@
     </div>
     <div class = "mainList">
         <div id="inputBlock">
-
+            <button id="aStar" type="button" onclick="aStar()">Запустить алгоритм поиска</button>
             <input id="tableSize" type="number" onchange="createTable()" autofocus step = "2" min = "5" max = "99" value = "21"/>
         </div>
 
@@ -19,6 +19,8 @@
             <button id="primmButton" type="button" onclick="createPrimmLabyrinth()">Сгенерировать лабиринт</button>
         </div>
     </div>
+
 </body>
-<script src="a-star.js"></script>
+<script src="./maze.js"></script>
+<script src="./a-star.js"></script>
 </html>
