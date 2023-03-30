@@ -11,19 +11,22 @@
     </div>
     <div class = "mainList">
         <div id="inputBlock">
-            <button id="aStar" type="button" onclick="aStar()">Запустить алгоритм поиска</button>
-            <input id="tableSize" type="number" onchange="createTable()" autofocus step = "2" min = "5" max = "99" value = "21"/>
+            <button id="aStar" type="button">Запустить алгоритм поиска</button>
+            <div>
+                <input id="animationSpeed" type="range" min="10" max="100" value="30" oninput="document.getElementById('showAnimationSpeed').innerHTML = 'Скорость анимации: ' + this.value "/>
+                <p id="showAnimationSpeed">Скорость анимации: 30</p>
+            </div>
+            <input id="tableSize" type="number" autofocus step = "2" min = "5" max = "99" value = "21"/>
+            <button id="setStartFinish" type="button">Поставить старт и финиш</button>
         </div>
 
         <div id="tableBlock">
-            <button id="primmButton" type="button" onclick="createPrimmLabyrinth()">Сгенерировать лабиринт</button>
+            <button id="primmButton" type="button">Сгенерировать лабиринт</button>
         </div>
     </div>
 
-<<<<<<< HEAD
-    <script src="./maze.js"></script>
-=======
-    <script type='module' src="./maze.js"></script>
->>>>>>> 32161bc56ca1101053d46da7886fd6439997dfb8
+    <script type="module" src="./maze.js"></script>
+    <script type="module" src="./a-star.js"></script>
+    <script type="module" src="./handler.js"></script>
 </body>
 </html>

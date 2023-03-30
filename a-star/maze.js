@@ -1,3 +1,4 @@
+import { setDefaultStartFinish, setStartFinish } from "./a-star.js";
 
 class Coords {
     x = null;
@@ -8,9 +9,9 @@ class Coords {
     }
 }
 
-let map = new Array();
+export let map = new Array();
 
-function sleep(milliseconds) {
+export function sleep(milliseconds) {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
@@ -29,9 +30,18 @@ function isEmpty(x, y){
     return map[x][y] === 0 ? true : false;
 }
 
+// создать стену на нажатой ячейке
+export function createWall() {
+    let cell = event.target;
+    let x = cell.dataset.x, y = cell.dataset.y;
+    if(cell.dataset.mode != "start" && cell.dataset.mode != "finish") {
+        cell.dataset.mode = (cell.dataset.mode === "wall") ? "empty" : "wall";
+        map[x][y] = (map[x][y] === 1) ? 0 : 1;
+    }
+}
 
 // Создание таблицы
-function createTable(){
+export function createTable(){
 
     // удалить таблицу
     var table = document.getElementById('table');
@@ -58,7 +68,7 @@ function createTable(){
     map.length = 0;
 
     for (var column = 0; column < size; column++) { 
-        r = table.insertRow(column);
+        let r = table.insertRow(column);
         map[column] = new Array();
 
         for (var row = 0; row < size; row++) {
@@ -72,20 +82,23 @@ function createTable(){
         }
     }
 
+    table.addEventListener("click", createWall);
     document.getElementById("tableBlock").appendChild(table);
+    setDefaultStartFinish();
+
 }
 
 // Создание лабиринта
-async function createPrimmLabyrinth() {
-
+export async function createPrimmLabyrinth() {
+    let sizeChanger = document.getElementById('tableSize');
+    sizeChanger.disabled = true;
     let primmButton = document.getElementById('primmButton');
     primmButton.textContent= "ГЕНЕРАЦИЯ ЛАБИРИНТА...";
     primmButton.disabled = true;
 
     let size = document.getElementById('tableSize').value;
-    console.log("size = " + size);
 
-    var delay = Math.pow((100 - size), 0.3);
+    var delay = Math.pow((100 - size), 0.8);
     // Создание массива лабиринта
     let map = new Array(size);
     for(let i = 0; i < size; i++) {
@@ -182,8 +195,9 @@ async function createPrimmLabyrinth() {
         isUsed[cell.x + 2][cell.y] = true;
     }
 
+    // Счетчик для скипа задержек в анимации
     let count = 0;
-    let skipDelay = (size < 60) ? true : false;
+    
     // Пока есть элементы в массиве, выбрать рандомный и убрать стены.
     while (to_check.length > 0) {
         let index = Math.floor(Math.random() * to_check.length);
@@ -248,14 +262,21 @@ async function createPrimmLabyrinth() {
             isUsed[x + 2][y] = true;
         }
 
-        if(skipDelay || count == Math.floor(size / 10)){
+        if(count >= Math.floor(size / 10)){
             await sleep(delay);
             count = 0;
         }
         count++;
     }
 
+    // Поставить дефолтное значение для старта и финиша.
+    table.rows[0].cells[0].dataset.mode = 'start';
+    table.rows[size - 1].cells[size - 1].dataset.mode = 'finish';
+    setDefaultStartFinish();
+
+
     primmButton.disabled = false;
+    sizeChanger.disabled = false;
     primmButton.textContent= "Сгенерировать лабиринт";
 }
 

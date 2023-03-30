@@ -9,15 +9,21 @@ body {
 #titleBlock {
     text-align: center;
     margin-top: 30px;
-  }
-  
+}
+
+#inputBlock {
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+}
+
 #title {
     font-size: 40px;
     font-weight: bold;
 }
 
 table {
-    position: absolute;
+    margin: auto;
     background-color: #f9f6ee;
     width: 700px;
     height: 700px;
@@ -35,23 +41,31 @@ td[data-mode = "wall"] {
 }
 
 td[data-mode = "start"] {
-    background-color: #e04444;
+    background-color: #2cbe2c;
 }
 
 td[data-mode = "finish"] {
-    background-color: #2cbe2c;
+    background-color: #e04444;
 }
 
 td[data-mode = "path"] {
     background-color: rgb(30, 30, 190);
 }
 
-td[data-mode = "checking"] {
+td[data-mode = "checked"] {
     background-color: rgb(133, 255, 214);
 }
 
+td[data-mode = "checking"] {
+    background-color: rgb(91, 193, 240);
+}
+
 td[data-mode = "empty"]:hover {
-    background-color: rgb(182, 182, 182);
+    background-color: rgb(146, 146, 146);
+}
+
+td[data-mode = "empty"]:hover {
+    background-color: rgb(146, 146, 146);
 }
 
 td:hover {
@@ -64,11 +78,11 @@ button {
     width: 170px;
     height: 170px;
 
-    font-family: Genshin;
     font-size: 20px;
 
     text-align: center;
 
+    margin: 0px 20px;
     background-color: #ceccc6;
     color: rgb(19, 19, 19);
 
@@ -93,12 +107,10 @@ button:disabled, button:hover {
 
 .mainList {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 #tableBlock {
-    position: absolute;
-
     border-radius: 20px;
     border: none;
     text-align: center;
@@ -109,4 +121,9 @@ button:disabled, button:hover {
     left: 610px;
     width: 720px;
     height: 790px;
+}
+
+#tableSize {
+    margin: 0px 10px;
+    height: 40px;
 }
