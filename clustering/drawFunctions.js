@@ -49,7 +49,7 @@ function startKMeans () {
 
 function startDBSCAN (){
     algorithm = 2;
-    getAllPointsBlack();
+    getDbscanBlack();
     drawClusters(dbscan(pointCoordinates, searchRadius, pointsCount));
 }
 
@@ -128,6 +128,12 @@ function pointPresenceCheck(x, y){
 function getAllPointsBlack(){
     for (let i = 0; i < pointCoordinates.length; i++) {
         pointCoordinates[i].drawAndCopy(blackColor);
+    }
+}
+
+function getDbscanBlack() {
+    for (let i = 0; i < pointCoordinates.length; i++) {
+        pointCoordinates[i].drawDBSCAN(blackColor);
     }
 }
 
