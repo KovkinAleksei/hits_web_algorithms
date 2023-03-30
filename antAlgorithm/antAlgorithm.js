@@ -1,9 +1,9 @@
-const numAnts = 10;
-const maxIterations = 100;
-const alpha = 1;
+const numAnts = 100;
+const maxIterations = 600;
+const alpha = 2;
 const beta = 5;
-const rho = 0.5;
-const q = 100;
+const rho = 0.4;
+const q = 50;
 
 export function antColonyOptimization(points) {
     // points - массив структур точек с координатами x и y

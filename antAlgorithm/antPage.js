@@ -226,6 +226,7 @@ findPathButton.addEventListener('click', (e) => {
 
         // Вывод текущего решения
        showSolve(antColonyOptimization(vertexes));
+
     //}, timeout);
 });
 
