@@ -1,3 +1,4 @@
+import {antColonyOptimization} from "./antAlgorithm.js";
 // Поле для расстановки вершин графа
 let canv = document.getElementById("canvas");
 
@@ -210,9 +211,9 @@ findPathButton.addEventListener('click', (e) => {
     // Сброс работы алгоритма
     clearInterval(interval);
     interval = null;
-
+    console.log(antColonyOptimization(vertexes));
     // Запуск работы алгоритма
-    interval = setInterval(function() {
+    //interval = setInterval(function() {
         // Обновление поля
         let ctx = canv.getContext('2d');
         ctx.reset();
@@ -222,10 +223,10 @@ findPathButton.addEventListener('click', (e) => {
 
         // Проведение всех рёбер в графе 
         drawLines();
-        
+
         // Вывод текущего решения
-        showSolve(solves[0]);
-    }, timeout);
+       showSolve(antColonyOptimization(vertexes));
+    //}, timeout);
 });
 
 let clearButton = document.getElementById("clearButton");
