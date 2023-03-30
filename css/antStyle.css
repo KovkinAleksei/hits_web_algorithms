@@ -1,0 +1,59 @@
+html {
+    padding: 16px;
+    background-color: #f9f6ee;
+}
+
+#buttons {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+}
+
+button {
+    height: 50px;
+    width: 300px;
+    margin: 5px;
+}
+
+canvas {
+    border-radius: 10px;
+    background-color: #ceccc6;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+}
+
+#vertex {
+    background-color: black;
+    height: 20px;
+    width: 20px;
+    margin: -10px 0 0 -10px;
+    border-radius: 100%;
+    display: inline-block;
+}
+
+#input {
+    width: 590px;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+}
+
+#inputRange {
+    width: 200px;
+}
+
+#counter {
+    display: block;
+    width: 60px;
+    float:right;
+}
+
+#rangeLabel {
+    width: 316px;
+    top: 0px;
+    float: left
+}

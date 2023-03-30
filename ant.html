@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link href="./css/antStyle.css" rel="stylesheet">
+    <title>Муравьиный алгоритм</title>
+</head>
+
+<body> 
+    <label id = "name"> Муравьиный алгоритм </label>
+    <div id = "buttons">
+        <button id = "findPathButton">Найти путь</button>
+        <button id = "deleteVertexButton">Удалить вершину</button>
+        <button id = "clearButton">Очистить поле</button>
+    </div>
+    
+    <canvas id = "canvas" width = "800" height = "500"></canvas>
+
+        <div id = "input">
+            <div id = "rangeLabel">Задержка работы алгоритма в миллисекундах:</div>
+            <span id = "counter">10</span>
+            <input type = "range" id = "inputRange" value = "0" min = "10" max = "500" step = "10">
+        </div>
+
+    <script src="antPage.js" type = "module"></script>
+</body>
+</html>
