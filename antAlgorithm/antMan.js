@@ -1,10 +1,70 @@
-const ANTS = 300; //количество муравьев
-const ITERATIONS = 300; //итерации
+import { showSolve} from "./drawFunctions.js";
+import {ANTS, ITERATIONS, RHO} from "./antPage.js";
+
 const ALPHA = 1; //коэффициент влияния феромона
 const BETA = 2.5; //коэффициент влияния эвристической информации
-const RHO = 0.5; //коэффициент испарения феромона
 
 const MAXVALUE = 10000000;
+
+
+export function sleep(milliseconds) { 
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
+
+export async function antColonyOptimization(vertexes) { 
+
+    if (vertexes.length < 2) {
+        alert("Поставьте хотя-бы 2 вершины графа");
+        return;
+    }
+
+    let bestPath = null;
+    let bestPathLength = MAXVALUE;
+
+    let distances = findMatrixDistances(vertexes); //рассчитываем расстояния
+    let ants = createAnts(); //генерируем муравьев
+    let pheromones = initiateStartPheromones(vertexes, distances); //генерируем ферамоны
+
+    for (let iteration = 0; iteration < ITERATIONS; iteration++) {
+        // рандомный выбор откуда начинает каждый муравей
+        ants.forEach(function (ant) {
+            ant.path = [];
+            ant.visited = new Array(vertexes.length).fill(false);
+            let startVertex = Math.floor(Math.random() * vertexes.length);
+            ant.path.push(startVertex);
+            ant.visited[startVertex] = true;
+            ant.currentVertex = startVertex;
+        });
+    
+        // выбор каждым муравьем следующей точки
+        for (let i = 0; i < vertexes.length - 1; i++) {
+            ants.forEach(function (ant) {
+                let nextVertex = selectNextVertex(ant, ant.visited, pheromones, distances, vertexes);
+                ant.path.push(nextVertex);
+                ant.visited[nextVertex] = true;
+                ant.currentVertex = nextVertex;
+            });
+        }
+    
+        // ищем лучший маршрут у каждого муравья
+        ants.forEach(function (ant) {
+            let pathLength = calculatePathLength(ant.path, distances);
+            if (pathLength < bestPathLength) {
+                bestPathLength = pathLength;
+                bestPath = ant.path.slice();
+                console.log(bestPath);
+                showSolve(bestPath);
+            }
+        });
+        await sleep(100);
+        // обновляем матрицу феромонов
+        updatePheromones(pheromones, ants, distances, vertexes);
+    }
+
+    console.log({ path: bestPath, pathLength: bestPathLength });
+    showSolve(bestPath, "#0000ff");
+}
 
 //функция создания пустых муравьев
 function createAnts() {
@@ -112,50 +172,4 @@ function selectNextVertex(ant, visited, pheromones, distances, vertexes) {
     }
 
     return selected;
-}
-
-
-export function antColonyOptimization(vertexes) { 
-    let bestPath = null;
-    let bestPathLength = MAXVALUE;
-
-    let distances = findMatrixDistances(vertexes); //рассчитываем расстояния
-    let ants = createAnts(); //генерируем муравьев
-    let pheromones = initiateStartPheromones(vertexes, distances); //генерируем ферамоны
-
-    for (let iteration = 0; iteration < ITERATIONS; iteration++) {
-        // рандомный выбор откуда начинает каждый муравей
-        ants.forEach(function (ant) {
-            ant.path = [];
-            ant.visited = new Array(vertexes.length).fill(false);
-            let startVertex = Math.floor(Math.random() * vertexes.length);
-            ant.path.push(startVertex);
-            ant.visited[startVertex] = true;
-            ant.currentVertex = startVertex;
-        });
-    
-        // выбор каждым муравьем следующей точки
-        for (let i = 0; i < vertexes.length - 1; i++) {
-            ants.forEach(function (ant) {
-                let nextVertex = selectNextVertex(ant, ant.visited, pheromones, distances, vertexes);
-                ant.path.push(nextVertex);
-                ant.visited[nextVertex] = true;
-                ant.currentVertex = nextVertex;
-            });
-        }
-    
-        // ищем лучший маршрут у каждого муравья
-        ants.forEach(function (ant) {
-            let pathLength = calculatePathLength(ant.path, distances);
-            if (pathLength < bestPathLength) {
-                bestPathLength = pathLength;
-                bestPath = ant.path.slice();
-            }
-        });
-    
-        // обновляем матрицу феромонов
-        updatePheromones(pheromones, ants, distances, vertexes);
-    }
-
-    return { path: bestPath, pathLength: bestPathLength };
 }

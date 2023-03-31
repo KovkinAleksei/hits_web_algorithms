@@ -42,17 +42,17 @@ canvas {
     padding: 0px;
 }
 
-#inputRange {
+#inputRange, #iterationRange, #rhoRange  {
     width: 200px;
 }
 
-#counter {
+#counter, #counterIteration, #counterRHO {
     display: block;
     width: 60px;
     float:right;
 }
 
-#rangeLabel {
+#rangeLabel, #iterationLabel, #rhoLabel, #linesLable {
     width: 316px;
     top: 0px;
     float: left
