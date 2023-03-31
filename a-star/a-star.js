@@ -174,14 +174,15 @@ export async function aStar() {
         current = openList[0];
         openList.splice(openList.indexOf(current), 1);
         usedList.push(current);
-        if (!(current.x == start.x && current.y == start.y) && !(current.x == finish.x && current.y == finish.y)) {
-            document.getElementById("table").rows[current.y].cells[current.x].dataset.mode = "checked";
-        }
         if(count >= Math.floor(size / 10)){
             await sleep(101 - Number(document.getElementById('animationSpeed').value));
             count = 0;
         }
         count++;
+        if (!(current.x == start.x && current.y == start.y) && !(current.x == finish.x && current.y == finish.y)) {
+            document.getElementById("table").rows[current.y].cells[current.x].dataset.mode = "checked";
+        }
+
 
         // Нашли финиш - брейк 🤙🏻
         if (current.x == finish.x && current.y == finish.y) {
