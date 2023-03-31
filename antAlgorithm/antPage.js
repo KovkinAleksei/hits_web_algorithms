@@ -1,4 +1,4 @@
-import {antColonyOptimization} from "./antAlgorithm.js";
+import {antColonyOptimization} from "./antMan.js";
 // Поле для расстановки вершин графа
 let canv = document.getElementById("canvas");
 
@@ -175,10 +175,11 @@ canv.addEventListener('mouseup', (e) => {
 });
 
 // Отображение найденного решения
-function showSolve(solve) {
+function showSolve(solves) {
     // Обновление поля
     let ctx = canv.getContext('2d');
-   
+    console.log(solves);
+    let solve = solves.path;
     // Проведение ребёр в найденном маршруте
     for (let i = 0; i < solve.length - 1; i++) {
         ctx.moveTo(vertexes[solve[i]].x, vertexes[solve[i]].y);
@@ -211,7 +212,7 @@ findPathButton.addEventListener('click', (e) => {
     // Сброс работы алгоритма
     clearInterval(interval);
     interval = null;
-    console.log(antColonyOptimization(vertexes));
+    //console.log(antColonyOptimization(vertexes));
     // Запуск работы алгоритма
     //interval = setInterval(function() {
         // Обновление поля
