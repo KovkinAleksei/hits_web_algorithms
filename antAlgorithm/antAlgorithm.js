@@ -1,8 +1,8 @@
-const numAnts = 100;
-const maxIterations = 600;
-const alpha = 2;
-const beta = 5;
-const rho = 0.4;
+const numAnts = 200;
+const maxIterations = 1000;
+const alpha = 1;
+const beta = 2.5;
+const rho = 0.2;
 const q = 50;
 
 export function antColonyOptimization(points) {
@@ -28,7 +28,7 @@ export function antColonyOptimization(points) {
     // Инициализация матрицы феромонов
     const pheromones = new Array(points.length);
     for (let i = 0; i < points.length; i++) {
-      pheromones[i] = new Array(points.length).fill(1);
+      pheromones[i] = new Array(points.length).fill(10);
     }
     
     // Инициализация массива лучших путей
@@ -54,7 +54,7 @@ export function antColonyOptimization(points) {
         for (let j = 1; j < points.length; j++) {
           const prev = ant.tour[j-1];
           let next;
-          if (Math.random() < 0.1) {
+          if (Math.random() < 0.05) {
             // Случайный выбор следующей точки среди непосещенных
             for (let k = 0; k < points.length; k++) {
               if (!ant.visited[k]) {
