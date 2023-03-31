@@ -94,18 +94,18 @@ function selectNextVertex(ant, visited, pheromones, distances, vertexes) {
     for (let j = 0; j < vertexes.length; j++) {
         if (!visited[j]) {
             let probability = changePathProbability(i, j, visited, pheromones, distances, vertexes);
-            probabilities.push({Vertex: j, probability: probability});
+            probabilities.push({vertex: j, probability: probability});
             denominator += probability;
         }
     }
 
     probabilities.forEach(function (p) { p.probability /= denominator; });
-    let selected = probabilities[0].Vertex;
+    let selected = probabilities[0].vertex;
     let rand = Math.random();
 
     for (let i = 0; i < probabilities.length; i++) {
         if (rand <= probabilities[i].probability) {
-            selected = probabilities[i].Vertex;
+            selected = probabilities[i].vertex;
             break;
         }
         rand -= probabilities[i].probability;
