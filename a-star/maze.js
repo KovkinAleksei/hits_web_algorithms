@@ -1,4 +1,4 @@
-import { setDefaultStartFinish, setStartFinish } from "./a-star.js";
+import { setDefaultStartFinish, disableButtons, enableButtons } from "./a-star.js";
 
 class Coords {
     x = null;
@@ -53,20 +53,19 @@ export function createTable(){
     table.id = 'table';
     table.border = 1;
 
+    // установить размер
     var row, cell;
     var size = document.getElementById('tableSize').value;
     let maxSize = document.getElementById('tableSize').max;
     if (size < 5) 
         size = 5;
-
     if(size % 2 !== 1)
         size++;
-
     size = Math.min(maxSize, size);
     document.getElementById("tableSize").value = size;
-
     map.length = 0;
 
+    // Создание ячеек таблицы
     for (var column = 0; column < size; column++) { 
         let r = table.insertRow(column);
         map[column] = new Array();
@@ -82,6 +81,7 @@ export function createTable(){
         }
     }
 
+    // Создание ивента поставить/убрать стену + вставка таблицы + дефолтные старт и финиш
     table.addEventListener("click", createWall);
     document.getElementById("tableBlock").appendChild(table);
     setDefaultStartFinish();
@@ -90,11 +90,8 @@ export function createTable(){
 
 // Создание лабиринта
 export async function createPrimmLabyrinth() {
-    let sizeChanger = document.getElementById('tableSize');
-    sizeChanger.disabled = true;
-    let primmButton = document.getElementById('primmButton');
+    disableButtons();
     primmButton.textContent= "ГЕНЕРАЦИЯ ЛАБИРИНТА...";
-    primmButton.disabled = true;
 
     let size = document.getElementById('tableSize').value;
 
@@ -114,6 +111,7 @@ export async function createPrimmLabyrinth() {
 //       await sleep(1);
 //   }
 
+    // Красивое заполнение лабиринта стенами
     let topRow = 0;
     let bottomRow = size - 1;
     let leftCol = 0;
@@ -277,8 +275,7 @@ export async function createPrimmLabyrinth() {
     setDefaultStartFinish();
 
 
-    primmButton.disabled = false;
-    sizeChanger.disabled = false;
+    enableButtons();
     primmButton.textContent= "Сгенерировать лабиринт";
 }
 

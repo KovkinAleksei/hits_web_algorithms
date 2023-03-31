@@ -1,5 +1,6 @@
 import { createWall, sleep, map } from "./maze.js";
 
+// Класс для ячейки
 class Node {
     parent = null;
     x = null;
@@ -9,10 +10,12 @@ class Node {
     sumDistances = 0;
 }
 
+// Проверка на то входит ли ячейка в поле
 function isInside(x, y, size){
     return (x >= 0 && x < size && y >= 0 && y < size) ? true : false;
 }
 
+// Функция очистить ячейки старта и финиша
 function clearStartFinish() {
     let size = document.getElementById('tableSize').value;
     for(let i = 0; i < size; i++) {
@@ -26,7 +29,22 @@ function clearStartFinish() {
     }
 }
 
-var start = new Node, finish = new Node, isStartUsed;
+
+// Функция подготовка к установке старта и финиша пользователем
+export function setStartFinish() {
+
+    clearPath();
+    disableButtons();
+    var table = document.getElementById("table");
+    table.removeEventListener("click", createWall);
+
+    clearStartFinish();
+    isStartUsed = false;
+    table.addEventListener("click", setTargets);
+}
+
+// Сама функция установки старта и финиша
+let start = new Node, finish = new Node, isStartUsed;
 function setTargets() {
     let cell = event.target;
     if(!isStartUsed && cell.dataset.mode == "empty") {
@@ -44,6 +62,7 @@ function setTargets() {
     }
 }
 
+// Установить старт в начало таблицы, финиш в конец таблицы
 export function setDefaultStartFinish() {
     let size = document.getElementById('tableSize').value;
     start.x = 0;
@@ -54,7 +73,7 @@ export function setDefaultStartFinish() {
     document.getElementById('table').rows[finish.y].cells[finish.x].dataset.mode = 'finish';
 }
 
-    // убрать ранее отрисованный путь
+// убрать ранее отрисованный путь
 function clearPath() {
     let size = document.getElementById('tableSize').value;
     for (let i = 0; i < size; i++) {
@@ -65,18 +84,8 @@ function clearPath() {
     }
 }
 
-export function setStartFinish() {
-
-    clearPath();
-    disableButtons();
-    var table = document.getElementById("table");
-    table.removeEventListener("click", createWall);
-    clearStartFinish();
-    isStartUsed = false;
-    table.addEventListener("click", setTargets);
-}
-
-function disableButtons() {
+// Функция блокировки кнопок
+export function disableButtons() {
     let primmButton = document.getElementById('primmButton');
     primmButton.disabled = true;
 
@@ -90,7 +99,8 @@ function disableButtons() {
     setButton.disabled = true;
 }
 
-function enableButtons() {
+// Функция разблокировки кнопок
+export function enableButtons() {
     let primmButton = document.getElementById('primmButton');
     primmButton.disabled = false;
 
@@ -104,15 +114,17 @@ function enableButtons() {
     setButton.disabled = false;
 }
 
+// Непосредственно алгоритм поиска
 export async function aStar() {
 
     disableButtons();
+
     // эвристика для алгоритма (Манхэттен)
     function heuristic(v, end) {
         return Math.abs(v.x - end.x) + Math.abs(v.y - end.y);
     }
 
-    // критерий сравнения двух узлов по sumDistances для сортировки
+    // сравнение двух клеток
     function compare(a, b) {
         if (a.sumDistances < b.sumDistances)
             return -1;
@@ -122,7 +134,7 @@ export async function aStar() {
             return 0;
     }
 
-    let size = document.getElementById('tableSize').value; // размерность таблицы
+    let size = document.getElementById('tableSize').value;
 
     // Счетчик для скипа задержек в анимации
     let count = 0;
@@ -145,43 +157,49 @@ export async function aStar() {
     stNode.x = Number(start.x);
     stNode.y = Number(start.y);
 
-    let openList = new Array; // список точек, подлежащих проверке
+     // список точек, подлежащих проверке
+    let openList = new Array;
     openList.push(stNode)
 
-    let usedList = new Array; // список уже проверенных точек
+     // список уже проверенных точек
+    let usedList = new Array;
 
     let current = new Node();
 
+    // Пока есть клетки подлежащие проверке искать путь до финиша
     while (openList.length > 0) {
         openList.sort(compare);
 
+        // Обновляем текущую ячейку (берем с наименьшим показателем sumDistances) и усыпляем для отрисовки пути
         current = openList[0];
+        openList.splice(openList.indexOf(current), 1);
+        usedList.push(current);
+        if (!(current.x == start.x && current.y == start.y) && !(current.x == finish.x && current.y == finish.y)) {
+            document.getElementById("table").rows[current.y].cells[current.x].dataset.mode = "checked";
+        }
         if(count >= Math.floor(size / 10)){
             await sleep(101 - Number(document.getElementById('animationSpeed').value));
             count = 0;
         }
         count++;
-        if (!(current.x == start.x && current.y == start.y) && !(current.x == finish.x && current.y == finish.y)) {
-            document.getElementById("table").rows[current.y].cells[current.x].dataset.mode = "checked";
-        }
 
+        // Нашли финиш - брейк 🤙🏻
         if (current.x == finish.x && current.y == finish.y) {
             break;
         }
 
-        openList.splice(openList.indexOf(current), 1);
-        usedList.push(current);
-
+        //  Прочекать соседей текущей ячейки
         let directions = [[1, 0], [0, 1], [-1, 0], [0, -1]];
         for (let dir = 0; dir < directions.length; dir++) {
             var newNeighbour = new Node();
             newNeighbour.x = current.x + directions[dir][0];
             newNeighbour.y = current.y + directions[dir][1];
 
+            // Проверка соседа на нахождение в массивах
             let isUsed = usedList.find(node => (node.x === newNeighbour.x && node.y === newNeighbour.y));
-
             let neighbour = openList.find(node => (node.x === newNeighbour.x && node.y === newNeighbour.y));
 
+            // Если ячейка не использована и не находится в openList просчитать дистанции
             if (isInside(newNeighbour.x, newNeighbour.y, size) && map[newNeighbour.y][newNeighbour.x] === 0 && isUsed == null) {
                 if (neighbour == null) {
 
@@ -194,7 +212,7 @@ export async function aStar() {
 
                     newNeighbour.parent = current;
                     openList.push(newNeighbour);
-                    
+                    // Если ячейка находится в openList поменять дистанцию до старта если надо
                 } else {
                     if (neighbour.distanceToStart >= current.distanceToStart + 1) {
                         openList[openList.indexOf(neighbour)].distanceToStart = current.distanceToStart + 1;
@@ -206,15 +224,19 @@ export async function aStar() {
         }
     }
 
+    // Не найден финиш - оповестить пользователя
     if (!(current.x == finish.x && current.y == finish.y)) {
         alert(`Не получается найти путь 😭`);
+    // Найден - отрисовать путь
     } else {
         for(;current.parent != null; current = current.parent) {
+
             if(count >= Math.floor(size / 10)){
                 await sleep(101 - Number(document.getElementById('animationSpeed').value));
                 count = 0;
             }
             count++;
+
             if (!(current.x == finish.x && current.y == finish.y))
                 document.getElementById("table").rows[current.y].cells[current.x].dataset.mode = "path"
         }
