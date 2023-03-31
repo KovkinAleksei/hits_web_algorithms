@@ -147,23 +147,25 @@ export async function createPrimmLabyrinth() {
     }
 
     // Рандомно выбирается угол откуда начнет генерироваться лабиринт.
-    let startAngle = Math.floor(Math.random() * 4) + 1;
-    let cell;
-    switch (startAngle) {
-        case 1:
-            cell = new Coords(0, 0);
-            break;
-        case 2:
-            cell = new Coords(size - 1, 0);
-            break;
-        case 3:
-            cell = new Coords(size - 1, size - 1);
-            break;
-        case 4:
-            cell = new Coords(0, size - 1);
-            break;
-    }
+    // let startAngle = Math.floor(Math.random() * 4) + 1;
+    // let cell;
+    // switch (startAngle) {
+    //     case 1:
+    //         cell = new Coords(0, 0);
+    //         break;
+    //     case 2:
+    //         cell = new Coords(size - 1, 0);
+    //         break;
+    //     case 3:
+    //         cell = new Coords(size - 1, size - 1);
+    //         break;
+    //     case 4:
+    //         cell = new Coords(0, size - 1);
+    //         break;
+    // }
 
+    // Рандомная ячейка начала генерации лабиринта
+    let cell = new Coords(Math.floor((Math.random() * (size / 2))) * 2, Math.floor((Math.random() * (size / 2))) * 2); 
     makeEmpty(cell.x, cell.y);
 
     // массив использованных ячеек
