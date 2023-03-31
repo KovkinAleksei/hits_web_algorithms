@@ -49,7 +49,7 @@ canvas {
 #counter, #counterIteration, #counterRHO {
     display: block;
     width: 60px;
-    float:right;
+    float: right;
 }
 
 #rangeLabel, #iterationLabel, #rhoLabel, #linesLable {

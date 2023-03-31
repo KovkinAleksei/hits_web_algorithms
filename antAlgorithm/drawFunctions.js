@@ -2,6 +2,9 @@ import { vertexes, canv, ctx, deleteMode, lines } from "./antPage.js";
 const RADIUS = 10;
 const MAXVALUE = 10000000;
 
+let bestWay = [];
+let flag = false;
+
 export function drawVertexes() {
     vertexes.forEach(element => {
         ctx.beginPath();
@@ -9,7 +12,7 @@ export function drawVertexes() {
         ctx.fill();
     });
 
-    if (lines) { 
+    if (lines && !flag) { 
         drawLines() 
     }
 }
@@ -27,7 +30,9 @@ export function handler (event) {
 
 export function showSolve(solve, color = "white") { 
     ctx.reset();
-    
+    drawVertexes();
+    flag = true;
+
     for (let i = 0; i < solve.length - 1; i++) {
         ctx.moveTo(vertexes[solve[i]].x, vertexes[solve[i]].y);
         ctx.lineTo(vertexes[solve[i + 1]].x, vertexes[solve[i + 1]].y);
@@ -47,6 +52,11 @@ export function showSolve(solve, color = "white") {
     ctx.beginPath();
 
     drawVertexes();
+    flag = false;
+
+    if (lines){
+        showSolve(solve);
+    }
 }
 
 function drawOneVertex(xPos, yPos) { 
@@ -73,7 +83,6 @@ function resetSolve() {
     drawVertexes();
 }
 
-//нужно добавить фичу
 function drawLines() {
 
     for (let i = 0; i < vertexes.length; i++) {
