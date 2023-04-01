@@ -1,0 +1,37 @@
+html {
+    padding: 16px;
+    background-color: #f9f6ee;
+}
+
+#fileInput {
+    visibility: collapse;
+    float: right;
+}
+
+#fileInputButton{
+    font-size: 16px;
+    text-align: center;
+    display: block;
+    width: 200px;
+    height: 40px;
+    padding-top: 7px;
+    left: 0px;
+    margin-left: -8px;
+    margin-top: -4px;
+    font-family: sans-serif;
+}
+
+button {
+    border-radius: 10px;
+    background: #efeee8;
+    font-size: 16px;
+    text-align: center;
+    display: block;
+    width: 200px;
+    height: 40px;
+    margin: 16px;
+    font-family: sans-serif;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    border-color: #f9f6ee;
+}
+
