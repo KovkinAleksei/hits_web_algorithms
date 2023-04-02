@@ -15,7 +15,7 @@ export function readFile(text) {
 
         // Сохранение строки файла
         data.push(line.split(';'));
-
+        
         // Чтение следующей строки файла
         line = "";
         i++;
