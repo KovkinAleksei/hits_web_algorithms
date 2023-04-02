@@ -53,10 +53,6 @@ export function showSolve(solve, color = "white") {
 
     drawVertexes();
     flag = false;
-
-    if (lines){
-        showSolve(solve);
-    }
 }
 
 function drawOneVertex(xPos, yPos) { 
