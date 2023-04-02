@@ -22,6 +22,8 @@ makeTreeButton.addEventListener('click', (e) => {
 
         reader.onload = function () {
             data = readFile(reader.result);
+            //alert(data);
+
             main(data);
         }
     }
