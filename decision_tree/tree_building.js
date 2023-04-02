@@ -5,31 +5,34 @@ let attributeNodes = [];
 
 // Вершина дерева
 class Node {
-    constructor(nodeName, attribute) {
+    constructor(nodeName, attribute, id) {
         this.nodeName = nodeName;    // Название вершины
         this.branches = [];          // Ответвления от вершины
         this.attribute = attribute;  // Атрибут вершины
+        this.id = id;
     }
 }
 
 // Добавление ветвей дерева
-function growBranch(currentNode, count) {
-    // Остановка добавления ветвей
-    if (count >= attributeNodes.length) {
-        return;
-    }
+function growBranch(queue) {
+    // Индекс добавляемой вершины
+    let currentIndex = 1;
 
-    // Нахождение всех ответвлений
-    let uniqueElements = getUniqueElements(getColumn(data, attributeNodes[count].index));
+    // Взятие текущей вершины
+    while (queue && currentIndex < attributeNodes.length) {
+        let currentNode = queue.shift();
 
-    // Добавление ответвлений к текущей вершине
-    for (let i = 0; i < uniqueElements.length; i++) {
-        currentNode.branches.push(new Node(attributeNodes[count].name, attributeNodes[count]));
-    }
+        // Нахождение всех ответвлений от текущей вершины
+        let uniqueElements = getUniqueElements(getColumn(data, attributeNodes[currentIndex].index));
 
-    // Добавление следующий ответвлений
-    for (let j = 0; j < currentNode.branches.length; j++) {
-        growBranch(currentNode.branches[j], count + 1);
+        // Добавление ответвлений к текущей вершине
+        for (let i = 0; i < uniqueElements.length; i++) {
+            if (currentIndex < attributeNodes.length) {
+                currentNode.branches.push(new Node(attributeNodes[currentIndex].name, attributeNodes[currentIndex]));
+                queue.push(currentNode.branches[i]);
+                currentIndex++;
+            }
+        }
     }
 }
 
@@ -38,8 +41,12 @@ function makeTree() {
     // Создание корня дерева
     let root = new Node(attributeNodes[0].name, attributeNodes[0]);
 
+    // Добавление корня в очередь вершин
+    let queue = [];
+    queue.push(root);
+
     // Добавление ветвей дерева
-    growBranch(root, 1);
+    growBranch(queue);
     console.log(root);
 }
 
