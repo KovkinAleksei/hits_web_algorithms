@@ -4,7 +4,7 @@ let data = []; // Таблица с данными
 function getColumn(matrix, columnIndex) {
     let column = [];
 
-    for (let i = 0; i < matrix.length; i++) {
+    for (let i = 1; i < matrix.length; i++) {
         column.push(matrix[i][columnIndex]);
     }
 
@@ -62,7 +62,7 @@ function getUniqueMatrix(columnIndex, columnValue) {
     let uniqueMatrix = [];
 
     for (let i = 0; i < data.length; i++) {
-        if (data[i][columnIndex] == columnValue) {
+        if (data[i][columnIndex] == columnValue || i == 0) {
             uniqueMatrix.push(data[i]);
         }
     }
@@ -93,7 +93,13 @@ function calculateInformationGain(column, columnIndex) {
 
 // Алгоритм построения дерева решений
 export function main(input) {
-    data = input;
+    data = input;               // Таблица с данными
+    let informationGains = [];  // Информационная энтропия атрибутов
 
-    let test = calculateInformationGain(getColumn(data, 1), 1);
+    // Вычисление информационной энтропии для каждого атрибута
+    for (let i = 0; i < data[0].length - 1; i++) {
+        informationGains.push(calculateInformationGain(getColumn(data, i), i));
+    }
+
+    alert(informationGains);
 }
