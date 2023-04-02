@@ -1,5 +1,5 @@
-import { readFile } from "./read_file.js";
-import {main} from "./tree_algorithm.js";
+import { readFile } from "./parse_cvs_file.js";
+import { main } from "./tree_building.js";
 
 let file = document.getElementById("fileInput");
 let makeTreeButton = document.getElementById("makeTree");

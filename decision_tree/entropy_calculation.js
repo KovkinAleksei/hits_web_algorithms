@@ -1,7 +1,7 @@
-let data = []; // Таблица с данными
+export let data = []; // Таблица с данными
 
 // Возврат массива с элементами столбца таблицы
-function getColumn(matrix, columnIndex) {
+export function getColumn(matrix, columnIndex) {
     let column = [];
 
     for (let i = 1; i < matrix.length; i++) {
@@ -12,7 +12,7 @@ function getColumn(matrix, columnIndex) {
 }
 
 // Удаление повторяющихся элементов из массива
-function getUniqueElements(arr) {
+export function getUniqueElements(arr) {
     // Массив уникальных элементов
     let uniqueArr = [];
 
@@ -91,15 +91,49 @@ function calculateInformationGain(column, columnIndex) {
     return informationGain;
 }
 
-// Алгоритм построения дерева решений
-export function main(input) {
+// Нахождение всех атрибутов
+function getAttributes() {
+    let attributes = [];
+
+    for (let i = 0; i < data[0].length - 1; i++) {
+        attributes.push({name: data[0][i], index: i});
+    }
+
+    return attributes;
+}
+
+// Сортировка атрибутов по уменьшению их информационной энтропии
+function sortAttributes(attributes, informationGain) {
+    for (let i = 0; i < attributes.length; i++) {
+        for (let j = i + 1; j < attributes.length; j++) {
+            if (informationGain[i] < informationGain[j]) {
+                let temp = attributes[i];
+                attributes[i] = attributes[j];
+                attributes[j] = temp;
+
+                temp = informationGain[i];
+                informationGain[i] = informationGain[j];
+                informationGain[j] = temp;
+            }
+        }
+    }
+}
+
+// Нахождение последовательности атрибутов для построения дерева
+export function getTreeNodes(input) {
     data = input;               // Таблица с данными
-    let informationGains = [];  // Информационная энтропия атрибутов
+    var informationGains = [];  // Информационная энтропия атрибутов
 
     // Вычисление информационной энтропии для каждого атрибута
     for (let i = 0; i < data[0].length - 1; i++) {
         informationGains.push(calculateInformationGain(getColumn(data, i), i));
     }
 
-    alert(informationGains);
+    // Нахождение всех атрибутов
+    var attributes = getAttributes();
+
+    // Сортировка атрибутов по уменьшению их информационной энтропии
+    sortAttributes(attributes, informationGains);
+    
+    return attributes;
 }
