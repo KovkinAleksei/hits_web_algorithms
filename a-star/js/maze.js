@@ -1,4 +1,5 @@
-import { setDefaultStartFinish, disableButtons, enableButtons } from "./a-star.js";
+import { map } from "./table.js";
+import { sleep, setDefaultStartFinish, enableButtons, disableButtons } from "./a-star_functions.js";
 
 class Coords {
     x = null;
@@ -7,12 +8,6 @@ class Coords {
         this.x = x;
         this.y = y;
     }
-}
-
-export let map = new Array();
-
-export function sleep(milliseconds) {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
 // Сделать поле пустым
@@ -30,67 +25,10 @@ function isEmpty(x, y){
     return map[x][y] === 0 ? true : false;
 }
 
-// создать стену на нажатой ячейке
-export function createWall() {
-    let cell = event.target;
-    let x = cell.dataset.x, y = cell.dataset.y;
-    if(cell.dataset.mode != "start" && cell.dataset.mode != "finish") {
-        cell.dataset.mode = (cell.dataset.mode === "wall") ? "empty" : "wall";
-        map[x][y] = (map[x][y] === 1) ? 0 : 1;
-    }
-}
-
-// Создание таблицы
-export function createTable(){
-
-    // удалить таблицу
-    var table = document.getElementById('table');
-    if (table !== null)
-        table.remove();
-
-    // создать новую таблицу
-    table = document.createElement("table"); 
-    table.id = 'table';
-    table.border = 1;
-
-    // установить размер
-    var row, cell;
-    var size = document.getElementById('tableSize').value;
-    let maxSize = document.getElementById('tableSize').max;
-    if (size < 5) 
-        size = 5;
-    if(size % 2 !== 1)
-        size++;
-    size = Math.min(maxSize, size);
-    document.getElementById("tableSize").value = size;
-    map.length = 0;
-
-    // Создание ячеек таблицы
-    for (var column = 0; column < size; column++) { 
-        let r = table.insertRow(column);
-        map[column] = new Array();
-
-        for (var row = 0; row < size; row++) {
-            cell = r.insertCell(row);
-
-            cell.dataset.mode = "empty"; // тип клетки
-            cell.dataset.x = column;
-            cell.dataset.y = row;
-
-            map[column][row] = 0;
-        }
-    }
-
-    // Создание ивента поставить/убрать стену + вставка таблицы + дефолтные старт и финиш
-    table.addEventListener("click", createWall);
-    document.getElementById("tableBlock").appendChild(table);
-    setDefaultStartFinish();
-
-}
-
 // Создание лабиринта
 export async function createPrimmLabyrinth() {
     disableButtons();
+
     primmButton.textContent= "ГЕНЕРАЦИЯ ЛАБИРИНТА...";
 
     let size = document.getElementById('tableSize').value;
@@ -177,21 +115,21 @@ export async function createPrimmLabyrinth() {
     isUsed[cell.x][cell.y] = true;
 
     // Создание массива и добавление туда точек лабиринта находящиеся в двух клетках от координаты которую выбрали выше.
-    let to_check = new Array;
+    let toCheck = new Array;
     if (cell.y - 2 >= 0) {
-        to_check.push(new Coords(cell.x, cell.y - 2));
+        toCheck.push(new Coords(cell.x, cell.y - 2));
         isUsed[cell.x][cell.y - 2] = true;
     }
     if (cell.y + 2 < size) {
-        to_check.push(new Coords(cell.x, cell.y + 2));
+        toCheck.push(new Coords(cell.x, cell.y + 2));
         isUsed[cell.x][cell.y + 2] = true;
     }
     if (cell.x - 2 >= 0) {
-        to_check.push(new Coords(cell.x - 2, cell.y));
+        toCheck.push(new Coords(cell.x - 2, cell.y));
         isUsed[cell.x - 2][cell.y] = true;
     }
     if (cell.x + 2 < size) {
-        to_check.push(new Coords(cell.x + 2, cell.y));
+        toCheck.push(new Coords(cell.x + 2, cell.y));
         isUsed[cell.x + 2][cell.y] = true;
     }
 
@@ -199,12 +137,12 @@ export async function createPrimmLabyrinth() {
     let count = 0;
     
     // Пока есть элементы в массиве, выбрать рандомный и убрать стены.
-    while (to_check.length > 0) {
-        let index = Math.floor(Math.random() * to_check.length);
-        let x = to_check[index].x;
-        let y = to_check[index].y;
+    while (toCheck.length > 0) {
+        let index = Math.floor(Math.random() * toCheck.length);
+        let x = toCheck[index].x;
+        let y = toCheck[index].y;
         makeEmpty(x, y);
-        to_check.splice(index, 1);
+        toCheck.splice(index, 1);
         
 
         // Убарть стену в ячейке находящейся между рандомной ячейкой и ее родителем.
@@ -246,19 +184,19 @@ export async function createPrimmLabyrinth() {
 
         // Добавить новые клетки которые можно зачистить.
         if (y - 2 >= 0 && !isEmpty(x, y - 2) && !isUsed[x][y - 2]) {
-            to_check.push(new Coords(x, y - 2));
+            toCheck.push(new Coords(x, y - 2));
             isUsed[x][y - 2] = true;
         }
         if (y + 2 < size && !isEmpty(x, y + 2) && !isUsed[x][y + 2]) {
-            to_check.push(new Coords(x, y + 2));
+            toCheck.push(new Coords(x, y + 2));
             isUsed[x][y + 2] = true;
         }
         if (x - 2 >= 0 && !isEmpty(x - 2, y) && !isUsed[x - 2][y]) {
-            to_check.push(new Coords(x - 2, y));
+            toCheck.push(new Coords(x - 2, y));
             isUsed[x - 2][y] = true;
         }
         if (x + 2 < size && !isEmpty(x + 2, y) && !isUsed[x + 2][y]) {
-            to_check.push(new Coords(x + 2, y));
+            toCheck.push(new Coords(x + 2, y));
             isUsed[x + 2][y] = true;
         }
 
@@ -278,5 +216,3 @@ export async function createPrimmLabyrinth() {
     enableButtons();
     primmButton.textContent= "Сгенерировать лабиринт";
 }
-
-createTable();

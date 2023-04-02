@@ -1,5 +1,7 @@
-import { createPrimmLabyrinth, createTable } from './maze.js';
-import { aStar, setStartFinish } from './a-star.js';
+import { createPrimmLabyrinth } from './maze.js';
+import { aStar } from './a-star.js';
+import { createTable } from './table.js';
+import { setStartFinish } from './a-star_functions.js';
 
 let primmButton = document.getElementById('primmButton');
 primmButton.addEventListener('click', function() { createPrimmLabyrinth(); });
