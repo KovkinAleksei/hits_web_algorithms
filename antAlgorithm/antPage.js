@@ -1,5 +1,5 @@
 import {antColonyOptimization} from "./antMan.js";
-import { handler, drawVertexes } from "./drawFunctions.js";
+import { handler, drawVertexes, startDrawing, stopDrawing } from "./drawFunctions.js";
 import { returnToOriginalStage, changeAddButton, changeDeleteButton, offAllButtons } from "./buttonsHandler.js";
 
 export const canv = document.getElementById("canvas");
@@ -79,3 +79,7 @@ getLines.addEventListener("change", function() {
         drawVertexes();
     }
 });
+
+document.getElementById('canvas').addEventListener('mousedown', startDrawing);
+document.getElementById('canvas').addEventListener('mouseup', stopDrawing);
+document.getElementById('canvas').addEventListener('mouseleave', stopDrawing);

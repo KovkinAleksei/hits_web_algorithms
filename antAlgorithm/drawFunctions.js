@@ -115,3 +115,15 @@ function drawPossibility(x, y) {
 
     return (index == MAXVALUE || findDistance(vertexes[index].x, vertexes[index].y, x, y) > 2 * RADIUS + 2 && x > RADIUS && x < canv.clientWidth - RADIUS && y > RADIUS && y < canv.clientHeight - RADIUS);
 }
+
+export function startDrawing() {
+    if (nowButton === 2) {
+        document.getElementById('canvas').addEventListener('mousemove', handler);
+    }
+}
+
+ export function stopDrawing() {
+    if (nowButton === 2) {
+        document.getElementById('canvas').removeEventListener('mousemove', handler);
+    }
+}
