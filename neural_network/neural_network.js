@@ -75,13 +75,6 @@ function neuralNetwork() {
     }
 }
 
-
-function loadImage(){
-
-
-    return image;
-}
-
 function scaleImageData(image) {
     // Dynamically create a canvas element
     let canvas = document.createElement("canvas");
