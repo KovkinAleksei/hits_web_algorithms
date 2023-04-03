@@ -1,4 +1,4 @@
-import { vertexes, canv, ctx, deleteMode, lines } from "./antPage.js";
+import { vertexes, canv, ctx, nowButton, lines } from "./antPage.js";
 const RADIUS = 10;
 const MAXVALUE = 10000000;
 
@@ -21,9 +21,9 @@ export function handler (event) {
     let xPos = event.offsetX;
     let yPos = event.offsetY;
 
-    if (!deleteMode){
+    if (nowButton === 1){
         drawOneVertex(xPos, yPos);
-    } else {
+    } else if (nowButton === 2){
         deleteVertex(xPos, yPos);
     }
 }
@@ -80,7 +80,6 @@ function resetSolve() {
 }
 
 function drawLines() {
-
     for (let i = 0; i < vertexes.length; i++) {
         for (let j = 0; j < vertexes.length; j++) {
             ctx.moveTo(vertexes[i].x, vertexes[i].y);

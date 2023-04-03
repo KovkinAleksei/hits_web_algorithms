@@ -6,11 +6,9 @@ const BETA = 2.5; //коэффициент влияния эвристическ
 
 const MAXVALUE = 10000000;
 
-
 export function sleep(milliseconds) { 
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
-
 
 export async function antColonyOptimization(vertexes) { 
 

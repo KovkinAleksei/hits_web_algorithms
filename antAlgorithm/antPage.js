@@ -1,11 +1,12 @@
 import {antColonyOptimization} from "./antMan.js";
 import { handler, drawVertexes } from "./drawFunctions.js";
+import { returnToOriginalStage, changeAddButton, changeDeleteButton } from "./buttonsHandler.js";
 
 export const canv = document.getElementById("canvas");
 export const ctx = canv.getContext('2d');
 
 export let vertexes = [];
-export let deleteMode = false;
+export let nowButton = 0;
 
 export let ANTS = 50;
 export let ITERATIONS = 200;
@@ -17,12 +18,26 @@ document.getElementById("findPathButton").addEventListener('click', (e) => {
     antColonyOptimization(vertexes);
 });
 
-document.getElementById("deleteVertexButton").addEventListener('click', (e) => {
-    if (!deleteMode) {
-        deleteMode = true;
+
+document.getElementById("addVertexButton").addEventListener('click', (e) => {
+    if (nowButton === 0 || nowButton === 2) {
+        nowButton = 1;
+        changeAddButton();
     }
-    else {
-        deleteMode = false;
+    else if (nowButton === 1) {
+        nowButton = 0;
+        returnToOriginalStage();
+    }
+});
+
+document.getElementById("deleteVertexButton").addEventListener('click', (e) => {
+    if (nowButton === 0 || nowButton === 1) {
+        nowButton = 2;
+        changeDeleteButton();
+    }
+    else if (nowButton === 2) {
+        nowButton = 0;
+        returnToOriginalStage();
     }
 });
 
