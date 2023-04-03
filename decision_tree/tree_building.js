@@ -5,11 +5,10 @@ let attributeNodes = [];
 
 // Вершина дерева
 class Node {
-    constructor(nodeName, attribute, id) {
+    constructor(nodeName, attribute) {
         this.nodeName = nodeName;    // Название вершины
         this.branches = [];          // Ответвления от вершины
         this.attribute = attribute;  // Атрибут вершины
-        this.id = id;
     }
 }
 
@@ -37,7 +36,11 @@ function growBranch(queue) {
 }
 
 // Создание дерева
-function makeTree() {
+export function makeTree(input) {
+    // Нахождение последовательности атрибутов для построения дерева
+    attributeNodes = getTreeNodes(input, 0);
+    console.log(attributeNodes);
+
     // Создание корня дерева
     let root = new Node(attributeNodes[0].name, attributeNodes[0]);
 
@@ -48,13 +51,6 @@ function makeTree() {
     // Добавление ветвей дерева
     growBranch(queue);
     console.log(root);
-}
 
-export function main(input) {
-    // Нахождение последовательности атрибутов для построения дерева
-    attributeNodes = getTreeNodes(input, 0);
-    console.log(attributeNodes);
-
-    // Построение дерева
-    makeTree();
+    return root;
 }
