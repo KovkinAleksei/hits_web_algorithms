@@ -2,7 +2,6 @@ import { vertexes, canv, ctx, nowButton, lines } from "./antPage.js";
 const RADIUS = 10;
 const MAXVALUE = 10000000;
 
-let bestWay = [];
 let flag = false;
 
 export function drawVertexes() {

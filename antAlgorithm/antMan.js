@@ -1,5 +1,6 @@
 import { showSolve} from "./drawFunctions.js";
-import {ANTS, ITERATIONS, RHO} from "./antPage.js";
+import { ANTS, ITERATIONS, RHO } from "./antPage.js";
+import { onAllButtons } from "./buttonsHandler.js";
 
 const ALPHA = 1; //коэффициент влияния феромона
 const BETA = 2.5; //коэффициент влияния эвристической информации
@@ -14,6 +15,7 @@ export async function antColonyOptimization(vertexes) {
 
     if (vertexes.length < 2) {
         alert("Поставьте хотя-бы 2 вершины графа");
+        onAllButtons();
         return;
     }
 
@@ -61,6 +63,7 @@ export async function antColonyOptimization(vertexes) {
     }
 
     console.log({ path: bestPath, pathLength: bestPathLength });
+    onAllButtons();
     showSolve(bestPath, "#0000ff");
 }
 

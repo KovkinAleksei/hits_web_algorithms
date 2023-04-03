@@ -79,3 +79,29 @@ canvas {
     top: 0px;
     float: left
 }
+
+#interface { 
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.blink {
+    padding: 20px;
+    animation: blinker 1s linear infinite;
+}
+  
+@keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+}
+
+.red {
+    font-size: 72px;
+    color: red;
+    text-align: center;
+}

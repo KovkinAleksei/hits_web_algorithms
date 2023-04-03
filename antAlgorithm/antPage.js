@@ -1,6 +1,6 @@
 import {antColonyOptimization} from "./antMan.js";
 import { handler, drawVertexes } from "./drawFunctions.js";
-import { returnToOriginalStage, changeAddButton, changeDeleteButton } from "./buttonsHandler.js";
+import { returnToOriginalStage, changeAddButton, changeDeleteButton, offAllButtons } from "./buttonsHandler.js";
 
 export const canv = document.getElementById("canvas");
 export const ctx = canv.getContext('2d');
@@ -15,6 +15,9 @@ export let RHO = 0.5;
 export let lines = false;
 
 document.getElementById("findPathButton").addEventListener('click', (e) => {
+    nowButton = 0;
+    returnToOriginalStage();
+    offAllButtons();
     antColonyOptimization(vertexes);
 });
 
