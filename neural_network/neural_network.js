@@ -1,15 +1,18 @@
+import { feedforward } from "./nn.js";
+
 let canvas = document.getElementById("drawField");
 let ctx = canvas.getContext("2d");
 
 canvas.width = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
 
-ctx.lineWidth = 10;
+ctx.lineWidth = 13;
 
 // устанавливаем начальные координаты
 let lastX;
 let lastY;
 
+let draw;
 // обработчик нажатия мыши
 canvas.addEventListener("mousedown", function(e) {
     lastX = e.clientX - canvas.offsetLeft;
@@ -48,10 +51,51 @@ function clearCanvas() {
     ctx.clearRect(0,0, canvas.width, canvas.height);
     document.getElementById("answerLabel").textContent = "Ответ: ";
 }
-let count = 0;
+
 function neuralNetwork() {
-    document.getElementById('answerLabel').textContent = 'Ответ: ' + count;
-    count++;
+    let canvas = document.getElementById('drawField');
+    let image = new Image();
+    image.src = canvas.toDataURL();
+
+    image.onload = () => {
+        let scaled = scaleImageData(image);
+        let test = new Array(28 ** 2)
+            for (let i = 3; i < scaled.data.length; i += 4) {
+                test[ Math.floor(i / 4) ] = [ (scaled.data[i] / 255) ];
+            }
+        let res = feedforward(test);
+        let mx = 0.0, ind = 0;
+        for (let num = 0; num < res.length; num++) {
+            if (res[num][0] >= mx) {
+                mx = res[num][0];
+                ind = num;
+            }
+        }
+        document.getElementById('answerLabel').textContent = "Ответ: " + ind;
+    }
+}
+
+
+function loadImage(){
+
+
+    return image;
+}
+
+function scaleImageData(image) {
+    // Dynamically create a canvas element
+    let canvas = document.createElement("canvas");
+
+    // var canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
+
+    canvas.width = 28;
+    canvas.height = 28;
+
+    // Actual resizing
+    ctx.drawImage(image, 0, 0, 28, 28);
+    
+    return ctx.getImageData(0, 0, 28, 28);
 }
 
 let clearButton = document.getElementById('clearButton');

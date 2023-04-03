@@ -9,7 +9,7 @@
 </head>
 <body>
     <div>
-        <canvas id="drawField" style="width: 150px; height: 150px; border:2px solid black;"></canvas>
+        <canvas id="drawField" style="width: 224px; height: 224px; border:2px solid black;"></canvas>
     </div>
     <div>
         <button id="clearButton">Стереть рисунок</button>
@@ -18,6 +18,9 @@
         <button id="startNetwork">Запустить нейронную сеть</button>
         <p id="answerLabel">Ответ: </p>
     </div>
-    <script src="./neural_network.js"></script>
+    <div id="image_for_crop">
+    </div>
+    <script type="module" src="./neural_network.js"></script>
+    <script type="module" src="./nn.js"></script>
 </body>
 </html>
