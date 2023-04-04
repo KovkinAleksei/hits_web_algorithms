@@ -1,9 +1,10 @@
-import { nowButton, pointCoordinates, countClusters, countClustersHierarchical, searchRadius, pointsCount } from "./main.js";
+import { nowButton, pointCoordinates, countClusters, countClustersHierarchical, searchRadius, pointsCount, canvasKMeans } from "./main.js";
 import { Point } from "./pointClass.js";
 import { dbscan } from "./DBSCAN.js";
 import { kMeans } from "./kMeans.js";
 import { agglomerativeClustering } from "./hierarchical.js";
 export { drawer, startDrawing, stopDrawing, startDBSCAN, startKMeans, findNearestPointIndex, getAllPointsBlack, startHierarchical, startAllAlgorithms};
+
 
 const colors = [
     'rgb(0, 0 ,100)',
@@ -111,7 +112,8 @@ function deletePoint(x, y) {
 function isDrawPossibility(x, y) {
     let index = findNearestPointIndex(x, y);
 
-    if (index === null || findDistance(pointCoordinates[index].x, pointCoordinates[index].y, x, y) > minDistanceBetweenPoint) {
+    if (index === null || findDistance(pointCoordinates[index].x, pointCoordinates[index].y, x, y) > minDistanceBetweenPoint 
+    && x > RADIUS && x < canvasKMeans.clientWidth - RADIUS && y > RADIUS && y < canvasKMeans.clientHeight - RADIUS) {
         return true;
     }
 

@@ -3,10 +3,24 @@ html {
     background-color: #f9f6ee;
 }
 
+div > div {
+    padding: 5px 0;
+}
+
+canvas{
+    margin: 5px;
+}
+
 #canvasKMeans, #canvasDBSCAN, #canvas3 {
     display: block;
     background-color: #ceccc6;
     border-radius: 10px;
+}
+
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .button {
@@ -16,32 +30,33 @@ html {
     display: block;
 }
 
-.wrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .chooseBar{
     width: 30%;
     margin-top: 30px;
     display: block;
 }
 
-canvas{
-    margin: 5px;
-}
-
 .toolbar{
     display: flex;
 }
+
+.kMeansBar, .dbscanBar, .hierarchicalBar{
+    display: block;
+}
+
+.settings{
+    background-color: gray;
+    border-radius: 10px;
+    padding: 20px;
+}
+
 .startAlgorithms {
     background-color: red;
     color: white;
     font-size: 24px;
     border-radius: 50%;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     border: none;
     cursor: pointer;
     box-shadow: 0px 0px 10px 0px rgba(255, 0, 0, 1);

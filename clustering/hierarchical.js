@@ -1,11 +1,22 @@
 export { agglomerativeClustering };
+import { nowDistance } from "./main.js";
 
 const MAXVALUE = 10000000;
 
 function findDistance(point1, point2) {
-    let x = point1.x - point2.x;
-    let y = point1.y - point2.y;
-    return Math.sqrt(x * x + y * y);
+    if (nowDistance === 2) { 
+        return Math.abs(point1.x - point2.x) + Math.abs(point1.y - point2.y);
+    }
+    
+    else if (nowDistance === 3){
+        return Math.max(Math.abs(point1.x - point2.x), Math.abs(point1.y - point2.y));
+    }
+
+    else {
+        let x = point1.x - point2.x;
+        let y = point1.y - point2.y;
+        return Math.sqrt(x * x + y * y);
+    }
 }
 
 function generateArrayOfDistances (clusters) {

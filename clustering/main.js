@@ -1,7 +1,8 @@
 import { drawer, startDrawing, stopDrawing, getAllPointsBlack, returnToOriginalStage, changeAddButton, changeDeleteButton, startAllAlgorithms} from "./drawFunctions.js";
-export { pointCoordinates, ctx, ctx2, ctx3 };
+export { pointCoordinates, ctx, ctx2, ctx3, canvasKMeans };
 
 export let nowButton = 0;
+export let nowDistance = 1;
 export let countClusters = 3;
 export let countClustersHierarchical = 3;
 export let searchRadius = 26;
@@ -117,6 +118,11 @@ document.getElementById('clearButton').addEventListener('click', () => {
     }
     pointCoordinates = [];
 });
+
+document.getElementById('distanceBox').addEventListener('change', (event) => {
+    nowDistance = parseInt(event.target.value);
+});
+
 
 document.getElementById('canvasKMeans').addEventListener('mousedown', startDrawing);
 document.getElementById('canvasKMeans').addEventListener('mouseup', stopDrawing);
