@@ -3,7 +3,7 @@ import { Point } from "./pointClass.js";
 import { dbscan } from "./DBSCAN.js";
 import { kMeans } from "./kMeans.js";
 import { agglomerativeClustering } from "./hierarchical.js";
-export { drawer, startDrawing, stopDrawing, startDBSCAN, startKMeans, findNearestPointIndex, getAllPointsBlack, startHierarchical};
+export { drawer, startDrawing, stopDrawing, startDBSCAN, startKMeans, findNearestPointIndex, getAllPointsBlack, startHierarchical, startAllAlgorithms};
 
 const colors = [
     'rgb(0, 0 ,100)',
@@ -39,8 +39,13 @@ const canvasColor = '#ceccc6';
 const MAXVALUE = 100000000;
 const RADIUS = 7;
 const minDistanceBetweenPoint = 14;
-
 let algorithm = 1;
+
+function startAllAlgorithms() {
+    startKMeans();
+    startDBSCAN();
+    startHierarchical();
+}
 
 function startKMeans () {
     algorithm = 1;
@@ -163,4 +168,19 @@ function startDrawing() {
 
 function stopDrawing() {
     document.getElementById('canvasKMeans').removeEventListener('mousemove', drawer);
+}
+
+export function returnToOriginalStage(){
+    document.getElementById("addPointButton").style.backgroundColor = "";
+    document.getElementById("removePointButton").style.backgroundColor = "";
+}
+
+export function changeAddButton(){
+    document.getElementById("removePointButton").style.backgroundColor = "";
+    document.getElementById("addPointButton").style.backgroundColor = "#acaaa6";
+}
+
+export function changeDeleteButton(){
+    document.getElementById("addPointButton").style.backgroundColor = "";
+    document.getElementById("removePointButton").style.backgroundColor = "#acaaa6";
 }

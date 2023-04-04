@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <label id = "logo">Кластеризация</label>
     <div class="wrapper" id="wrapper">
 
         <div class="secondCanvas">
@@ -21,9 +22,6 @@
                     <input type="range" id="rangePoints" min="3" max="15" step="1" value ="4">
                     <span id="pointsValue" value = "Количество точек в округе: 4"></span>
                 </div>
-                <div>
-                    <input type="button" class="button" id="dbscanButton" value="DBSCAN">
-                </div>
             </div>
         </div>
         
@@ -32,9 +30,6 @@
             <div class="kMeansBar">
                 <input type="range" id="rangeKMeans" min="1" max="30" step="1" value ="3">
                 <span id="rangeValue" value = "Количество кластеров: 3"></span>
-                <div>
-                    <input type="button" class="button" id="kMeansButton" value="K-Means">
-                </div>
             </div>
         </div>
         
@@ -43,21 +38,19 @@
             <div class="hierarchicalBar">
                 <input type="range" id="rangeHierarchical" min="1" max="30" step="1" value ="3">
                 <span id="rangeValueHierarchical" value = "Количество кластеров: 3"></span>
-                <div>
-                    <input type="button" class="button" id="hierarchicalButton" value="Иерархический алгоритм">
-                </div>
             </div>
         </div>
-
     </div>
     
-
     <div class="chooseBar">
         <input type="button" class="button" id="addPointButton" value="Добавить точки">
         <input type="button" class="button" id="removePointButton" value="Удалить точки">
         <input type="button" class="button" id="doAllPointsBlack" value="Сбросить точки">
         <input type="button" class="button" id="clearButton" value="Отчистить поле">
     </div>
+
+    <button class="startAlgorithms" id = "startAlgorithms">ПУСК</button>
+
     <script type='module' src="./main.js"></script>
 </body>
 </html>

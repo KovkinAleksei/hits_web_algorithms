@@ -1,4 +1,4 @@
-import { drawer, startDrawing, stopDrawing, startDBSCAN, startKMeans, getAllPointsBlack, startHierarchical } from "./drawFunctions.js";
+import { drawer, startDrawing, stopDrawing, getAllPointsBlack, returnToOriginalStage, changeAddButton, changeDeleteButton, startAllAlgorithms} from "./drawFunctions.js";
 export { pointCoordinates, ctx, ctx2, ctx3 };
 
 export let nowButton = 0;
@@ -53,6 +53,13 @@ function handleRange(parameter) {
     }
 }
 
+document.getElementById('startAlgorithms').addEventListener('click', (e) => {
+    nowButton = 0;
+    returnToOriginalStage();
+    startAllAlgorithms();
+});
+
+
 document.getElementById('rangeKMeans').addEventListener('input', () => {
     handleRange('rangeKMeans');
     document.getElementById('rangeValue').textContent = "Количество кластеров: " + document.getElementById('rangeKMeans').value;
@@ -74,34 +81,41 @@ document.getElementById('rangeHierarchical').addEventListener('input', () => {
 });
 
 document.getElementById('doAllPointsBlack').addEventListener('click', (e) => {
+    nowButton = 0;
+    returnToOriginalStage();
     getAllPointsBlack();
 });
 
-document.getElementById('hierarchicalButton').addEventListener('click', (e) => {
-    startHierarchical();
-});
 
 document.getElementById('addPointButton').addEventListener('click', (e) => {
-    nowButton = 1;
+    if (nowButton === 0 || nowButton === 2) {
+        nowButton = 1;
+        changeAddButton();
+    }
+    else if (nowButton === 1) {
+        nowButton = 0;
+        returnToOriginalStage();
+    }
 });
 
 document.getElementById('removePointButton').addEventListener('click', (e) => {
-    nowButton = 2;
+    if (nowButton === 0 || nowButton === 1) {
+        nowButton = 2;
+        changeDeleteButton();
+    }
+    else if (nowButton === 2) {
+        nowButton = 0;
+        returnToOriginalStage();
+    }
 });
 
 document.getElementById('clearButton').addEventListener('click', () => {
+    nowButton = 0;
+    returnToOriginalStage();
     for (let i = 0; i < pointCoordinates.length; i++) { 
         pointCoordinates[i].drawAndCopy("#ceccc6", 1); 
     }
     pointCoordinates = [];
-});
-
-document.getElementById('dbscanButton').addEventListener('click', () => {
-    startDBSCAN();
-});
-
-document.getElementById('kMeansButton').addEventListener('click', () => {
-    startKMeans();
 });
 
 document.getElementById('canvasKMeans').addEventListener('mousedown', startDrawing);
