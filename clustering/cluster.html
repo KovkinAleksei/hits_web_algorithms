@@ -29,59 +29,61 @@
         </div>
     </div>
 
-    <div class = "toolbar">
-        <div class = "start">
-            <button class="startAlgorithms" id = "startAlgorithms">ПУСК</button>
+    <div class="settings">
+        <div class = "toolbar">
+            <div class="chooseBar">
+                <input type="button" class="button" id="addPointButton" value="Добавить точки">
+                <input type="button" class="button" id="removePointButton" value="Удалить точки">
+                <input type="button" class="button" id="doAllPointsBlack" value="Сбросить точки">
+                <input type="button" class="button" id="clearButton" value="Очистить поле">
+            </div>  
+            <div class = "start">
+                <button class="startAlgorithms" id = "startAlgorithms">ПУСК</button>
+            </div>    
         </div>
 
-        <div class="chooseBar">
-            <input type="button" class="button" id="addPointButton" value="Добавить точки">
-            <input type="button" class="button" id="removePointButton" value="Удалить точки">
-            <input type="button" class="button" id="doAllPointsBlack" value="Сбросить точки">
-            <input type="button" class="button" id="clearButton" value="Очистить поле">
-        </div>      
-    </div>
-
-    <div class = "settings">
-        <div class = "generalBar">
-            <label> <b>Общие настройки: </b> </label>
-            <div>
-                <label>Расстояние: </label>
-                <select id="distanceBox">
-                    <option value="1" selected>Евклидово</option>
-                    <option value="2">Манхэттенское</option>
-                    <option value="3">Чебышева</option>
-                </select>
+        <div class = "settingsBars">
+            <div class = "generalBar">
+                <label> <b>Общие настройки: </b> </label>
+                <div>
+                    <label>Расстояние: </label>
+                    <select id="distanceBox">
+                        <option value="1" selected>Евклидово</option>
+                        <option value="2">Манхэттенское</option>
+                        <option value="3">Чебышева</option>
+                    </select>
+                </div>
+            </div>
+    
+            <div class="dbscanBar">
+                <label> <b>Настройки DBSCAN: </b> </label>
+                <div>
+                    <input type="range" id="rangeRadius" min="10" max="50" step="2" value ="26">
+                    <span id="radiusValue" value = "Радиус поиска точек: 26"></span>
+                </div>
+                <div>
+                    <input type="range" id="rangePoints" min="3" max="15" step="1" value ="4">
+                    <span id="pointsValue" value = "Количество точек в округе: 4"></span>
+                </div>
+            </div>
+    
+            <div class="kMeansBar">
+                <label> <b>Настройки K-Means: </b></label>
+                <div>
+                    <input type="range" id="rangeKMeans" min="1" max="30" step="1" value ="3">
+                    <span id="rangeValue" value = "Количество кластеров: 3"></span>
+                </div>
+            </div>
+    
+            <div class="hierarchicalBar">
+                <label> <b>Настройки Hierarchical: </b> </label>
+                <div>
+                    <input type="range" id="rangeHierarchical" min="1" max="30" step="1" value ="3">
+                    <span id="rangeValueHierarchical" value = "Количество кластеров: 3"></span>
+                </div>
             </div>
         </div>
 
-        <div class="dbscanBar">
-            <label> <b>Настройки DBSCAN: </b> </label>
-            <div>
-                <input type="range" id="rangeRadius" min="10" max="50" step="2" value ="26">
-                <span id="radiusValue" value = "Радиус поиска точек: 26"></span>
-            </div>
-            <div>
-                <input type="range" id="rangePoints" min="3" max="15" step="1" value ="4">
-                <span id="pointsValue" value = "Количество точек в округе: 4"></span>
-            </div>
-        </div>
-
-        <div class="kMeansBar">
-            <label> <b>Настройки K-Means: </b></label>
-            <div>
-                <input type="range" id="rangeKMeans" min="1" max="30" step="1" value ="3">
-                <span id="rangeValue" value = "Количество кластеров: 3"></span>
-            </div>
-        </div>
-
-        <div class="hierarchicalBar">
-            <label> <b>Настройки Hierarchical: </b> </label>
-            <div>
-                <input type="range" id="rangeHierarchical" min="1" max="30" step="1" value ="3">
-                <span id="rangeValueHierarchical" value = "Количество кластеров: 3"></span>
-            </div>
-        </div>
     </div>
 
     <script type='module' src="./main.js"></script>
