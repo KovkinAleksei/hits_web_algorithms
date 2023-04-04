@@ -6,33 +6,35 @@ html {
 #canvasKMeans, #canvasDBSCAN, #canvas3 {
     display: block;
     background-color: #ceccc6;
-    margin-left: auto;
-    margin-right: auto;
     border-radius: 10px;
 }
 
 .button {
     height: 30px;
     width: 200px;
-    margin: 5px;
+    margin: 10px;
+    display: block;
 }
 
 .wrapper{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
 }
 
 .chooseBar{
     width: 30%;
     margin-top: 30px;
-    display: flex;
-    justify-content: space-between;
+    display: block;
 }
 
 canvas{
     margin: 5px;
 }
 
+.toolbar{
+    display: flex;
+}
 .startAlgorithms {
     background-color: red;
     color: white;
@@ -43,4 +45,4 @@ canvas{
     border: none;
     cursor: pointer;
     box-shadow: 0px 0px 10px 0px rgba(255, 0, 0, 1);
-  }
+}
