@@ -1,9 +1,6 @@
 import { readFile } from "./parse_cvs_file.js";
 import { makeTree } from "./tree_building.js";
 
-let file = document.getElementById("fileInput");
-let makeTreeButton = document.getElementById("makeTree");
-
 // Отображение дерева на странице
 function displayTree(currentNode, treeElement) {
     // Создание новой вершины
@@ -32,8 +29,15 @@ function displayTree(currentNode, treeElement) {
     }
 }
 
+let file = document.getElementById("fileInput");
+let makeTreeButton = document.getElementById("makeTree");
+
 // Построение дерева решений
 makeTreeButton.addEventListener('click', (e) => {
+    // Очистка поля
+    let rootElement = document.getElementById("root");
+    rootElement.innerHTML = "";
+
     let fileInput = [];  // Файл
     let data = [];       // Текст из файла
     let treeRoot;        // Корень дерева
@@ -61,4 +65,12 @@ makeTreeButton.addEventListener('click', (e) => {
             displayTree(treeRoot, treeRootElement);
         }
     }
+});
+
+let deleteTreeButton = document.getElementById("deleteTree");
+
+// Очистка поля
+deleteTreeButton.addEventListener('click', (e) => {
+    let rootElement = document.getElementById("root");
+    rootElement.innerHTML = "";
 });
