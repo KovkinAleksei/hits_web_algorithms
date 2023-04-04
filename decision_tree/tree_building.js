@@ -13,7 +13,7 @@ class Node {
 }
 
 // Нахождение результата прохода по дереву
-function getAnswer(atr, result) {
+function getAnswer(atr, result, data) {
     // Подсчёт кол-ва соответствующих уникальных классов выбранному значению атрибута
     let uniqueAnswers = getUniqueElements(getColumn(data, data[0].length - 1));
     let answersCount = [];
@@ -76,11 +76,25 @@ function growBranch(queue) {
 }
 
 // Добавление листьев к дереву
-function addLeaves(currentNode) {
+function addLeaves(currentNode, currentData) {
     // Проход по дереву до листьев
     if (currentNode.branches.length != 0) {
         for (let i = 0; i < currentNode.branches.length; i++) {
-            addLeaves(currentNode.branches[i]);
+            // Таблица для нахождения наиболее вероятного результата прохода по дереву
+            let newData = [];
+            let deletedCount = 0;
+            newData = currentData.slice();
+
+            // Удаление из таблицы строк с неподходящими значениями атрибутов
+            for (let j = 0; j < data.length; j++) {
+                if (getUniqueElements(getColumn(data, currentNode.attribute.index))[i] != data[j][currentNode.attribute.index]) {
+                    newData.splice(j - deletedCount, 1);
+                    deletedCount++;
+                }
+            }
+
+            // Продолжение прохода по дереву
+            addLeaves(currentNode.branches[i], newData);
         }
     }
     // Добавление листьев
@@ -94,7 +108,7 @@ function addLeaves(currentNode) {
                 currentNode.attribute));
 
             // Добавление результата прохода по дереву до текущего листа
-            currentNode.branches[j].branches.push(new Node(`${data[0][data[0].length - 1]} = ${getAnswer(currentNode.attribute, results[j])}`));
+            currentNode.branches[j].branches.push(new Node(`${data[0][data[0].length - 1]} = ${getAnswer(currentNode.attribute, results[j], currentData)}`));
         }
     }
 }
@@ -103,7 +117,6 @@ function addLeaves(currentNode) {
 export function makeTree(input) {
     // Нахождение последовательности атрибутов для построения дерева
     attributeNodes = getTreeNodes(input, 0);
-    console.log(attributeNodes);
 
     // Создание корня дерева
     let root = new Node('root', attributeNodes[0], attributeNodes[0]);
@@ -116,7 +129,7 @@ export function makeTree(input) {
     growBranch(queue);
 
     // Добавление листьев к дереву
-    addLeaves(root);
+    addLeaves(root, data);
     console.log(root);
 
     return root;
