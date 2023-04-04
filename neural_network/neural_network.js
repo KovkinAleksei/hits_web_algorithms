@@ -45,6 +45,7 @@ canvas.addEventListener("mousemove", function(e) {
 canvas.addEventListener("mouseup", function(e) {
     lastX = null;
     lastY = null;
+    neuralNetwork();
 });
 
 function clearCanvas() {
@@ -60,18 +61,18 @@ function neuralNetwork() {
     image.onload = () => {
         let scaled = scaleImageData(image);
         let test = new Array(28 ** 2)
-            for (let i = 3; i < scaled.data.length; i += 4) {
-                test[ Math.floor(i / 4) ] = [ (scaled.data[i] / 255) ];
-            }
+        for (let i = 3; i < scaled.data.length; i += 4) {
+            test[ Math.floor(i / 4) ] = (scaled.data[i] / 255.0);
+        }
         let res = feedforward(test);
-        let mx = 0.0, ind = 0;
-        for (let num = 0; num < res.length; num++) {
-            if (res[num][0] >= mx) {
-                mx = res[num][0];
-                ind = num;
+        let max = 0.0, maxInd = 0;
+        for (let i = 0; i < res.length; i++) {
+            if (res[i] >= max) {
+                max = res[i];
+                maxInd = i;
             }
         }
-        document.getElementById('answerLabel').textContent = "Ответ: " + ind;
+        document.getElementById('answerLabel').textContent = "Ответ: " + maxInd;
     }
 }
 
