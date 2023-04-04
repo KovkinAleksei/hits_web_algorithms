@@ -1,4 +1,4 @@
-import { nowButton, pointCoordinates, countClusters, countClustersHierarchical, searchRadius, pointsCount, canvasKMeans } from "./main.js";
+import { nowButton, pointCoordinates, countClusters, countClustersHierarchical, searchRadius, pointsCount, canvasKMeans, ctx} from "./main.js";
 import { Point } from "./pointClass.js";
 import { dbscan } from "./DBSCAN.js";
 import { kMeans } from "./kMeans.js";
@@ -49,8 +49,11 @@ function startAllAlgorithms() {
 }
 
 function startKMeans () {
+    resetSolve();
     algorithm = 1;
-    drawClusters(kMeans(countClusters));
+    let kmeans = kMeans(countClusters);
+    drawCentroids(kmeans.centroids);
+    drawClusters(kmeans.clusters);
 }
 
 function startDBSCAN (){
@@ -62,6 +65,20 @@ function startDBSCAN (){
 function startHierarchical() { 
     algorithm = 3;
     drawClusters(agglomerativeClustering(pointCoordinates, countClustersHierarchical));
+}
+
+function drawCentroids(centroids) { 
+    let crossSize = 10;
+    for (let i = 0; i < centroids.length; i++) {
+        ctx.beginPath();
+        ctx.moveTo(centroids[i].x - crossSize, centroids[i].y - crossSize);
+        ctx.lineTo(centroids[i].x + crossSize, centroids[i].y + crossSize);
+        ctx.moveTo(centroids[i].x + crossSize, centroids[i].y - crossSize);
+        ctx.lineTo(centroids[i].x - crossSize, centroids[i].y + crossSize);
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 5;
+        ctx.stroke();
+    }
 }
 
 function drawClusters(clusters){
@@ -104,6 +121,7 @@ function deletePoint(x, y) {
     let index = pointPresenceCheck(x, y);
 
     if (index !== null) {
+        getAllPointsBlack();
         pointCoordinates[index].drawAndCopy(canvasColor, 1);
         pointCoordinates.splice(index, 1);
     }
@@ -132,7 +150,13 @@ function pointPresenceCheck(x, y){
     return null;
 }
 
+export function resetSolve() {
+    ctx.reset();
+    drawVertexes();
+}
+
 function getAllPointsBlack(){
+    resetSolve();
     for (let i = 0; i < pointCoordinates.length; i++) {
         pointCoordinates[i].drawAndCopy(blackColor);
     }
@@ -158,6 +182,16 @@ function findNearestPointIndex(x, y) {
     }
 
     return index;
+}
+
+function drawVertexes() {
+    pointCoordinates.forEach(element => {
+        ctx.beginPath();
+        ctx.arc(element.x, element.y, RADIUS, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.fillStyle = 'rgb(0, 0, 0)';
+        ctx.fill();
+    });
 }
 
 function findDistance(x1, y1, x2, y2) {
@@ -186,3 +220,4 @@ export function changeDeleteButton(){
     document.getElementById("addPointButton").style.backgroundColor = "";
     document.getElementById("removePointButton").style.backgroundColor = "#acaaa6";
 }
+

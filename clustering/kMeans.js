@@ -95,7 +95,5 @@ function kMeans(countClusters) {
         //Обновление координат центроидов
         centroids = newCentroids;
     }
-    console.log(centroids);
-    console.log(clusters);
-    return clusters;
+    return { clusters: clusters, centroids: centroids};
 }

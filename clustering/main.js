@@ -1,4 +1,4 @@
-import { drawer, startDrawing, stopDrawing, getAllPointsBlack, returnToOriginalStage, changeAddButton, changeDeleteButton, startAllAlgorithms} from "./drawFunctions.js";
+import { drawer, startDrawing, stopDrawing, getAllPointsBlack, returnToOriginalStage, changeAddButton, changeDeleteButton, startAllAlgorithms, resetSolve} from "./drawFunctions.js";
 export { pointCoordinates, ctx, ctx2, ctx3, canvasKMeans };
 
 export let nowButton = 0;
@@ -113,6 +113,7 @@ document.getElementById('removePointButton').addEventListener('click', (e) => {
 document.getElementById('clearButton').addEventListener('click', () => {
     nowButton = 0;
     returnToOriginalStage();
+    resetSolve();
     for (let i = 0; i < pointCoordinates.length; i++) { 
         pointCoordinates[i].drawAndCopy("#ceccc6", 1); 
     }
