@@ -8,20 +8,20 @@
     <title>Дерево решений</title>
 </head>
 <body>
-    <div>
-        <input id = "fileInput" type = "file">
-    </div> 
-    <button>
-        <label id = "fileInputButton" for="fileInput">Загрузить файл</label>
-    </button>
-    <button id = "makeTree">Построить дерево</button>
-
+        <div>
+            <input id = "fileInput" type = "file">
+        </div> 
+    <div id = "buttons">
+        <button><label id = "fileInputButton" for="fileInput">Загрузить файл</label></button>
+        <button id = "makeTree">Построить дерево</button>
+    </div>
+    
     <div id = "tree">
         <ul id = "root">
 
         </ul>
     </div>
-    
+
     <script src = "./tree_page.js" type = "module"></script>
 </body>
 </html>

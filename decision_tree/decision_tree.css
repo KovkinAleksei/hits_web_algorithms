@@ -3,6 +3,15 @@ html {
     background-color: #f9f6ee;
 }
 
+ul {
+    padding: 0px;
+}
+
+li {
+    margin-right: auto;
+    margin-left: auto;
+}
+
 #fileInput {
     visibility: collapse;
     float: right;
@@ -19,14 +28,22 @@ html {
     margin-left: -8px;
     margin-top: -4px;
     font-family: sans-serif;
+    line-height: 28px;
+}
+
+#buttons {
+    display: block;
+    width: 1000px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 button {
+    display: inline;
     border-radius: 10px;
     background: #efeee8;
     font-size: 16px;
     text-align: center;
-    display: block;
     width: 200px;
     height: 40px;
     margin: 16px;
@@ -37,12 +54,17 @@ button {
 
 #tree {
     overflow: scroll;
-    width: 1000px;
-    height: 600px;
+    padding: 16px;
     background-color: white;
+    border-radius: 10px;
+    border: 3px solid gray;
+    width: 1000px;
+    height: 500px;
+    margin-right: auto;
+    margin-left: auto;
     display: block;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: auto; 
 }
 
 #tree ul {
@@ -65,7 +87,7 @@ button {
 	position: absolute; 
     top: 0;
     right: 50%;
-	border-top: 1px solid gray;
+	border-top: 2px solid gray;
 	width: 50%; 
     height: 20px;
 }
@@ -73,7 +95,7 @@ button {
 #tree li::after{
 	right: auto; 
     left: 50%;
-	border-left: 1px solid gray;
+	border-left: 2px solid gray;
 }
 
 #tree li:only-child::after, #tree li:only-child::before {
@@ -89,7 +111,7 @@ button {
 }
 
 #tree li:last-child::before{
-	border-right: 1px solid gray;
+	border-right: 2px solid gray;
 	border-radius: 0 5px 0 0;
 }
 
@@ -102,15 +124,15 @@ button {
 	position: absolute; 
     top: 0; 
     left: 50%;
-	border-left: 1px solid gray;
+	border-left: 2px solid gray;
 	width: 0; 
     height: 20px;
 }
 
-#tree li a{
-    background: #f5f5f5;
+#tree li span{
+    background: whitesmoke;
 	border: 1px solid gray;
-    min-width: 200px;
+    min-width: 180px;
     max-width: min-content;
     padding-top: 15px;
     height: 30px;
@@ -119,5 +141,6 @@ button {
 	font-family: sans-serif;
 	font-size: 16px;
 	display: inline-block;
-	border-radius: 5px;
+	border-radius: 10px;
+    border: 2px solid gray;
 }

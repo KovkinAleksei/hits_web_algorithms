@@ -11,8 +11,7 @@ function displayTree(currentNode, treeElement) {
     let nodeName = currentNode.nodeName;
 
     // Добавление текста к новой вершине
-    let newNodeText = document.createElement("a");
-    newNodeText.href = "#";
+    let newNodeText = document.createElement("span");
     newNodeText.textContent = nodeName;
     newNode.appendChild(newNodeText);
 

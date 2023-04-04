@@ -5,10 +5,11 @@ let attributeNodes = [];
 
 // Вершина дерева
 class Node {
-    constructor(nodeName, attribute) {
+    constructor(nodeName, attribute, atrValue) {
         this.nodeName = nodeName;    // Название вершины
         this.branches = [];          // Ответвления от вершины
         this.attribute = attribute;  // Атрибут вершины
+        this.atrValue = atrValue;    // Значение атрибута вершины
     }
 }
 
@@ -49,6 +50,44 @@ function getAnswer(atr, result, data) {
     return uniqueAnswers[0];
 }
 
+// Сортировка ветвей вершины в порядке убывания частоты появления значения их атрибутов
+function sortBranches(node) {
+    // Нахождение кол-во появлений значений атрибутов ветвей
+    let elementsCount = [];
+
+    for (let i = 0; i < node.branches.length; i++) {
+        elementsCount.push(0);
+    }
+
+    for (let i = 0; i < data.length; i++) {
+        for (let j = 0; j < node.branches.length; j++) {
+            if (data[i][node.attribute.index] == node.branches[j].atrValue) {
+                elementsCount[j]++;
+            }
+        }
+    }
+
+    // Сортировка ветвей
+    for (let a = 0; a < node.branches.length; a++) {
+        for (let b = a + 1; b < node.branches.length; b++) {
+            if (elementsCount[a] < elementsCount[b]) {
+                let temp = elementsCount[a];
+                elementsCount[a] = elementsCount[b];
+                elementsCount[b] = temp;
+
+                temp = Object.assign({}, node.branches[a]);
+                //temp = node.branches[a];
+                node.branches[a] = Object.assign({}, node.branches[b]);
+                //node.branches[a] = node.branches[b];
+                node.branches[b] = Object.assign({}, temp);
+                //node.branches[b] = temp;
+            }
+        }
+    }
+
+    return node;
+}
+
 // Добавление ветвей дерева
 function growBranch(queue) {
     // Индекс добавляемой вершины
@@ -56,7 +95,7 @@ function growBranch(queue) {
 
     // Взятие текущей вершины
     while (queue && currentIndex < attributeNodes.length) {
-        let currentNode = queue.shift();
+        var currentNode = queue.shift();
 
         // Нахождение всех ответвлений от текущей вершины
         let uniqueElements = getUniqueElements(getColumn(data, attributeNodes[currentIndex].index));
@@ -64,10 +103,10 @@ function growBranch(queue) {
         // Добавление ответвлений к текущей вершине
         for (let i = 0; i < uniqueElements.length; i++) {
             if (currentIndex < attributeNodes.length) {
-                currentNode.branches.push(new Node(
-                    `${currentNode.attribute.name} = ${getUniqueElements(getColumn(data, currentNode.attribute.index))[i]}`, 
-                attributeNodes[currentIndex]));
+                let branches = getUniqueElements(getColumn(data, currentNode.attribute.index));
 
+                currentNode.branches.push(new Node(`${currentNode.attribute.name} = ${branches[i]}`, 
+                    attributeNodes[currentIndex], branches[i]));
                 queue.push(currentNode.branches[i]);
                 currentIndex++;
             }
@@ -77,6 +116,8 @@ function growBranch(queue) {
 
 // Добавление листьев к дереву
 function addLeaves(currentNode, currentData) {
+    //currentNode = sortBranches(currentNode);
+
     // Проход по дереву до листьев
     if (currentNode.branches.length != 0) {
         for (let i = 0; i < currentNode.branches.length; i++) {
@@ -105,10 +146,12 @@ function addLeaves(currentNode, currentData) {
         for (let j = 0; j < results.length; j++) {
             // Добавление листьев
             currentNode.branches.push(new Node(`${currentNode.attribute.name} = ${results[j]}`, 
-                currentNode.attribute));
+                currentNode.attribute, results[j]));
 
             // Добавление результата прохода по дереву до текущего листа
-            currentNode.branches[j].branches.push(new Node(`${data[0][data[0].length - 1]} = ${getAnswer(currentNode.attribute, results[j], currentData)}`));
+            currentNode.branches[j].branches.push(new Node(`${data[0][data[0].length - 1]} = 
+                ${getAnswer(currentNode.attribute, results[j], currentData)}`, null, 
+                getAnswer(currentNode.attribute, results[j], currentData)));
         }
     }
 }
@@ -119,7 +162,7 @@ export function makeTree(input) {
     attributeNodes = getTreeNodes(input, 0);
 
     // Создание корня дерева
-    let root = new Node('root', attributeNodes[0], attributeNodes[0]);
+    var root = new Node('root', attributeNodes[0], attributeNodes[0]);
 
     // Добавление корня в очередь вершин
     let queue = [];
@@ -130,7 +173,6 @@ export function makeTree(input) {
 
     // Добавление листьев к дереву
     addLeaves(root, data);
-    console.log(root);
 
     return root;
 }
