@@ -36,6 +36,7 @@ button {
 }
 
 #tree {
+    overflow: scroll;
     width: 1000px;
     height: 600px;
     background-color: white;
@@ -45,6 +46,8 @@ button {
 }
 
 #tree ul {
+    display: flex;
+    white-space: nowrap;
 	padding-top: 20px; 
     position: relative;
 }
@@ -61,6 +64,7 @@ button {
 	content: '';
 	position: absolute; 
     top: 0;
+    right: 50%;
 	border-top: 1px solid gray;
 	width: 50%; 
     height: 20px;
