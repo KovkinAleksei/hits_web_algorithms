@@ -1,65 +1,29 @@
+import { canvas, ctx } from "./antMain.js";
 
-class Ant {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.direction = 'up';
-    this.color = 'black';
-  }
-  
-  turnLeft() {
-    switch (this.direction) {
-      case 'up':
-        this.direction = 'left';
-        break;
-      case 'down':
-        this.direction = 'right';
-        break;
-      case 'left':
-        this.direction = 'down';
-        break;
-      case 'right':
-        this.direction = 'up';
-        break;
+export class Ant {
+    constructor(x, y, speed) {
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
+        this.direction = Math.random() * 2 * Math.PI;
     }
-  }
 
-  turnRight() {
-    switch (this.direction) {
-      case 'up':
-        this.direction = 'right';
-        break;
-      case 'down':
-        this.direction = 'left';
-        break;
-      case 'left':
-        this.direction = 'up';
-        break;
-      case 'right':
-        this.direction = 'down';
-        break;
-      }
-  }
+    updatePosition() {
+        this.x += this.speed * Math.cos(this.direction);
+        this.y += this.speed * Math.sin(this.direction);
 
-  moveForward() {
-    switch (this.direction) {
-      case 'up':
-        this.y--;
-        break;
-      case 'down':
-        this.y++;
-        break;
-      case 'left':
-        this.x--;
-        break;
-      case 'right':
-        this.x++;
-        break;
-      }
-  }
+        if (this.x < 0 || this.x > canvas.width) {
+          this.direction = Math.PI - this.direction;
+        }
+        if (this.y < 0 || this.y > canvas.height) {
+          this.direction = -this.direction;
+        }
+    }
 
-
-    changeColor(newColor) {
-      this.color = newColor;
+    draw() {
+      ctx.fillStyle = "red";
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI);
+      ctx.fill();
     }
 }
