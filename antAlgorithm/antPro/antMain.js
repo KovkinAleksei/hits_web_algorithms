@@ -4,11 +4,8 @@ const size = 80;
 
 let map = [];
 let pheromones = []; 
-//Короче, мир состоит из двумерного массива, поэтому будем обозначать циферками определенные объекты:
-// 0 - пустота, 1 - стена, 2 - колония, 3 - еда
-
 let antColony = {x: 0, y: 0};
-let nowButton = 1;
+let nowButton = 0;
 
 function initializeMap(){
     for (let i = 0; i < size; i++){
@@ -23,6 +20,34 @@ function initializeMap(){
 
 initializeMap();
 
+//Короче, мир состоит из двумерного массива, поэтому будем обозначать циферками определенные объекты:
+// 0 - пустота, 1 - стена, 2 - колония, 3 - еда
+
+document.getElementById("addAnthillButton").addEventListener('click', (e) => {
+    if (nowButton !== 1){
+        nowButton = 1;
+    }
+    else if (nowButton === 1){
+        nowButton = 0;
+    }
+});
+
+document.getElementById("addWallsButton").addEventListener('click', (e) => {
+    if (nowButton !== 2){
+        nowButton = 2;
+    }
+    else if (nowButton === 2){
+        nowButton = 0;
+    }
+});
+
+document.getElementById("clearButton").addEventListener('click', (e) => {
+    ctx.reset();
+    nowButton = 0;
+    pheromones = [];
+    map = [];
+});
+
 canvas.addEventListener('click', (e) => {
     let x = e.offsetX;
     let y = e.offsetY;
@@ -30,9 +55,14 @@ canvas.addEventListener('click', (e) => {
     if (nowButton === 1){
         setColony(x, y);
     }
+    else if (nowButton === 2){
+        setWalls(x, y);
+    }
 });
 
 function setColony(x, y) {
+    antColony.x = x;
+    antColony.y = y;
     x = Math.floor(x/10);
 	y = Math.floor(y/10);
 
@@ -46,6 +76,32 @@ function setColony(x, y) {
     }
     map[x][y] = 2;
     ctx.reset();
-    ctx.fillStyle = 'red';
-	ctx.fillRect(x*10, y*10, 20, 20);
+    updateMap();
+}
+
+function setWalls(x, y){ 
+    x = Math.floor(x/10);
+	y = Math.floor(y/10);
+    map[x][y] = 1;
+    ctx.reset();
+    updateMap();
+}
+
+function updateMap(){
+    for (let i = 0; i < size; i++){
+        for (let j = 0; j < size; j++){ 
+            if (map[i][j] === 1){
+                ctx.fillStyle = 'gray';
+	            ctx.fillRect(i*10, j*10, 20, 20);
+            }
+            else if (map[i][j] === 2) {
+                ctx.fillStyle = 'red';
+	            ctx.fillRect(i*10, j*10, 20, 20);
+            }
+            else if (map[i][j] === 3) {
+                ctx.fillStyle = 'green';
+	            ctx.fillRect(i*10, j*10, 20, 20);
+            }
+        }
+    }
 }
