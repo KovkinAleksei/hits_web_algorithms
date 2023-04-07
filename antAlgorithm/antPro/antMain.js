@@ -2,28 +2,28 @@ import { Ant } from "./antClass.js";
 
 export const canvas = document.getElementById('canvas');
 export const ctx = canvas.getContext('2d');
-const size = 80;
+export const size = 80;
 
 export let speed = 1;
 export let map = [];
-let pheromones = []; 
+export let pheromoneMap = []; 
+
 let antColony = {x: 0, y: 0};
 let nowButton = 0;
 let ants = [];
-let antCount = 20;
+let antCount = 1;
 let requestId;
 
 function initializeMap(){
     for (let i = 0; i <= size; i++){
         map[i] = [];
-        pheromones[i] = [];
+        pheromoneMap[i] = [];
         for (let j = 0; j <= size; j++) { 
             map[i][j] = 0;
-            pheromones[i][j] = 0;
+            pheromoneMap[i][j] = 0;
         }
     }
 }
-
 initializeMap();
 
 //Короче, мир состоит из двумерного массива, поэтому будем обозначать циферками определенные объекты:
@@ -82,6 +82,7 @@ function updateAnts() {
         ants.forEach((ant) => {
             ant.updatePosition();
             ant.draw();
+            ant.drawPheromones();
         });
         requestId = requestAnimationFrame(updateAnts);
     }
@@ -109,12 +110,13 @@ function updateMap(){
     }
 }
 
+/*---------------------------------------Просто отработчики нажатий-------------------------------------------*/
 
 document.getElementById("startButton").addEventListener('click', (e) => {
-   updateAnts();
-   document.getElementById("startButton").disabled = true;
+    updateAnts();
+    document.getElementById("startButton").disabled = true;
 });
-
+ 
 document.getElementById("clearButton").addEventListener('click', (e) => {
     cancelAnimationFrame(requestId);
     ctx.reset();
@@ -122,11 +124,7 @@ document.getElementById("clearButton").addEventListener('click', (e) => {
     ants = [];
     initializeMap();
     document.getElementById("startButton").disabled = false;
-});
-
-
-
-/*---------------------------------------Просто отработчики нажатий-------------------------------------------*/
+}); 
 
 document.getElementById("antRange").addEventListener('input', (e) => {
     document.getElementById("antCount").innerHTML = antRange.value;
