@@ -4,17 +4,19 @@ export const canvas = document.getElementById('canvas');
 export const ctx = canvas.getContext('2d');
 const size = 80;
 
-let map = [];
+export let map = [];
 let pheromones = []; 
 let antColony = {x: 0, y: 0};
 let nowButton = 0;
 let ants = [];
+let antCount = 20;
+let requestId;
 
 function initializeMap(){
-    for (let i = 0; i < size; i++){
+    for (let i = 0; i <= size; i++){
         map[i] = [];
         pheromones[i] = [];
-        for (let j = 0; j < size; j++) { 
+        for (let j = 0; j <= size; j++) { 
             map[i][j] = 0;
             pheromones[i][j] = 0;
         }
@@ -24,8 +26,7 @@ function initializeMap(){
 initializeMap();
 
 //Короче, мир состоит из двумерного массива, поэтому будем обозначать циферками определенные объекты:
-// 0 - пустота, 1 - стена, 2 - колония, 3 - еда
-
+// 0 - пустота, 1 - стена, 2 - колония, 3 - еда, 4 - невидимая стена (вынужденная мера)
 
 canvas.addEventListener('click', (e) => {
     handler(e);
@@ -49,8 +50,8 @@ function setColony(x, y) {
     x = Math.floor(x/10);
 	y = Math.floor(y/10);
 
-    for (let i = 0; i < size; i++){
-        for (let j = 0; j < size; j++){
+    for (let i = 0; i <= size; i++){
+        for (let j = 0; j <= size; j++){
             if (map[i][j] === 2){
                 map[i][j] = 0;
                 break;
@@ -58,7 +59,8 @@ function setColony(x, y) {
         }
     }
     map[x][y] = 2;
-    for (let i = 0; i < 10; i++){
+    ants = [];
+    for (let i = 0; i < antCount; i++){
         ants.push(new Ant(antColony.x, antColony.y, 1));
     }
     updateMap();
@@ -73,13 +75,15 @@ function setWalls(x, y){
     }
 }
 
-function update() {
-    updateMap();
-    ants.forEach((ant) => {
-        ant.updatePosition();
-        ant.draw();
-    });
-    requestAnimationFrame(update);
+function updateAnts() {
+    if (ants.length != 0){
+        updateMap();
+        ants.forEach((ant) => {
+            ant.updatePosition();
+            ant.draw();
+        });
+        requestId = requestAnimationFrame(updateAnts);
+    }
 }
 
 function updateMap(){
@@ -88,7 +92,7 @@ function updateMap(){
         for (let j = 0; j < size; j++){ 
             if (map[i][j] === 1){
                 ctx.fillStyle = 'gray';
-	            ctx.fillRect(i*10, j*10, 20, 20);
+	            ctx.fillRect(i*10, j*10, 10, 10);
             }
             else if (map[i][j] === 2) {
                 ctx.fillStyle = 'red';
@@ -104,9 +108,8 @@ function updateMap(){
     }
 }
 
-
 document.getElementById("startButton").addEventListener('click', (e) => {
-   update();
+   updateAnts();
 });
 
 document.getElementById("addAnthillButton").addEventListener('click', (e) => {
@@ -137,9 +140,16 @@ document.getElementById("eraseButton").addEventListener('click', (e) => {
 });
 
 document.getElementById("clearButton").addEventListener('click', (e) => {
+    cancelAnimationFrame(requestId);
     ctx.reset();
     nowButton = 0;
+    ants = [];
     initializeMap();
+});
+
+document.getElementById("antRange").addEventListener('change', (e) => {
+    document.getElementById("antCount").innerHTML = antRange.value;
+    antCount = antRange.value;
 });
 
 document.getElementById('canvas').addEventListener('mousedown', startDrawing);
