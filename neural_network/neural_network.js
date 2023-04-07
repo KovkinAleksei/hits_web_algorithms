@@ -58,6 +58,7 @@ function neuralNetwork() {
     let image = new Image();
     image.src = canvas.toDataURL();
 
+    
     image.onload = () => {
         let scaled = scaleImageData(image);
         let test = new Array(28 ** 2)
