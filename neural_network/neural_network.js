@@ -62,13 +62,13 @@ function neuralNetwork() {
         let scaled = scaleImageData(image);
         let test = new Array(28 ** 2)
         for (let i = 3; i < scaled.data.length; i += 4) {
-            test[ Math.floor(i / 4) ] = [ (scaled.data[i] / 255.0) ];
+            test[ Math.floor(i / 4) ] = [ (scaled.data[i] / 255) ];
         }
         let res = feedforward(test);
         let max = 0.0, maxInd = 0;
         for (let i = 0; i < res.length; i++) {
-            if (res[i] >= max) {
-                max = res[i];
+            if (res[i][0] >= max) {
+                max = res[i][0];
                 maxInd = i;
             }
         }
