@@ -21,7 +21,12 @@ export function handler (event) {
     let yPos = event.offsetY;
 
     if (nowButton === 1){
-        drawOneVertex(xPos, yPos);
+        if (vertexes.length < 30){
+            drawOneVertex(xPos, yPos);
+        }
+        else {
+            alert("Куда разогнался? 30-ти городов хватит!");
+        }
     } else if (nowButton === 2){
         deleteVertex(xPos, yPos);
     }

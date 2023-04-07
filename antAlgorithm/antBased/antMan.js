@@ -24,7 +24,7 @@ export async function antColonyOptimization(vertexes) {
 
     let distances = findMatrixDistances(vertexes); //рассчитываем расстояния
     let ants = createAnts(); //генерируем муравьев
-    let pheromones = initiateStartPheromones(vertexes, distances); //генерируем ферамоны
+    let pheromones = initiateStartPheromones(vertexes); //генерируем ферамоны
 
     for (let iteration = 0; iteration < ITERATIONS; iteration++) {
         // рандомный выбор откуда начинает каждый муравей
@@ -57,7 +57,7 @@ export async function antColonyOptimization(vertexes) {
                 showSolve(bestPath);
             }
         });
-        await sleep(100);
+        await sleep(10);
         // обновляем матрицу феромонов
         updatePheromones(pheromones, ants, distances, vertexes);
     }
@@ -92,12 +92,12 @@ function findMatrixDistances (vertexes){
 }
 
 //расчитать количество начальных феромонов на каждом ребре
-function initiateStartPheromones(vertexes, distances) { 
+function initiateStartPheromones(vertexes) { 
     let pheromones = [];
     for (let i = 0; i < vertexes.length; i++) { 
         let row = [];
         for (let j = 0; j < vertexes.length; j++) { 
-            row.push(1 / (vertexes.length * distances[i][j]));
+            row.push(1);
         }
         pheromones.push(row);
     }
