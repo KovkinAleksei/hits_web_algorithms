@@ -78,6 +78,7 @@ function setWalls(x, y){
 
 function updateAnts() {
     if (ants.length != 0){
+        console.log(ants);
         updateMap();
         ants.forEach((ant) => {
             ant.updatePosition();
