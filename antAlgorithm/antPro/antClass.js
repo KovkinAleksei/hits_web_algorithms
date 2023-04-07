@@ -12,14 +12,23 @@ export class Ant {
         this.y += speed * Math.sin(this.direction);
 
         if (this.x < 0 || this.x > canvas.width) {
+            console.log(this.direction);
             this.direction = Math.PI - this.direction;
         }
+
         if (this.y < 0 || this.y > canvas.height) {
+            console.log(this.direction);
             this.direction = - this.direction;
         }
+
         if (this.x > 0 && this.x < canvas.width && this.y > 0 && this.y < canvas.height) {
             if (map[Math.floor(this.x / 10)][Math.floor(this.y / 10)] === 1){
-                this.direction = Math.PI - this.direction;
+                if (this.direction < 0) {
+                    this.direction = Math.PI - this.direction;
+                }
+                else {
+                    this.direction = - this.direction;
+                }
             }
         }
     }
