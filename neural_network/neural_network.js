@@ -6,7 +6,7 @@ let ctx = canvas.getContext("2d");
 canvas.width = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
 
-ctx.lineWidth = 13;
+ctx.lineWidth = 8;
 
 // устанавливаем начальные координаты
 let lastX;
@@ -62,7 +62,7 @@ function neuralNetwork() {
         let scaled = scaleImageData(image);
         let test = new Array(28 ** 2)
         for (let i = 3; i < scaled.data.length; i += 4) {
-            test[ Math.floor(i / 4) ] = (scaled.data[i] / 255.0);
+            test[ Math.floor(i / 4) ] = [ (scaled.data[i] / 255.0) ];
         }
         let res = feedforward(test);
         let max = 0.0, maxInd = 0;
