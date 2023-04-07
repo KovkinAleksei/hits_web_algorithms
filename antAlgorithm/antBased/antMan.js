@@ -2,8 +2,8 @@ import { showSolve} from "./drawFunctions.js";
 import { ANTS, ITERATIONS, RHO } from "./antPage.js";
 import { onAllButtons } from "./buttonsHandler.js";
 
-const ALPHA = 1; //коэффициент влияния феромона
-const BETA = 2.5; //коэффициент влияния эвристической информации
+const ALPHA = 2; //коэффициент влияния феромона
+const BETA = 5; //коэффициент влияния эвристической информации
 
 const MAXVALUE = 10000000;
 

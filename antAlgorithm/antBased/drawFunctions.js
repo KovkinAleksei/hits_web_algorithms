@@ -118,7 +118,8 @@ function findDistance(x1, y1, x2, y2) {
 function drawPossibility(x, y) {
     let index = findNearestPointIndex(x, y);
 
-    return (index == MAXVALUE || findDistance(vertexes[index].x, vertexes[index].y, x, y) > 2 * RADIUS + 2 && x > RADIUS && x < canv.clientWidth - RADIUS && y > RADIUS && y < canv.clientHeight - RADIUS);
+    return (index == MAXVALUE 
+        || findDistance(vertexes[index].x, vertexes[index].y, x, y) > 2 * RADIUS + 2 && x > RADIUS && x < canv.clientWidth - RADIUS && y > RADIUS && y < canv.clientHeight - RADIUS);
 }
 
 export function startDrawing() {
