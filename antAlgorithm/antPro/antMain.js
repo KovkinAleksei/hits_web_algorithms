@@ -4,6 +4,7 @@ export const canvas = document.getElementById('canvas');
 export const ctx = canvas.getContext('2d');
 const size = 80;
 
+export let speed = 1;
 export let map = [];
 let pheromones = []; 
 let antColony = {x: 0, y: 0};
@@ -61,7 +62,7 @@ function setColony(x, y) {
     map[x][y] = 2;
     ants = [];
     for (let i = 0; i < antCount; i++){
-        ants.push(new Ant(antColony.x, antColony.y, 1));
+        ants.push(new Ant(antColony.x, antColony.y));
     }
     updateMap();
 }
@@ -108,8 +109,33 @@ function updateMap(){
     }
 }
 
+
 document.getElementById("startButton").addEventListener('click', (e) => {
    updateAnts();
+   document.getElementById("startButton").disabled = true;
+});
+
+document.getElementById("clearButton").addEventListener('click', (e) => {
+    cancelAnimationFrame(requestId);
+    ctx.reset();
+    nowButton = 0;
+    ants = [];
+    initializeMap();
+    document.getElementById("startButton").disabled = false;
+});
+
+
+
+/*---------------------------------------Просто отработчики нажатий-------------------------------------------*/
+
+document.getElementById("antRange").addEventListener('input', (e) => {
+    document.getElementById("antCount").innerHTML = antRange.value;
+    antCount = antRange.value;
+});
+
+document.getElementById("speedRange").addEventListener('input', (e) => {
+    document.getElementById("speedCount").innerHTML = speedRange.value;
+    speed = speedRange.value;
 });
 
 document.getElementById("addAnthillButton").addEventListener('click', (e) => {
@@ -137,19 +163,6 @@ document.getElementById("eraseButton").addEventListener('click', (e) => {
     else if (nowButton === 3){
         nowButton = 0;
     }
-});
-
-document.getElementById("clearButton").addEventListener('click', (e) => {
-    cancelAnimationFrame(requestId);
-    ctx.reset();
-    nowButton = 0;
-    ants = [];
-    initializeMap();
-});
-
-document.getElementById("antRange").addEventListener('change', (e) => {
-    document.getElementById("antCount").innerHTML = antRange.value;
-    antCount = antRange.value;
 });
 
 document.getElementById('canvas').addEventListener('mousedown', startDrawing);
