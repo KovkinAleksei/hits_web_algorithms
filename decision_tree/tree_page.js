@@ -74,7 +74,7 @@ makeTreeButton.addEventListener('click', (e) => {
 
 let bypassTreeButton = document.getElementById("bypassTree");
 
-let bypassIndex = 1;
+let bypassIndex;
 let bypassInterval;
 
 // Обход дерева
@@ -146,7 +146,7 @@ let deleteTreeButton = document.getElementById("deleteTree");
 deleteTreeButton.addEventListener('click', (e) => {
     clearInterval(bypassInterval);
     bypassInterval = null;
-    
+
     resetTree();
 });
 
