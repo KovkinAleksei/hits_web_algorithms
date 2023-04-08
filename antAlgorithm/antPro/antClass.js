@@ -19,7 +19,7 @@ export class Ant {
         }
         if (this.x > 0 && this.x < canvas.width && this.y > 0 && this.y < canvas.height){
             console.log ({x: Math.floor(this.x / 10), y: Math.floor(this.y / 10)});
-            this.pheromones.push({ x: this.x, y: this.y, time: 100 });
+            this.pheromones.push({ x: this.x, y: this.y, time: 50 });
             pheromoneMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] = 1;
         }
 
@@ -63,7 +63,7 @@ export class Ant {
     
     drawPheromones() {
         for (let i = 0; i < this.pheromones.length; i++) {
-            ctx.fillStyle = "rgba(255, 0, 0, " + (this.pheromones[i].time / 100) + ")";
+            ctx.fillStyle = "rgba(255, 0, 0, " + (this.pheromones[i].time / 50) + ")";
             ctx.beginPath();
             ctx.arc(this.pheromones[i].x, this.pheromones[i].y, 2, 0, 2 * Math.PI);
             ctx.fill();
