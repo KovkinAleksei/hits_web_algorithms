@@ -10,6 +10,7 @@ class Node {
         this.branches = [];          // Ответвления от вершины
         this.attribute = attribute;  // Атрибут вершины
         this.atrValue = atrValue;    // Значение атрибута вершины
+        this.isVisited = false;
     }
 }
 
@@ -48,44 +49,6 @@ function getAnswer(atr, result, data) {
 
     // Самый частовстречающийся класс считается результатом прохода по дереву
     return uniqueAnswers[0];
-}
-
-// Сортировка ветвей вершины в порядке убывания частоты появления значения их атрибутов
-function sortBranches(node) {
-    // Нахождение кол-во появлений значений атрибутов ветвей
-    let elementsCount = [];
-
-    for (let i = 0; i < node.branches.length; i++) {
-        elementsCount.push(0);
-    }
-
-    for (let i = 0; i < data.length; i++) {
-        for (let j = 0; j < node.branches.length; j++) {
-            if (data[i][node.attribute.index] == node.branches[j].atrValue) {
-                elementsCount[j]++;
-            }
-        }
-    }
-
-    // Сортировка ветвей
-    for (let a = 0; a < node.branches.length; a++) {
-        for (let b = a + 1; b < node.branches.length; b++) {
-            if (elementsCount[a] < elementsCount[b]) {
-                let temp = elementsCount[a];
-                elementsCount[a] = elementsCount[b];
-                elementsCount[b] = temp;
-
-                temp = Object.assign({}, node.branches[a]);
-                //temp = node.branches[a];
-                node.branches[a] = Object.assign({}, node.branches[b]);
-                //node.branches[a] = node.branches[b];
-                node.branches[b] = Object.assign({}, temp);
-                //node.branches[b] = temp;
-            }
-        }
-    }
-
-    return node;
 }
 
 // Добавление ветвей дерева

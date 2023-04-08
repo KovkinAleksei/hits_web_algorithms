@@ -1,5 +1,6 @@
 import { readFile } from "./parse_cvs_file.js";
 import { makeTree } from "./tree_building.js";
+import { data } from "./entropy_calculation.js";
 
 // Отображение дерева на странице
 function displayTree(currentNode, treeElement) {
@@ -10,6 +11,10 @@ function displayTree(currentNode, treeElement) {
     // Добавление текста к новой вершине
     let newNodeText = document.createElement("span");
     newNodeText.textContent = nodeName;
+
+    if (currentNode.isVisited) {
+        newNodeText.style.backgroundColor = "red";
+    }
     newNode.appendChild(newNodeText);
 
     // Добавление новой вершины к дереву
@@ -31,16 +36,16 @@ function displayTree(currentNode, treeElement) {
 
 let file = document.getElementById("fileInput");
 let makeTreeButton = document.getElementById("makeTree");
+let treeRoot;
 
 // Построение дерева решений
 makeTreeButton.addEventListener('click', (e) => {
     // Очистка поля
-    let rootElement = document.getElementById("root");
-    rootElement.innerHTML = "";
+    resetTree();
 
     let fileInput = [];  // Файл
     let data = [];       // Текст из файла
-    let treeRoot;        // Корень дерева
+    treeRoot = null;     // Корень дерева
 
     if (file.value === ''){
         alert('Файл не загружен');
@@ -67,10 +72,86 @@ makeTreeButton.addEventListener('click', (e) => {
     }
 });
 
+let bypassTreeButton = document.getElementById("bypassTree");
+
+let bypassIndex = 1;
+let bypassInterval;
+
+// Обход дерева
+function bypassTree(currentNode) {
+    // Конец обхода
+    if (bypassIndex == data.length) {
+        clearInterval(bypassInterval);
+        bypassInterval = null;
+
+        return treeRoot;
+    }
+
+    // Проход через корень дерева
+    if (currentNode == null) {
+        treeRoot.isVisited = true;
+
+        // Перекрашивание посещённой вершины
+        resetTree();
+        let treeRootElement = document.getElementById("root");
+        displayTree(treeRoot, treeRootElement);
+        treeRoot.isVisited = false;
+
+        return treeRoot;
+    }
+
+    // Продолжение обхода
+    for (let j = 0; j < currentNode.branches.length; j++) {
+        // Нахождение следующей вершины
+        if (data[bypassIndex][currentNode.attribute.index] == currentNode.branches[j].atrValue ||
+            currentNode.branches.length == 1) {
+            currentNode = currentNode.branches[j];
+            currentNode.isVisited = true;
+
+            // Перекрашивание посещённой вершины
+            resetTree();
+            let treeRootElement = document.getElementById("root");
+            displayTree(treeRoot, treeRootElement);
+            currentNode.isVisited = false;
+
+            break;
+        }
+    }
+
+    // Возврат следующей вершины
+    if (currentNode.branches.length > 0) {
+        return currentNode;
+    }
+    else {
+        bypassIndex++;
+        return null;
+    }
+}
+
+// Запуск обхода дерева
+bypassTreeButton.addEventListener('click', (e) => {
+    bypassIndex  = 1;
+    let cNode = null;
+
+    if (document.getElementById("root").innerHTML != "") {
+        bypassInterval = setInterval(function() {
+            cNode = bypassTree(cNode);
+        }, 100);
+    }
+});
+
 let deleteTreeButton = document.getElementById("deleteTree");
 
-// Очистка поля
+// Вызов очистки поля по нажатию кнопки
 deleteTreeButton.addEventListener('click', (e) => {
+    clearInterval(bypassInterval);
+    bypassInterval = null;
+    
+    resetTree();
+});
+
+// Очистка поля
+function resetTree() {
     let rootElement = document.getElementById("root");
     rootElement.innerHTML = "";
-});
+}
