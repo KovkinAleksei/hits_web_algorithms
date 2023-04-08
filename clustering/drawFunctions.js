@@ -43,6 +43,14 @@ const minDistanceBetweenPoint = 14;
 let algorithm = 1;
 
 function startAllAlgorithms() {
+    if (countClusters > pointCoordinates.length){
+        alert("Слишком мало точек для такого количества кластеров. Нарисуйте больше. (K-Means)");
+        return;
+    }
+    else if (countClustersHierarchical > pointCoordinates.length){
+        alert("Слишком мало точек для такого количества кластеров. Нарисуйте больше. (Hierarchical)");
+        return;
+    }
     startKMeans();
     startDBSCAN();
     startHierarchical();

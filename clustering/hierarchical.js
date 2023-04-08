@@ -19,7 +19,7 @@ function findDistance(point1, point2) {
     }
 }
 
-function generateArrayOfDistances (clusters) {
+function generateArrayOfDistances (clusters) { //массив дистанций от i до j точки
     let distances = [];
     for (let i = 0; i < clusters.length - 1; i++) {
         for (let j = i + 1; j < clusters.length; j++) {
