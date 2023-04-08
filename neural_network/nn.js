@@ -15,7 +15,7 @@ function matrixMultiplication(a, b) {
         }
         result[i] = sum;
     }
-    console.log('mult ' + result);
+    // console.log('mult ' + result);
     return result;
 }
 
@@ -25,7 +25,7 @@ function matrixAddition(a, b) {
     for (let i = 0; i < a.length; i++) {
         result[i] = sigmoid(a[i] + b[i][0]);
     }
-    console.log('add ' + result);
+    // console.log('add ' + result);
     return result;
 }
 
@@ -33,6 +33,6 @@ export function feedforward(matrix) {
     for (let k = 0; k < biases.length; k++) {
         matrix = matrixAddition(matrixMultiplication(weights[k], matrix), biases[k]);
     }
-    console.log(matrix)
+    // console.log(matrix)
     return matrix;
 }

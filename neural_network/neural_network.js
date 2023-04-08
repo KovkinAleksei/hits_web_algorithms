@@ -60,12 +60,14 @@ function neuralNetwork() {
 
     image.onload = () => {
         let scaledImage = scaleImageData(image);
-        let oneChannelImage = new Array(28 ** 2)
+        let oneChannelImage = new Array(28 ** 2);
+
         for (let i = 3; i < scaledImage.data.length; i += 4) {
             oneChannelImage[ Math.floor(i / 4) ] = (scaledImage.data[i] / 255);
         }
-        let centredImage = imageCentring(oneChannelImage);
 
+        let centredImage = imageCentring(oneChannelImage);
+        // console.log('centr ' + centredImage)
         let resultImage = feedforward(oneChannelImage);
         let max = -1, maxInd = 0;
         for (let i = 0; i < resultImage.length; i++) {
@@ -135,14 +137,14 @@ for(let i = 0; i < goriz; i++) {
         newImage[i] = new Array(size).fill(0);
     }
     
+    let gorizontalPaddings = Math.floor((size - goriz) / 2);
+    let verticalPaddings = Math.floor((size - vert) / 2);
     ind = 0; jind = 0;
-    for(let i = 0; i < 28; i++) {
-        for(let j = 0; j < 28; j++) {
-            if(i >= up && i < down && j >= left && j < right) {
-                let index = (28 * i) + j;
-                // console.log(index)
-                // console.log('ind jind ' + ind + " " + jind)
-                newImage[ind][jind] = image[index];
+    for(let i = 0; i < size; i++) {
+        for(let j = 0; j < size; j++) {
+            if(i > verticalPaddings && i < size - verticalPaddings && j > gorizontalPaddings && j < size - gorizontalPaddings){
+                // console.log(ind + " " + jind)
+                newImage[i][j] = helpImage[ind][jind];
                 jind++;
                 if(jind >= vert){
                     ind++;
@@ -151,9 +153,40 @@ for(let i = 0; i < goriz; i++) {
             }
         }
     }
+    // console.log(newImage)
+    const cnvas = document.createElement('canvas');
+    cnvas.width = size;
+    cnvas.height = size;
+    const cotx = cnvas.getContext('2d');
+    const imageData = cotx.createImageData(cnvas.width, cnvas.height);
+    for (let y = 0; y < cnvas.height; y++) {
+      for (let x = 0; x < cnvas.width; x++) {
+        const i = (y * cnvas.width + x) * 4;
+        imageData.data[i] = 0;
+        imageData.data[i + 1] = 0;
+        imageData.data[i + 2] = 0;
+        imageData.data[i + 3] = newImage[y][x] * 255; // установка непрозрачности
+      }
+    }
+    console.log(imageData)
+    cotx.putImageData(imageData, 0, 0);
+    
+    let resImage = new Image();
+    resImage.src = cnvas.toDataURL();
+
+    let scaledImage = scaleImageData(resImage);
+    console.log(scaledImage)
+    let oneChannelImage = new Array(28 ** 2);
+
+    for (let i = 3; i < scaledImage.data.length; i += 4) {
+        oneChannelImage[ Math.floor(i / 4) ] = (scaledImage.data[i] / 255);
+    }
+    // console.log(oneChannelImage);
+    return oneChannelImage;
 }
 
 function scaleImageData(image) {
+
     // Dynamically create a canvas element
     let canvas = document.createElement("canvas");
 
