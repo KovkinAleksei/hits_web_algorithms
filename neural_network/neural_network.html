@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./neural_network.css" type="stylesheet">
+    <link href="./neural_network.css" rel="stylesheet">
     <title>Нейронная сеть</title>
 </head>
 <body>
-    <div>
-        <canvas id="drawField" style="width: 140px; height: 140px; border:2px solid black;"></canvas>
+    <div class="container">
+        <div class="containerInner">
+            <canvas id="drawField" style="width: 300px; height: 300px; border:2px solid black;"></canvas>
+        </div>
+        <div class="containerInner">
+            <button class="button" id="clearButton">Стереть рисунок</button>
+        </div>
+        <div class="containerInner">
+            <p id="answerLabel"></p>
+        </div>
     </div>
-    <div>
-        <button id="clearButton">Стереть рисунок</button>
-    </div>
-    <div>
-        <button id="startNetwork">Запустить нейронную сеть</button>
-        <p id="answerLabel">Ответ: </p>
-    </div>
-    <div id="image_for_crop">
-    </div>
+    <img class="rightWow" src="../nn_assets/dd9a365453a2cd058a9af58a1150aa1c.png">
+    <img class="leftWow" src="../nn_assets/dasas.png">
     <script type="module" src="./neural_network.js"></script>
     <script type="module" src="./nn.js"></script>
 </body>
