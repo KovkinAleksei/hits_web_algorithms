@@ -1,20 +1,35 @@
 body {
     margin: 0;
+    display: flex;
+    flex-wrap: wrap;
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     line-height: 1.6;
     color: #1d1d1d;
+    justify-content: center;
 }
 
 #titleBlock {
     text-align: center;
-    margin-top: 30px;
+    width: 100%;
 }
 
 #inputBlock {
-    display: flex;
+    display: block;
+    flex-wrap: wrap;
     text-align: center;
     justify-content: space-around;
+}
+
+.inputDiv {
+    margin: 20px 10px;
+}
+
+.sizeDiv {
+    justify-content: center;
+    align-items: baseline;
+    display: flex;
+    margin: 20px 10px;
 }
 
 #title {
@@ -23,12 +38,10 @@ body {
 }
 
 table {
-    margin: auto;
-    background-color: #f9f6ee;
+    margin: 10px auto;
+    background-color: #eef3f9;
     width: 700px;
     height: 700px;
-    left: 10px;
-    top: 10px;
     border-collapse: collapse;
 }
 
@@ -73,7 +86,7 @@ td:hover {
 }
 
 /* стили различных кнопок */
-button {
+button{
     cursor: pointer;
     width: 170px;
     height: 170px;
@@ -82,7 +95,7 @@ button {
 
     text-align: center;
 
-    margin: 0px 20px;
+    margin: 10px 20px;
     padding: auto;
     background-color: #ceccc6;
     color: rgb(19, 19, 19);
@@ -91,8 +104,6 @@ button {
 
     border: none;
     border-radius: 20px;
-
-    top: 10px;
 }
 
 button:disabled, button:hover {
@@ -102,13 +113,14 @@ button:disabled, button:hover {
 #primmButton {
     width: 700px;
     height: 50px;
-    left: 10px;
-    top: 720px;
+    margin: 10px 10px;
 }
 
 .mainList {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
+    margin: 0px 100px;
 }
 
 #tableBlock {
@@ -118,8 +130,6 @@ button:disabled, button:hover {
     background-color: #ffffff;
     box-shadow: 5px 2px 10px rgba(0,0,0,0.5);
 
-    top: 110px;
-    left: 610px;
     width: 720px;
     height: 790px;
 }

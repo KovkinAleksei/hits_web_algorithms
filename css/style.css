@@ -1,11 +1,13 @@
 body {
-    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px auto;
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     line-height: 1.6;
     margin: 0;
     overflow: hidden;
-     background: black;
+     background: rgb(20, 20, 20);
 }
 
 *,
@@ -15,83 +17,35 @@ body {
 }
 
   
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-  }
-  
-  .title {
-    font-size: 8vw;
-    color: white;
-    font-weight: 600;
-  }
-  
-  canvas {
-    width: 100%;
-  }
-
-.about {
-    padding: 80px 0;
-    font-size: 30px;
-    height: 100%;
-    margin: auto;
-}
-
-.mainList {
-    width: 100%;
-    height: max-content;
-    min-height: 1000px;
+.container {
     display: block;
-    background-color: #f9f6ee;
+    margin: 0px auto;
+    padding-top: 100px;
+    justify-content: center;
+
+    position: absolute;
+    width: 90%;
+    height: 100%;
 }
 
-.header {
-    width: 100%;
-    padding-top: 15px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
-    background-color: #ceccc6;
-    padding-bottom: 15px;
+.title {
+    font-size: 5vw;
+    color: rgb(255, 247, 247);
+    font-weight: 800;
+    text-align: center;
 }
 
-.headerInner {
-    width: 1500px;
-    height: 50px;
-    display: flex;
+.algsContainer {
     justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    width: 40px;
-}
-
-.photo {
-    width: 400px;
-    height: 200px;
-    box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.45);
-    margin: 0px 10px;
-}
-
-.we {
-    display: flex;
-    justify-content: space-between;
+    text-align: center;
+    margin: 40px auto;
 }
 
 .navLink {
     display: inline-block;
-    font-weight: 600;
-    color: #4c4941;
+    font-weight: 800;
+    font-size: 18px;
+    color: #fffef9;
     opacity: 0.9;
     text-decoration: none;
     margin: 0px 25px;
@@ -106,42 +60,48 @@ body {
     width: 100%;
     height: 3px;
 
-    background-color: #0c0c0a;
+    background-color: #ffffff;
     opacity: 0;
 
     position: absolute;
     top: 100%;
     left: 0;
 
-    transition: opacity .2s linear;
+    transition: opacity .3s linear;
 }
 
-.navLink:hover, .active {
+.navLink:hover{
     opacity: 1;
-    color: #0c0c0a;
+    color: #ffffff;
 }
 
 .navLink:hover:after, .active:after {
     opacity: 1;
 }
 
-.section {
-    padding: 40px 0;
-    font-size: 30px;
-    background-color: #fff;
-    border-bottom: 2px solid #414040;
-}
-
-.miniTitle {
-    text-decoration: none;
-    font-size: 50px;
-    text-align: center;
-    font-weight: 700;
-    color: #0c0c0a;
-}
-
-.repositories {
+.link {
+    display: inline-block;
     font-weight: 600;
+    font-size: 16px;
+    color: #fffef9;
+    opacity: 0.9;
     text-decoration: none;
-    color: #0c0c0a;
+    margin: 0px 25px;
+}
+
+.ref {
+    color: #fffef9;
+}
+
+.refContainer {
+    justify-content: space-between;
+    text-align: center;
+    margin-bottom: 90px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+canvas {
+    width: 100%;
 }

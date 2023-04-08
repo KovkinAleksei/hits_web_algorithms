@@ -11,13 +11,20 @@
     </div>
     <div class = "mainList">
         <div id="inputBlock">
-            <button id="aStar" type="button">Запустить алгоритм поиска</button>
-            <div>
+            <div class="inputDiv">
+                <p>Размер поля</p>
+                <input id="tableSize" type="number" autofocus step = "2" min = "5" max = "99" value = "21"/>
+            </div>
+            <div class="inputDiv">
                 <input id="animationSpeed" type="range" min="10" max="100" value="30" oninput="document.getElementById('showAnimationSpeed').innerHTML = 'Скорость анимации алгоритма: ' + this.value "/>
                 <p id="showAnimationSpeed">Скорость анимации алгоритма: 30</p>
             </div>
-            <input id="tableSize" type="number" autofocus step = "2" min = "5" max = "99" value = "21"/>
-            <button id="setStartFinish" type="button">Поставить старт и финиш</button>
+            <div class="inputDiv">
+                <button id="setStartFinish" type="button">Поставить старт и финиш</button>
+            </div>
+            <div class="inputDiv">
+                <button id="aStar" type="button">Запустить алгоритм поиска</button>
+            </div>
         </div>
 
         <div id="tableBlock">
