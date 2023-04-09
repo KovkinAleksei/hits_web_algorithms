@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./neural_network.css" rel="stylesheet">
+    <link href="../css/nav.css" rel="stylesheet">
+    <title>Нейронная сеть</title>
+</head>
+<body>
+    <input type="checkbox" id="nav-toggle" hidden>
+    <nav class="nav">
+        <label for="nav-toggle" class="nav-toggle" onclick></label>
+        <div>
+            <a href="../index.html"><img class='img' src="../assets/home.png" width="60px"/></a>
+        </div>
+        <div>
+            <a href="../a-star/a-star.html"><img class='img' src="../assets/path.png" width="60px"/></a>
+        </div>
+        <div>
+            <a href="../clustering/cluster.html"><img src="../assets/clust.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../genetic/genetic.html"><img src="../assets/gen.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../antAlgorithm/antBased/ant.html"><img src="../assets/ant.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../decision_tree/decision_tree.html"><img src="../assets/tree.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a><img src="../assets/brain.png" class='img alreadyHere' width="60px"/></a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="containerInner">
+            <canvas id="drawField" style="width: 300px; height: 300px; border:2px solid black;"></canvas>
+        </div>
+        <div class="containerInner">
+            <button class="button" id="clearButton">Стереть рисунок</button>
+        </div>
+        <div class="containerInner">
+            <p id="answerLabel"></p>
+        </div>
+    </div>
+    <img class="rightWow" src="../nn_assets/dd9a365453a2cd058a9af58a1150aa1c.png">
+    <img class="leftWow" src="../nn_assets/dasas.png">
+    <script type="module" src="./neural_network.js"></script>
+    <script type="module" src="./nn.js"></script>
+</body>
+</html>
