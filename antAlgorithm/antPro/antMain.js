@@ -7,11 +7,12 @@ export const size = 80;
 export let speed = 1;
 export let map = [];
 export let pheromoneMap = []; 
+export let foodPositions = [];
 
 let antColony = {x: 0, y: 0};
 let nowButton = 0;
 let ants = [];
-let antCount = 1;
+let antCount = 20;
 let requestId;
 
 function initializeMap(){
@@ -27,7 +28,7 @@ function initializeMap(){
 initializeMap();
 
 //Короче, мир состоит из двумерного массива, поэтому будем обозначать циферками определенные объекты:
-// 0 - пустота, 1 - стена, 2 - колония, 3 - еда, 4 - невидимая стена (вынужденная мера)
+// 0 - пустота, 1 - стена, 2 - колония, 3 - еда
 
 canvas.addEventListener('click', (e) => {
     handler(e);
@@ -42,6 +43,9 @@ function handler(e){
     }
     else if (nowButton === 2){
         setWalls(x, y);
+    }
+    else if (nowButton === 3){
+        setFood(x, y);
     }
 }
 
@@ -65,6 +69,16 @@ function setColony(x, y) {
         ants.push(new Ant(antColony.x, antColony.y));
     }
     updateMap();
+}
+
+function setFood(x, y) { 
+    x = Math.floor(x/10);
+	y = Math.floor(y/10);
+    if (map[x][y] === 0) {
+        map[x][y] = 3;
+        foodPositions.push({x: x, y: y});
+        updateMap();
+    }
 }
 
 function setWalls(x, y){ 
@@ -110,6 +124,10 @@ function updateMap(){
     }
 }
 
+export function findDistance(x1, y1, x2, y2) {
+    return Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
+}
+
 /*---------------------------------------Просто отработчики нажатий-------------------------------------------*/
 
 document.getElementById("startButton").addEventListener('click', (e) => {
@@ -122,6 +140,7 @@ document.getElementById("clearButton").addEventListener('click', (e) => {
     ctx.reset();
     nowButton = 0;
     ants = [];
+    foodPositions = [];
     initializeMap();
     document.getElementById("startButton").disabled = false;
 }); 
@@ -154,11 +173,20 @@ document.getElementById("addWallsButton").addEventListener('click', (e) => {
     }
 });
 
-document.getElementById("eraseButton").addEventListener('click', (e) => {
+document.getElementById("addFoodButton").addEventListener('click', (e) => {
     if (nowButton !== 3){
         nowButton = 3;
     }
     else if (nowButton === 3){
+        nowButton = 0;
+    }
+});
+
+document.getElementById("eraseButton").addEventListener('click', (e) => {
+    if (nowButton !== 4){
+        nowButton = 4;
+    }
+    else if (nowButton === 4){
         nowButton = 0;
     }
 });
