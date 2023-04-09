@@ -245,6 +245,7 @@ function resetTree() {
 let infectionButton = document.getElementById("infectionButton");
 
 infectionButton.addEventListener('click', (e) => {
+    file.value = '';
     chosenFileIndex = 1;
 });
 
@@ -252,7 +253,7 @@ infectionButton.addEventListener('click', (e) => {
 let thapButton = document.getElementById("thapButton");
 
 thapButton.addEventListener('click', (e) => {
-   // alert('a');
+    file.value = '';
     chosenFileIndex = 2;
 });
 
@@ -260,5 +261,6 @@ thapButton.addEventListener('click', (e) => {
 let weatherButton = document.getElementById("weatherButton");
 
 weatherButton.addEventListener('click', (e) => {
+    file.value = '';
     chosenFileIndex = 3;
 });
