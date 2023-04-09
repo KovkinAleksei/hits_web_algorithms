@@ -1,6 +1,6 @@
 import { readFile } from "./parse_cvs_file.js";
 import { makeTree } from "./tree_building.js";
-import { data } from "./entropy_calculation.js";
+import { data, getUniqueElements } from "./entropy_calculation.js";
 
 // Отображение дерева на странице
 function displayTree(currentNode, treeElement) {
@@ -154,4 +154,47 @@ deleteTreeButton.addEventListener('click', (e) => {
 function resetTree() {
     let rootElement = document.getElementById("root");
     rootElement.innerHTML = "";
+}
+
+let reduceTreeButton = document.getElementById("reduceTree");
+
+// Сокращение размера дерева
+reduceTreeButton.addEventListener('click', (e) => {
+    // Сокращение размера дерева
+    reduceTree(treeRoot);
+
+    // Обновление отображения дерева
+    resetTree();
+    
+    let treeRootElement = document.getElementById("root");
+    displayTree(treeRoot, treeRootElement);
+});
+
+// Сокращение высоты дерева
+function reduceTree(currentNode) {
+    // Возврат значения листа
+    if (currentNode.branches.length == 1) {
+        let arr = [];
+        arr.push(currentNode.branches[0].atrValue);
+
+        return arr;
+    }
+
+    // Нахождение всех значений ветвей текущей вершины
+    let answers = [];
+
+    for (let i = 0; i < currentNode.branches.length; i++) {
+            let branchesAnswers = reduceTree(currentNode.branches[i]);
+
+            for (let k = 0; k < branchesAnswers.length; k++) {
+                answers.push(branchesAnswers[k]);
+            }
+    }
+
+    // Сокращение вершины до листа, если значения листьев всех её ветвей одинаковые
+    if (getUniqueElements(answers).length == 1) {
+        currentNode.branches = [currentNode.branches[0].branches[0]];
+    }
+
+    return answers;
 }
