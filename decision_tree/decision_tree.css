@@ -14,7 +14,6 @@ li {
 
 #fileInput {
     visibility: collapse;
-    float: right;
 }
 
 #fileInputButton{
@@ -31,7 +30,8 @@ li {
     line-height: 28px;
 }
 
-#buttons {
+#firstRowButtons, #secondRowButtons {
+    overflow: hidden;
     display: block;
     width: 1000px;
     margin-right: auto;
@@ -39,7 +39,8 @@ li {
 }
 
 button {
-    display: inline;
+    display: inline-block;
+    
     border-radius: 10px;
     background: #efeee8;
     font-size: 16px;
@@ -50,6 +51,14 @@ button {
     font-family: sans-serif;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
     border-color: #f9f6ee;
+}
+
+#userInput {
+    width: 200px;
+    height: 40px;
+    margin: 16px;
+    font-size: 16px;
+    text-align: center;
 }
 
 #tree {

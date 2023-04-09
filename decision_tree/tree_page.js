@@ -78,7 +78,7 @@ let bypassIndex;
 let bypassInterval;
 
 // Обход дерева
-function bypassTree(currentNode) {
+function bypassTree(currentNode, data) {
     // Конец обхода
     if (bypassIndex == data.length) {
         clearInterval(bypassInterval);
@@ -130,31 +130,18 @@ function bypassTree(currentNode) {
 
 // Запуск обхода дерева
 bypassTreeButton.addEventListener('click', (e) => {
+    clearInterval(bypassInterval);
+    bypassInterval = null;
+
     bypassIndex  = 1;
     let cNode = null;
 
     if (document.getElementById("root").innerHTML != "") {
         bypassInterval = setInterval(function() {
-            cNode = bypassTree(cNode);
+            cNode = bypassTree(cNode, data);
         }, 100);
     }
 });
-
-let deleteTreeButton = document.getElementById("deleteTree");
-
-// Вызов очистки поля по нажатию кнопки
-deleteTreeButton.addEventListener('click', (e) => {
-    clearInterval(bypassInterval);
-    bypassInterval = null;
-
-    resetTree();
-});
-
-// Очистка поля
-function resetTree() {
-    let rootElement = document.getElementById("root");
-    rootElement.innerHTML = "";
-}
 
 let reduceTreeButton = document.getElementById("reduceTree");
 
@@ -165,7 +152,7 @@ reduceTreeButton.addEventListener('click', (e) => {
 
     // Обновление отображения дерева
     resetTree();
-    
+
     let treeRootElement = document.getElementById("root");
     displayTree(treeRoot, treeRootElement);
 });
@@ -197,4 +184,39 @@ function reduceTree(currentNode) {
     }
 
     return answers;
+}
+
+let userBypassButton = document.getElementById("userBypass");
+
+// Обход дерева по введённым пользоавтелем данным
+userBypassButton.addEventListener('click', (e) => {
+    clearInterval(bypassInterval);
+    bypassInterval = null;
+
+    let userData = document.getElementById("userInput").value.split(' ');
+
+    bypassIndex  = 1;
+    let cNode = null;
+
+    if (document.getElementById("root").innerHTML != "") {
+        bypassInterval = setInterval(function() {
+            cNode = bypassTree(cNode, [userData, userData]);
+        }, 100);
+    }
+});
+
+let deleteTreeButton = document.getElementById("deleteTree");
+
+// Вызов очистки поля по нажатию кнопки
+deleteTreeButton.addEventListener('click', (e) => {
+    clearInterval(bypassInterval);
+    bypassInterval = null;
+
+    resetTree();
+});
+
+// Очистка поля
+function resetTree() {
+    let rootElement = document.getElementById("root");
+    rootElement.innerHTML = "";
 }

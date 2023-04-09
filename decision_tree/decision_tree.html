@@ -35,17 +35,24 @@
         </div>
         
     </nav>
-        <div>
-            <input id = "fileInput" type = "file">
-        </div> 
-    <div id = "buttons">
+    
+    <div>
+        <input id = "fileInput" type = "file">
+    </div> 
+    <div id = "firstRowButtons">
         <button><label id = "fileInputButton" for="fileInput">Загрузить файл</label></button>
-        <button id = "makeTree">Построить дерево</button>
+        <button>Выбрать файл</button>
+        <button id = "deleteTree">Удалить дерево</button>
+
+        <input type="text" id="userInput" placeholder="Ввод ваших данных">
+    </div>
+    <div id = "secondRowButtons">
+         <button id = "makeTree">Построить дерево</button>
         <button id = "reduceTree">Сократить дерево</button>
         <button id = "bypassTree">Обход по дереву</button>
-        <button id = "deleteTree">Удалить дерево</button>
+        <button id = "userBypass">Обход ваших данных</button>
     </div>
-    
+
     <div id = "tree">
         <ul id = "root">
 
