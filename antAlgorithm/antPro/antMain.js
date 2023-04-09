@@ -3,13 +3,14 @@ import { Ant } from "./antClass.js";
 export const canvas = document.getElementById('canvas');
 export const ctx = canvas.getContext('2d');
 export const size = 80;
+export const sizePixel = 10;
 
 export let speed = 1;
 export let map = [];
 export let pheromoneMap = []; 
 export let foodPositions = [];
+export let antColony = {x: 0, y: 0};
 
-let antColony = {x: 0, y: 0};
 let nowButton = 0;
 let ants = [];
 let antCount = 20;
@@ -52,8 +53,8 @@ function handler(e){
 function setColony(x, y) {
     antColony.x = x;
     antColony.y = y;
-    x = Math.floor(x/10);
-	y = Math.floor(y/10);
+    x = Math.floor(x/sizePixel);
+	y = Math.floor(y/sizePixel);
 
     for (let i = 0; i <= size; i++){
         for (let j = 0; j <= size; j++){
@@ -66,14 +67,14 @@ function setColony(x, y) {
     map[x][y] = 2;
     ants = [];
     for (let i = 0; i < antCount; i++){
-        ants.push(new Ant(antColony.x, antColony.y));
+        ants.push(new Ant(antColony.x, antColony.y, antColony));
     }
     updateMap();
 }
 
 function setFood(x, y) { 
-    x = Math.floor(x/10);
-	y = Math.floor(y/10);
+    x = Math.floor(x/sizePixel);
+	y = Math.floor(y/sizePixel);
     if (map[x][y] === 0) {
         map[x][y] = 3;
         foodPositions.push({x: x, y: y});
@@ -82,8 +83,8 @@ function setFood(x, y) {
 }
 
 function setWalls(x, y){ 
-    x = Math.floor(x/10);
-	y = Math.floor(y/10);
+    x = Math.floor(x/sizePixel);
+	y = Math.floor(y/sizePixel);
     if (map[x][y] !== 2){
         map[x][y] = 1;
         updateMap();
@@ -94,6 +95,7 @@ function updateAnts() {
     if (ants.length != 0){
         updateMap();
         ants.forEach((ant) => {
+            console.log(ant);
             ant.updatePosition();
             ant.draw();
             ant.drawPheromones();
@@ -122,10 +124,6 @@ function updateMap(){
             }
         }
     }
-}
-
-export function findDistance(x1, y1, x2, y2) {
-    return Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
 }
 
 /*---------------------------------------Просто отработчики нажатий-------------------------------------------*/

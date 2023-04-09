@@ -1,4 +1,4 @@
-import { canvas, ctx, map, pheromoneMap, speed, size, findDistance, foodPositions } from "./antMain.js";
+import { canvas, ctx, map, pheromoneMap, speed, size, foodPositions, sizePixel, antColony } from "./antMain.js";
 
 const pheromoneStrength = 1;
 const pheromoneDestroy = 0.5;
@@ -10,6 +10,7 @@ export class Ant {
         this.y = y;
         this.direction = Math.random() * 2 * Math.PI;
         this.pheromones = [];
+        this.isCarryingFood = false;
     }
 
     updatePosition() {
@@ -19,7 +20,11 @@ export class Ant {
             }
         }
 
-        this.followFood(foodPositions);
+        if (this.isCarryingFood) {
+            this.followHome();
+        } else {
+            this.followFood(foodPositions);
+        }
 
         this.x += speed * Math.cos(this.direction);
         this.y += speed * Math.sin(this.direction);
@@ -91,13 +96,58 @@ export class Ant {
 
     followFood(foodPositions) {
         let food = this.findFood(foodPositions);
-        if (food) {
+        if (food && !this.isCarryingFood) {
             let dx = food.x - Math.floor(this.x / 10);
             let dy = food.y - Math.floor(this.y / 10);
             this.direction = Math.atan2(dy, dx);
+            if (dx < 1 && dy < 1){
+                this.isCarryingFood = true;
+            }
         } else {
             this.direction += (Math.random() - 0.5) * 0.5;
         }
     }
+
+    followHome() {
+        let dx = antColony.x - Math.floor(this.x / 10);
+        let dy = antColony.y - Math.floor(this.y / 10);
+        if (this.direction < 0) {
+            this.direction =  -Math.atan2(dy, dx);;
+        }
+        else {
+            this.direction = Math.PI - Math.atan2(dy, dx);;
+        }
+        if (dx < 2 && dy < 2){
+            this.isCarryingFood = false;
+        }
+    }
+    
+}
+
+function findDistance(x1, y1, x2, y2) { //алгоритм Брезенхэма
+    let dx = Math.abs(x2 - x1);
+    let dy = Math.abs(y2 - y1);
+    let directionX = x1 < x2 ? 1 : -1;
+    let directionY = y1 < y2 ? 1 : -1;
+    let err = dx - dy;
+    while (x1 != x2 || y1 != y2) {
+        let err2 = err * 2;
+        if (err2 > -dy) {
+            err -= dy;
+            x1 += directionX;
+        }
+        if (err2 < dx) {
+            err += dx;
+            y1 += directionY;
+        }
+        if (x1 < 0 || y1 < 0){ // бывает что выходит за границы, да костыль
+            return Infinity;
+        }
+
+        if (map[x1][y1] === 1) { //если стенка, то муравей не чувствует еду, возвращаем огромное расстояние
+            return Infinity;
+        }
+    }
+    return Math.sqrt(dx * dx + dy * dy);
 }
 
