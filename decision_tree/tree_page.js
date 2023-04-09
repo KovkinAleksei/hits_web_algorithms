@@ -82,8 +82,6 @@ makeTreeButton.addEventListener('click', (e) => {
         // Отображение дерева решений
         let treeRootElement = document.getElementById("root");
         displayTree(treeRoot, treeRootElement);
-
-        document.getElementById("root").style.zoom = 2;
     }
 });
 

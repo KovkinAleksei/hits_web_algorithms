@@ -79,6 +79,9 @@ button {
 #tree:hover {
     cursor: pointer;
 }
+#root {
+    zoom: 2;
+}
 
 #tree ul {
     display: flex;

@@ -60,4 +60,4 @@ const mouseUpHandler = function(e) {
 
 tree.addEventListener('mousedown', mouseDownHandler);
 tree.addEventListener('mousemove', mouseMoveHandler);
-tree.addEventListener('mouseup', mouseUpHandler);
+document.addEventListener('mouseup', mouseUpHandler);
