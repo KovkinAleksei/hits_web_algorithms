@@ -62,7 +62,7 @@ button {
 }
 
 #tree {
-    overflow: scroll;
+    overflow: auto;
     padding: 16px;
     background-color: white;
     border-radius: 10px;
@@ -74,6 +74,10 @@ button {
     display: block;
     margin-left: auto;
     margin-right: auto; 
+}
+
+#tree:hover {
+    cursor: pointer;
 }
 
 #tree ul {
@@ -96,15 +100,15 @@ button {
 	position: absolute; 
     top: 0;
     right: 50%;
-	border-top: 2px solid gray;
+	border-top: 1px solid gray;
 	width: 50%; 
-    height: 20px;
+    height: 23px;
 }
 
 #tree li::after{
 	right: auto; 
     left: 50%;
-	border-left: 2px solid gray;
+	border-left: 1px solid gray;
 }
 
 #tree li:only-child::after, #tree li:only-child::before {
@@ -112,7 +116,7 @@ button {
 }
 
 #tree li:only-child{ 
-    padding-top: 0;
+    margin-top: -25px;
 }
 
 #tree li:first-child::before, #tree li:last-child::after{
@@ -120,7 +124,7 @@ button {
 }
 
 #tree li:last-child::before{
-	border-right: 2px solid gray;
+	border-right: 1px solid gray;
 	border-radius: 0 5px 0 0;
 }
 
@@ -133,7 +137,7 @@ button {
 	position: absolute; 
     top: 0; 
     left: 50%;
-	border-left: 2px solid gray;
+	border-left: 1px solid gray;
 	width: 0; 
     height: 20px;
 }
@@ -141,15 +145,15 @@ button {
 #tree li span{
     background: whitesmoke;
 	border: 1px solid gray;
-    min-width: 180px;
+    min-width: 70px;
     max-width: min-content;
-    padding-top: 15px;
-    height: 30px;
+    padding-top: 5px;
+    height: 10px;
 	text-decoration: none;
 	color: black;
 	font-family: sans-serif;
-	font-size: 16px;
+	font-size: 6px;
 	display: inline-block;
-	border-radius: 10px;
-    border: 2px solid gray;
+	border-radius: 3px;
+    border: 1px solid gray;
 }

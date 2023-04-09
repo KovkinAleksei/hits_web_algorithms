@@ -68,6 +68,8 @@ makeTreeButton.addEventListener('click', (e) => {
             // Отображение дерева решений
             let treeRootElement = document.getElementById("root");
             displayTree(treeRoot, treeRootElement);
+
+            document.getElementById("root").style.zoom = 2;
         }
     }
 });
@@ -220,3 +222,17 @@ function resetTree() {
     let rootElement = document.getElementById("root");
     rootElement.innerHTML = "";
 }
+
+// Маштабирование дерева
+const list = document.getElementById("root");
+
+list.addEventListener('wheel', function(event) {
+    event.preventDefault();
+
+    const delta = Math.sign(event.deltaY);
+    const zoomValue = parseFloat(window.getComputedStyle(list).zoom);
+
+    if (zoomValue + delta > 0.1 && zoomValue + delta < 5) {
+        list.style.zoom = zoomValue + delta * 0.1;
+    }
+});
