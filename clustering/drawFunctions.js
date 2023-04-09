@@ -60,8 +60,8 @@ function startKMeans () {
     resetSolve();
     algorithm = 1;
     let kmeans = kMeans(countClusters);
-    drawCentroids(kmeans.centroids);
     drawClusters(kmeans.clusters);
+    drawCentroids(kmeans.centroids);
 }
 
 function startDBSCAN (){
@@ -76,7 +76,7 @@ function startHierarchical() {
 }
 
 function drawCentroids(centroids) { 
-    let crossSize = 10;
+    let crossSize = 7;
     for (let i = 0; i < centroids.length; i++) {
         ctx.beginPath();
         ctx.moveTo(centroids[i].x - crossSize, centroids[i].y - crossSize);
@@ -84,7 +84,7 @@ function drawCentroids(centroids) {
         ctx.moveTo(centroids[i].x + crossSize, centroids[i].y - crossSize);
         ctx.lineTo(centroids[i].x - crossSize, centroids[i].y + crossSize);
         ctx.strokeStyle = "red";
-        ctx.lineWidth = 5;
+        ctx.lineWidth = 4;
         ctx.stroke();
     }
 }

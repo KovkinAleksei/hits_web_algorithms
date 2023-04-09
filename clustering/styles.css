@@ -23,12 +23,32 @@ canvas{
     align-items: center;
 }
 
-.button {
+.button:disabled, .button:hover {
+    opacity: 0.5;
+}
+
+.startAlgorithms:disabled, .startAlgorithms:hover {
+    opacity: 0.5;
+}
+
+.button{
+    cursor: pointer;
     height: 40px;
     width: 200px;
-    margin: 10px;
-    border-radius: 10px;
+
+    font-size: 16px;
+
+    text-align: center;
+
+    margin: 10px 10px;
+    padding: auto;
+    background-color: #d8d7d5;
+    color: rgb(19, 19, 19);
+
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
     display: block;
+    border: none;
+    border-radius: 20px;
 }
 
 .chooseBar{
@@ -50,7 +70,7 @@ canvas{
 
 .toolbar{
     display: flex;
-    max-width: 350px;
+    max-width: 400px;
     margin: 0 auto;
     background-color: #f2f2f2;
     padding: 20px;
@@ -59,7 +79,7 @@ canvas{
 }
 
 .settingsBars{
-    max-width: 350px;
+    max-width: 400px;
     margin: 0 auto;
     background-color: #f2f2f2;
     padding: 20px;
