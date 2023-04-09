@@ -1,6 +1,7 @@
 import { readFile } from "./parse_cvs_file.js";
 import { makeTree } from "./tree_building.js";
 import { data, getUniqueElements } from "./entropy_calculation.js";
+import { getData } from "./data.js"
 
 // Отображение дерева на странице
 function displayTree(currentNode, treeElement) {
@@ -37,6 +38,7 @@ function displayTree(currentNode, treeElement) {
 let file = document.getElementById("fileInput");
 let makeTreeButton = document.getElementById("makeTree");
 let treeRoot;
+let chosenFileIndex = null;
 
 // Построение дерева решений
 makeTreeButton.addEventListener('click', (e) => {
@@ -47,12 +49,13 @@ makeTreeButton.addEventListener('click', (e) => {
     let data = [];       // Текст из файла
     treeRoot = null;     // Корень дерева
 
-    if (file.value === ''){
+    if (file.value === '' && !chosenFileIndex){
         alert('Файл не загружен');
     }
-    else {
+    else if (file.value != '') {
         // Открытие файла
         fileInput = file.files[0];
+
         let reader = new FileReader();
 
         // Открытие файла
@@ -71,6 +74,16 @@ makeTreeButton.addEventListener('click', (e) => {
 
             document.getElementById("root").style.zoom = 2;
         }
+    }
+    else {
+        // Построение дерева решений
+        treeRoot = makeTree(getData(chosenFileIndex));
+
+        // Отображение дерева решений
+        let treeRootElement = document.getElementById("root");
+        displayTree(treeRoot, treeRootElement);
+
+        document.getElementById("root").style.zoom = 2;
     }
 });
 
@@ -149,6 +162,11 @@ let reduceTreeButton = document.getElementById("reduceTree");
 
 // Сокращение размера дерева
 reduceTreeButton.addEventListener('click', (e) => {
+    // Отмена сокращения невыведенного дерева
+    if (document.getElementById("root").innerHTML == '') {
+        return;
+    }
+
     // Сокращение размера дерева
     reduceTree(treeRoot);
 
@@ -223,16 +241,24 @@ function resetTree() {
     rootElement.innerHTML = "";
 }
 
-// Маштабирование дерева
-const list = document.getElementById("root");
+// Выбор файла infection
+let infectionButton = document.getElementById("infectionButton");
 
-list.addEventListener('wheel', function(event) {
-    event.preventDefault();
+infectionButton.addEventListener('click', (e) => {
+    chosenFileIndex = 1;
+});
 
-    const delta = Math.sign(event.deltaY);
-    const zoomValue = parseFloat(window.getComputedStyle(list).zoom);
+// Выбор файла THAP
+let thapButton = document.getElementById("thapButton");
 
-    if (zoomValue + delta > 0.1 && zoomValue + delta < 5) {
-        list.style.zoom = zoomValue + delta * 0.1;
-    }
+thapButton.addEventListener('click', (e) => {
+   // alert('a');
+    chosenFileIndex = 2;
+});
+
+// Выбор файла weather
+let weatherButton = document.getElementById("weatherButton");
+
+weatherButton.addEventListener('click', (e) => {
+    chosenFileIndex = 3;
 });

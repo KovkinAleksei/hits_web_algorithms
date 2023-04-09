@@ -6,9 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./decision_tree.css" rel="stylesheet">
     <link href="../css.nav.css" rel="stylesheet">
+    <link href="./modal_window.css" rel = "stylesheet">
     <title>Дерево решений</title>
 </head>
 <body>
+    <!-- HTML модального окна -->
+<div id="openModal" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Обучающие файлы</h3>
+          <a href="#close" title="Close" class="close">×</a>
+        </div>
+        <div class="modal-body">    
+          <a href="#" id = "infectionButton">Infection</a><br>
+          <a href="#" id = "weatherButton">Weather</a><br>
+          <a href="#" id = "thapButton">THAP</a><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <input type="checkbox" id="nav-toggle" hidden>
     <nav class="nav">
         <label for="nav-toggle" class="nav-toggle" onclick></label>
@@ -41,7 +59,7 @@
     </div> 
     <div id = "firstRowButtons">
         <button><label id = "fileInputButton" for="fileInput">Загрузить файл</label></button>
-        <button>Выбрать файл</button>
+        <a href="#openModal"><button>Выбрать файл</button></a>
         <button id = "deleteTree">Удалить дерево</button>
 
         <input type="text" id="userInput" placeholder="Ввод ваших данных">
@@ -60,5 +78,6 @@
     </div>
 
     <script src = "./tree_page.js" type = "module"></script>
+    <script src = "./tree_window.js" type = "module"></script>
 </body>
 </html>
