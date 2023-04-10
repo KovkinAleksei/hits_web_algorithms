@@ -1,5 +1,6 @@
 import { feedforward } from "./nn.js";
 
+// Создание канваса
 let canvas = document.getElementById("drawField");
 let ctx = canvas.getContext("2d");
 
@@ -13,6 +14,7 @@ let lastX;
 let lastY;
 
 let draw;
+
 // обработчик нажатия мыши
 canvas.addEventListener("mousedown", function(e) {
     lastX = e.clientX - canvas.offsetLeft;
@@ -48,11 +50,13 @@ canvas.addEventListener("mouseup", function(e) {
     neuralNetwork();
 });
 
+// Очистить канвас
 function clearCanvas() {
     ctx.clearRect(0,0, canvas.width, canvas.height);
     document.getElementById("answerLabel").textContent = "";
 }
 
+// Функция запускающая работу нн
 function neuralNetwork() {
     let canvas = document.getElementById('drawField');
     let image = new Image();
@@ -187,18 +191,14 @@ for(let i = 0; i < goriz; i++) {
 
 function scaleImageData(image) {
 
-    // Dynamically create a canvas element
     let canvas = document.createElement("canvas");
 
-    // var canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
 
     canvas.width = 28;
     canvas.height = 28;
 
-    // Actual resizing
-    ctx.drawImage(image, 0, 0, 28, 28);
-    
+    ctx.drawImage(image, 0, 0, 28, 28);    
     return ctx.getImageData(0, 0, 28, 28);
 }
 
