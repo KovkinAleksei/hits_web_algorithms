@@ -1,6 +1,6 @@
 body {
     visibility: hidden;
-    animation: fadeIn 1s ease forwards;
+    animation: fadeIn 1.5s ease forwards;
   }
   
   @keyframes fadeIn {
