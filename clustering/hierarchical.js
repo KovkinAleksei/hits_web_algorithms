@@ -1,4 +1,4 @@
-export { agglomerativeClustering };
+export { hierarchicalClustering };
 import { nowDistance } from "./main.js";
 
 const MAXVALUE = 10000000;
@@ -36,7 +36,7 @@ function generateArrayOfDistances (clusters) { //массив дистанций
     return distances;
 }
 
-function agglomerativeClustering(pointCoordinates, count) {
+function hierarchicalClustering(pointCoordinates, count) {
     let clusters = [];
   
     for (let i = 0; i < pointCoordinates.length; i++) {

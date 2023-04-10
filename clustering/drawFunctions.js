@@ -2,7 +2,7 @@ import { nowButton, pointCoordinates, countClusters, countClustersHierarchical, 
 import { Point } from "./pointClass.js";
 import { dbscan } from "./DBSCAN.js";
 import { kMeans } from "./kMeans.js";
-import { agglomerativeClustering } from "./hierarchical.js";
+import { hierarchicalClustering } from "./hierarchical.js";
 export { drawer, startDrawing, stopDrawing, startDBSCAN, startKMeans, findNearestPointIndex, getAllPointsBlack, startHierarchical, startAllAlgorithms};
 
 
@@ -72,7 +72,7 @@ function startDBSCAN (){
 
 function startHierarchical() { 
     algorithm = 3;
-    drawClusters(agglomerativeClustering(pointCoordinates, countClustersHierarchical));
+    drawClusters(hierarchicalClustering(pointCoordinates, countClustersHierarchical));
 }
 
 function drawCentroids(centroids) { 
