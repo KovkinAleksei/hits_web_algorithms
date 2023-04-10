@@ -27,7 +27,7 @@ function clearStartFinish() {
         for(let j = 0; j < size; j++) {
             let cell = document.getElementById('table').rows[i].cells[j];
 
-            if(cell.dataset.mode == "start" || cell.dataset.mode == "finish") {
+            if(cell.dataset.mode === "start" || cell.dataset.mode === "finish") {
                 cell.dataset.mode = "empty";
             }
         }
@@ -103,7 +103,7 @@ export function enableButtons() {
 export function createWall() {
     let cell = event.target;
     let x = cell.dataset.x, y = cell.dataset.y;
-    if(cell.dataset.mode != "start" && cell.dataset.mode != "finish") {
+    if(cell.dataset.mode !== "start" && cell.dataset.mode !== "finish") {
         cell.dataset.mode = (cell.dataset.mode === "wall") ? "empty" : "wall";
         map[x][y] = (map[x][y] === 1) ? 0 : 1;
     }
@@ -116,12 +116,12 @@ export function sleep(milliseconds) {
 // Функция установки старта и финиша
 function setTargets() {
     let cell = event.target;
-    if(!isStartUsed && cell.dataset.mode == "empty") {
+    if(!isStartUsed && cell.dataset.mode === "empty") {
         cell.dataset.mode = 'start';
         start.x = cell.dataset.y;
         start.y = cell.dataset.x;
         isStartUsed = true;
-    } else if (isStartUsed && cell.dataset.mode == "empty") {
+    } else if (isStartUsed && cell.dataset.mode === "empty") {
         cell.dataset.mode = 'finish';
         finish.x = cell.dataset.y;
         finish.y = cell.dataset.x;

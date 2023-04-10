@@ -29,7 +29,7 @@ canvas.addEventListener("mousemove", function(e) {
     if (e.buttons !== 1) {
         return;
     }
-    if(draw == true) {
+    if(draw === true) {
 
         let currentX = e.clientX - canvas.offsetLeft;
         let currentY = e.clientY - canvas.offsetTop;
