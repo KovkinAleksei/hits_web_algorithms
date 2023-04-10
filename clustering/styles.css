@@ -11,6 +11,9 @@ canvas{
 
 .secondCanvas, .firstCanvas, .thirdCanvas {
     margin: 0px 15px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #0f0903;
 }
 
 #canvasKMeans, #canvasDBSCAN, #canvas3 {
