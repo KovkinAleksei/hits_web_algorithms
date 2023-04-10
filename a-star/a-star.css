@@ -30,9 +30,9 @@ body {
     border-radius: 5px;
     background-color: #f0eee7;
     outline: none;
-  }
-  
-  #animationSpeed::-webkit-slider-thumb {
+}
+
+#animationSpeed::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 20px;
@@ -41,9 +41,9 @@ body {
     border: 2px solid #252525;
     background-color: #2c2a23;
     cursor: pointer;
-  }
+}
 
-  #tableSize {
+#tableSize {
     font-size: 16px;
     width: 60px;
     height: 30px;
@@ -52,13 +52,20 @@ body {
     padding: 5px 10px;
     box-sizing: border-box;
     transition: border-color 0.2s ease-in-out;
-  }
-  
-  #tableSize:focus {
+}
+
+#tableSize:focus {
     outline: none;
     border-color: #2c2a23;
-  }
-  
+}
+
+/* Скрыть стандартные стрелки в input[type="number"] */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .extraLabel {
     justify-content: center;
     margin: 2px auto;
