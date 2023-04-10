@@ -6,6 +6,7 @@ let canv = document.getElementById("canvas");
 
 export let vertexes = [];       // Массив вершин
 export let solves = [];         // Решения
+let interval = null;            // Интервал работы алгоритма
 const RADIUS = 10;              // Радиус вершины
 
 // Отображение всех вершин графа
@@ -80,8 +81,6 @@ deleteVertexButton.addEventListener('click', (e) => {
     }
 })
 
-// Интервал работы генетического алгоритма
-let interval = null
 
 // Удаление вершины
 function deleteVertex(e) {

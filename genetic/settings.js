@@ -1,6 +1,8 @@
 import { solves, showSolve, drawVertexes, vertexes } from "./geneticPage.js";
 
 export let drawFullGraph = false;
+export let timeout = 10;
+
 let canv = document.getElementById("canvas");
 
 const fullGraphCheckbox = document.getElementById("fullGraph");
