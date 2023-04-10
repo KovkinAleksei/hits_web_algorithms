@@ -28,12 +28,12 @@ export async function aStar() {
     let count = 0;
 
     // Дефолтное значение старта и финиша.
-    if(start.x === null || start.y === null){
+    if(start.x == null || start.y == null){
         start.x = 0;
         start.y = 0;
         table.rows[0].cells[0].dataset.mode = 'start';
     }
-    if(finish.x === null || finish.y === null){
+    if(finish.x == null || finish.y == null){
         finish.x = size - 1;
         finish.y = size - 1;
         table.rows[size - 1].cells[size - 1].dataset.mode = 'finish';
@@ -67,13 +67,13 @@ export async function aStar() {
             count = 0;
         }
         count++;
-        if (!(current.x === start.x && current.y === start.y) && !(current.x === finish.x && current.y === finish.y)) {
+        if (!(current.x == start.x && current.y == start.y) && !(current.x == finish.x && current.y == finish.y)) {
             document.getElementById("table").rows[current.y].cells[current.x].dataset.mode = "checked";
         }
 
 
         // Нашли финиш - брейк 🤙🏻
-        if (current.x === finish.x && current.y === finish.y) {
+        if (current.x == finish.x && current.y == finish.y) {
             break;
         }
 
@@ -85,14 +85,14 @@ export async function aStar() {
             newNeighbour.y = current.y + directions[dir][1];
 
             // Проверка соседа на нахождение в массивах
-            let isUsed = usedList.find(node => (node.x === newNeighbour.x && node.y === newNeighbour.y));
-            let neighbour = openList.find(node => (node.x === newNeighbour.x && node.y === newNeighbour.y));
+            let isUsed = usedList.find(node => (node.x == newNeighbour.x && node.y == newNeighbour.y));
+            let neighbour = openList.find(node => (node.x == newNeighbour.x && node.y == newNeighbour.y));
 
             // Если ячейка не использована и не находится в openList просчитать дистанции
-            if (isInside(newNeighbour.x, newNeighbour.y, size) && map[newNeighbour.y][newNeighbour.x] === 0 && isUsed === null) {
-                if (neighbour === null) {
+            if (isInside(newNeighbour.x, newNeighbour.y, size) && map[newNeighbour.y][newNeighbour.x] === 0 && isUsed == null) {
+                if (neighbour == null) {
 
-                    if(!(newNeighbour.x === finish.x && newNeighbour.y === finish.y))
+                    if(!(newNeighbour.x == finish.x && newNeighbour.y == finish.y))
                         table.rows[newNeighbour.y].cells[newNeighbour.x].dataset.mode = 'checking';
 
                     newNeighbour.distanceToStart = current.distanceToStart + 1;
@@ -114,11 +114,11 @@ export async function aStar() {
     }
 
     // Не найден финиш - оповестить пользователя
-    if (!(current.x === finish.x && current.y === finish.y)) {
+    if (!(current.x == finish.x && current.y == finish.y)) {
         alert(`Не получается найти путь 😭`);
     // Найден - отрисовать путь
     } else {
-        for(;current.parent !== null; current = current.parent) {
+        for(;current.parent != null; current = current.parent) {
 
             if(count >= Math.floor(size / 10)){
                 await sleep(101 - Number(document.getElementById('animationSpeed').value));
@@ -126,7 +126,7 @@ export async function aStar() {
             }
             count++;
 
-            if (!(current.x === finish.x && current.y === finish.y))
+            if (!(current.x == finish.x && current.y == finish.y))
                 document.getElementById("table").rows[current.y].cells[current.x].dataset.mode = "path"
         }
     }
