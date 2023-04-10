@@ -1,8 +1,9 @@
+import { POPULATION } from "./settings.js";
+
 let vertexes = [];        // Массив вершин
 var solves = [];          // Решения
-const POPULATION = 1000;  // Кол-во решений в популяции
-const CHILDS = 1000;      // Кол-во детей при скрещивании
-const MUTPROB = 30;       // Вероятность мутации
+let CHILDS = 1000;      // Кол-во детей при скрещивании
+let MUTPROB = 30;       // Вероятность мутации
 
 // Генерация случайного решения
 function getRandomSolve() {
@@ -116,6 +117,8 @@ function sortSolves(distances) {
 
 // Нахождение решений задачи коммивояжёра
 export function getSolves(vertexArray, solvesArray) {
+    //alert(POPULATION);
+
     vertexes = vertexArray;
     var distances = [];
     solves = solvesArray;

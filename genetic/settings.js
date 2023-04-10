@@ -1,7 +1,7 @@
-import { solves, showSolve, drawVertexes, vertexes } from "./geneticPage.js";
+import { solves, showSolve, drawVertexes, vertexes, resetSolve } from "./geneticPage.js";
 
-export let drawFullGraph = false;
-export let timeout = 10;
+export let drawFullGraph = false;   // Отображение/скрытие полного графа
+export let POPULATION = 1000;       // Кол-во решений в популяции
 
 let canv = document.getElementById("canvas");
 
@@ -35,4 +35,14 @@ fullGraphCheckbox.addEventListener('click', (e) => {
 
     drawVertexes();
     showSolve(solves[0]);
+});
+
+let populationRange = document.getElementById("populationRange");
+
+// Изменение кол-ва решений в популяции
+populationRange.addEventListener('change', (e) => {
+    let counter = document.getElementById("populationCounter");
+    counter.innerHTML = populationRange.value;
+    POPULATION = Number(populationRange.value);
+    resetSolve();
 });
