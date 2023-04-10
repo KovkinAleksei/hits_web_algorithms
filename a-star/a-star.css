@@ -28,7 +28,8 @@ body {
     width: 90%;
     height: 10px;
     border-radius: 5px;
-    background-color: #b9b7ae;
+    border: 1px solid #474545;
+    background-color: #e2e1db;
     outline: none;
 }
 
