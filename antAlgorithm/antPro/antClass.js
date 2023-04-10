@@ -1,7 +1,7 @@
 import { canvas, ctx, map, pheromoneMap, speed, size, foodPositions, sizePixel, antColony } from "./antMain.js";
 
 const pheromoneStrength = 1;
-const pheromoneDestroy = 0.5;
+
 const foodSearchRadius = 10;
 
 export class Ant {
@@ -14,12 +14,6 @@ export class Ant {
     }
 
     updatePosition() {
-        for (let i = 0; i < size; i++){ 
-            for (let j = 0; j < size; j++){
-                pheromoneMap[i][j] = pheromoneMap[i][j] * pheromoneDestroy;
-            }
-        }
-
         if (this.isCarryingFood) {
             this.followHome();
         } else {
@@ -127,7 +121,7 @@ export class Ant {
         // Найти направление, ведущее к муравейнику, с учетом феромонов
         let maxPheromone = 0;
         let bestDirection = null;
-        let pheromoneProbability = 0.5;
+        let pheromoneProbability = 0.7;
 
         for (let x = startX; x <= endX; x++) {
             for (let y = startY; y <= endY; y++) {
@@ -147,7 +141,7 @@ export class Ant {
         }
 
         // Сделать случайный выбор с учетом вероятности перехода на клетку с феромонами
-        if (Math.random() < pheromoneProbability) {
+        if (Math.random() < pheromoneProbability * 2) {
             // Найти клетку с максимальным уровнем феромонов
             maxPheromone = 0;
             bestDirection = null;

@@ -1,4 +1,5 @@
 import { Ant } from "./antClass.js";
+const pheromoneDestroy = 0.98;
 
 export const canvas = document.getElementById('canvas');
 export const ctx = canvas.getContext('2d');
@@ -94,6 +95,7 @@ function setWalls(x, y){
 function updateAnts() {
     if (ants.length != 0){
         updateMap();
+        updatePheromones();
         ants.forEach((ant) => {
             console.log(ant);
             ant.updatePosition();
@@ -126,6 +128,13 @@ function updateMap(){
     }
 }
 
+function updatePheromones(){
+    for (let i = 0; i < size; i++){ 
+        for (let j = 0; j < size; j++){
+            pheromoneMap[i][j] = pheromoneMap[i][j] * pheromoneDestroy;
+        }
+    }
+}
 /*---------------------------------------Просто отработчики нажатий-------------------------------------------*/
 
 document.getElementById("startButton").addEventListener('click', (e) => {
