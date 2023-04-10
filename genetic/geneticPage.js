@@ -205,6 +205,7 @@ findPathButton.addEventListener('click', (e) => {
     // Сброс работы алгоритма
     clearInterval(interval);
     interval = null;
+    resetSolve();
 
     // Запуск работы алгоритма
     interval = setInterval(function() {
