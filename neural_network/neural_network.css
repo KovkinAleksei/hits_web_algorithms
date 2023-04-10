@@ -11,30 +11,37 @@ body {
 }
 
 .container {
-    display: block;
+    width: 100%;
+    display: flex;
     flex-wrap: wrap;
     justify-content: space-between; /* Расположить элементы на равном расстоянии друг от друга по ширине контейнера */
     align-items: center; /* Выровнять элементы по центру по вертикали */
     margin: 40px auto;
+    flex-direction: column;
 }
 
 .containerInner {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     margin: 10px auto;
 }
 
 .leftWow {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    margin-right: 120px;
+    z-index: -10;
 }
 
 .rightWow {
+    margin-left: 120px;
+    z-index: -10;
+}
+
+.pictures {
+    width: 100%;
     position: absolute;
     bottom: 0;
-    right: 0;
+
+    z-index: -10;
+    display: flex;
+    justify-content: space-between;
 }
 
 p {
@@ -55,8 +62,8 @@ p {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
+}
   
-  .button:hover {
+.button:hover {
     background-color: #2b2b2b;
-  }
+}
