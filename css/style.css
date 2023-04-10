@@ -46,37 +46,9 @@ body {
     font-weight: 800;
     font-size: 18px;
     color: #fffef9;
-    opacity: 0.9;
     text-decoration: none;
     margin: 0px 25px;
     position: relative;
-    transition: color .1s linear;
-    transition: opacity .1s linear;
-}
-
-.navLink:after, .active:after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 3px;
-
-    background-color: #ffffff;
-    opacity: 0;
-
-    position: absolute;
-    top: 100%;
-    left: 0;
-
-    transition: opacity .3s linear;
-}
-
-.navLink:hover{
-    opacity: 1;
-    color: #ffffff;
-}
-
-.navLink:hover:after, .active:after {
-    opacity: 1;
 }
 
 .link {
@@ -87,7 +59,23 @@ body {
     opacity: 0.9;
     text-decoration: none;
     margin: 0px 25px;
+    position: relative;
 }
+  
+  .navLink::before, .link::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: #fffef9;
+    transition: width 0.4s ease;
+  }
+  
+  .navLink:hover::before, .link:hover::before {
+    width: 100%;
+  }
 
 .ref {
     color: #fffef9;
