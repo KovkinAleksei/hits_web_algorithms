@@ -1,0 +1,142 @@
+body {
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 16px;
+    background-color: #f9f6ee;
+}
+
+canvas{
+    margin: 5px;
+}
+
+#canvasKMeans, #canvasDBSCAN, #canvas3 {
+    display: block;
+    background-color: #ceccc6;
+    border-radius: 10px;
+}
+
+#logo {
+    width: 100%;
+    margin: 40px auto;
+    text-align: center;
+    font-size: 35px;
+    font-weight: 800;
+}
+
+.wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper label {
+    margin-left: 10px;
+}
+
+.button:disabled, .button:hover {
+    opacity: 0.5;
+}
+
+.startAlgorithms:disabled, .startAlgorithms:hover {
+    opacity: 0.5;
+}
+
+.button{
+    cursor: pointer;
+    height: 40px;
+    width: 200px;
+
+    font-size: 16px;
+
+    text-align: center;
+
+    margin: 10px 10px;
+    padding: auto;
+    background-color: #d8d7d5;
+    color: rgb(19, 19, 19);
+
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+    display: block;
+    border: none;
+    border-radius: 20px;
+}
+
+.chooseBar{
+    margin: auto;
+    display: block;
+}
+
+.settings{
+    margin: 5px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.toolbar{
+    display: flex;
+    margin: 5px 20px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.settingsBars{
+    min-width: 370px;
+    background-color: #f2f2f2;
+    margin: 5px 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.startAlgorithms {
+    margin: auto;
+    background-color: red;
+    color: white;
+    font-size: 24px;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 0px rgba(255, 0, 0, 1);
+}
+
+.start {
+    display: flex;
+}
+
+.distanceBlock{
+    text-align: center;
+    margin: auto;
+}
+
+#distanceBox {
+    font-size: 14px;
+    border: 1px solid #252525;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #333;
+}
+  
+  #distanceBox option {
+    font-size: 14px;
+    background-color: #fff;
+    color: #333;
+}
+
+  
+.kMeansBar, .dbscanBar, .hierarchicalBar{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+.kMeansBar div, .dbscanBar div, .hierarchicalBar div{
+    display: flex;
+    align-items: center;
+    margin: 3px;
+}
