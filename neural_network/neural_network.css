@@ -24,18 +24,9 @@ body {
     margin: 10px auto;
 }
 
-.leftWow {
-    margin-right: 120px;
-    z-index: -10;
-}
-
-.rightWow {
-    margin-left: 120px;
-    z-index: -10;
-}
-
 .pictures {
     width: 100%;
+    min-width: 588px;
     position: absolute;
     bottom: 0;
 
@@ -48,6 +39,16 @@ body {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none; 
+}
+
+.leftWow {
+    margin-right: 10px;
+    z-index: -10;
+}
+
+.rightWow {
+    margin-left: 10px;
+    z-index: -10;
 }
 
 p {
