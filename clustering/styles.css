@@ -2,22 +2,28 @@ body {
     font-size: 16px;
     font-family: 'Montserrat', sans-serif;
     padding: 16px;
-    background-color: #f9f6ee;
+    background-image: radial-gradient(circle at center, #f0f0f0, #afb1ad);
 }
 
 canvas{
     margin: 5px;
 }
 
+.secondCanvas, .firstCanvas, .thirdCanvas {
+    margin: 0px 15px;
+}
+
 #canvasKMeans, #canvasDBSCAN, #canvas3 {
     display: block;
     background-color: #ceccc6;
     border-radius: 10px;
+    border: 2px solid #252525;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 #logo {
     width: 100%;
-    margin: 40px auto;
+    margin: 0px auto 40px auto;
     text-align: center;
     font-size: 35px;
     font-weight: 800;
@@ -38,6 +44,20 @@ canvas{
     opacity: 0.5;
 }
 
+.startAlgorithms {
+    margin: auto;
+    background-color: rgb(180, 38, 38);
+    color: rgb(228, 196, 196);
+    font-weight: 700;
+    font-size: 24px;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 0px rgba(180, 38, 38, 1);
+}
+
 .startAlgorithms:disabled, .startAlgorithms:hover {
     opacity: 0.5;
 }
@@ -53,17 +73,17 @@ canvas{
 
     margin: 10px 10px;
     padding: auto;
-    background-color: #d8d7d5;
+    background-color: #ceccc6;
     color: rgb(19, 19, 19);
 
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
     display: block;
     border: none;
     border-radius: 20px;
 }
 
 .chooseBar{
-    margin: auto;
+    margin: auto 20px auto 0px;
     display: block;
 }
 
@@ -76,33 +96,47 @@ canvas{
 
 .toolbar{
     display: flex;
+    min-width: 440px;
     margin: 5px 20px;
-    background-color: #f2f2f2;
+    justify-content: center;
+    background-color: #e7e7e5;
     padding: 20px;
     border-radius: 10px;
+    border: 2px solid #3b3b3b;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .settingsBars{
-    min-width: 370px;
-    background-color: #f2f2f2;
+    min-width: 440px;
+    background-color: #e7e7e5;
     margin: 5px 20px;
     padding: 20px;
     border-radius: 10px;
+    border: 2px solid #3b3b3b;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.startAlgorithms {
-    margin: auto;
-    background-color: red;
-    color: white;
-    font-size: 24px;
-    border-radius: 50%;
+#rangeRadius, #rangePoints, #rangeKMeans, #rangeHierarchical {
+    -webkit-appearance: none;
     width: 150px;
-    height: 150px;
-    border: none;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #c0c0c0;
+    outline: none;
+}
+
+#rangeRadius::-webkit-slider-thumb,
+ #rangePoints::-webkit-slider-thumb,
+  #rangeKMeans::-webkit-slider-thumb,
+   #rangeHierarchical::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #252525;
+    background-color: #2c2a23;
     cursor: pointer;
-    box-shadow: 0px 0px 10px 0px rgba(255, 0, 0, 1);
 }
 
 .start {
@@ -118,7 +152,7 @@ canvas{
     font-size: 14px;
     border: 1px solid #252525;
     border-radius: 5px;
-    background-color: #ffffff;
+    background-color: #f1f1f0;
     color: #333;
 }
   
@@ -133,10 +167,15 @@ canvas{
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
+    margin: 20px;
 }
 
 .kMeansBar div, .dbscanBar div, .hierarchicalBar div{
     display: flex;
     align-items: center;
-    margin: 3px;
+    min-width: 400px;
+}
+
+.generalBar {
+    margin: 5px 20px 20px 20px;
 }
