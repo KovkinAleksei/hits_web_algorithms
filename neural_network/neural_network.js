@@ -70,7 +70,7 @@ function neuralNetwork() {
             oneChannelImage[ Math.floor(i / 4) ] = (scaledImage.data[i] / 255);
         }
 
-        let centredImage = imageCentring(oneChannelImage);
+        // let centredImage = imageCentring(oneChannelImage);
         // console.log('centr ' + centredImage)
         let resultImage = feedforward(oneChannelImage);
         let max = -1, maxInd = 0;
