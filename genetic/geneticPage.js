@@ -1,14 +1,15 @@
 import {getSolves} from './geneticAlgorithm.js';
+import { drawFullGraph, drawLines } from './settings.js';
 
 // Поле для расстановки вершин графа
 let canv = document.getElementById("canvas");
 
-let vertexes = [];     // Массив вершин
-let solves = [];       // Решения
-const RADIUS = 10;     // Радиус вершины
+export let vertexes = [];       // Массив вершин
+export let solves = [];         // Решения
+const RADIUS = 10;              // Радиус вершины
 
 // Отображение всех вершин графа
-function drawVertexes() {
+export function drawVertexes() {
     let ctx = canv.getContext('2d');
 
     vertexes.forEach(element => {
@@ -19,7 +20,7 @@ function drawVertexes() {
 }
 
 // Сброс текущего решения
-function resetSolve() {
+export function resetSolve() {
     // Очиста поля
     let ctx = canv.getContext('2d');
     ctx.reset();
@@ -29,21 +30,6 @@ function resetSolve() {
 
     // Обображение всех вершин графа
     drawVertexes();
-}
-
-// Проведение всех рёбер в графе
-function drawLines() {
-    let ctx = canv.getContext('2d');
-
-    for (let i = 0; i < vertexes.length; i++) {
-        for (let j = 0; j < vertexes.length; j++) {
-            ctx.moveTo(vertexes[i].x, vertexes[i].y);
-            ctx.lineTo(vertexes[j].x, vertexes[j].y);
-            ctx.strokeStyle = "rgb(0, 0, 0, 0.1)";
-            ctx.stroke();
-            ctx.beginPath();
-        }
-    }
 }
 
 // Нахождение расстояния между точками
@@ -84,7 +70,14 @@ let deleteMode = false;
 
 // Переключение режима добавления/удаления вершины
 deleteVertexButton.addEventListener('click', (e) => {
-    deleteMode = !deleteMode;
+    if (!deleteMode) {
+        deleteVertexButton.style.border = "2px #f9f6ee inset";
+        deleteMode = true;
+    }
+    else {
+        deleteVertexButton.style.border = "2px #f9f6ee outset";
+        deleteMode = false;
+    }
 })
 
 // Интервал работы генетического алгоритма
@@ -141,6 +134,11 @@ canv.addEventListener('click', (e) => {
 
         // Добавление в массив вершин
         vertexes.push({x: xPos, y: yPos});
+
+        // Отображение полного графа
+        if (drawFullGraph) {
+            drawLines();
+        }
     }
 });
 
@@ -172,7 +170,7 @@ canv.addEventListener('mouseup', (e) => {
 });
 
 // Отображение найденного решения
-function showSolve(solve) {
+export function showSolve(solve) {
     // Обновление поля
     let ctx = canv.getContext('2d');
    
@@ -219,7 +217,9 @@ findPathButton.addEventListener('click', (e) => {
         drawVertexes();
 
         // Проведение всех рёбер в графе 
-        drawLines();
+        if (drawFullGraph) {
+            drawLines();
+        }
         
         // Вывод текущего решения
         solves = getSolves(vertexes, solves);
