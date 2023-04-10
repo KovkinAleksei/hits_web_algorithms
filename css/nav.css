@@ -137,6 +137,7 @@
     -o-transition: all .2s ease-in-out;
     -ms-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
+    pointer-events: none; 
 }
 
 .img:hover, .alreadyHere{
