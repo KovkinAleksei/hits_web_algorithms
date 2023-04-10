@@ -215,17 +215,17 @@ function stopDrawing() {
 }
 
 export function returnToOriginalStage(){
-    document.getElementById("addPointButton").style.backgroundColor = "";
-    document.getElementById("removePointButton").style.backgroundColor = "";
+    document.getElementById("addPointButton").style.opacity = 1;
+    document.getElementById("removePointButton").style.opacity = 1;
 }
 
 export function changeAddButton(){
-    document.getElementById("removePointButton").style.backgroundColor = "";
-    document.getElementById("addPointButton").style.backgroundColor = "#acaaa6";
+    document.getElementById("removePointButton").style.opacity = 1;
+    document.getElementById("addPointButton").style.opacity = 0.6;
 }
 
 export function changeDeleteButton(){
-    document.getElementById("addPointButton").style.backgroundColor = "";
-    document.getElementById("removePointButton").style.backgroundColor = "#acaaa6";
+    document.getElementById("addPointButton").style.opacity = 1;
+    document.getElementById("removePointButton").style.opacity = 0.6;
 }
 

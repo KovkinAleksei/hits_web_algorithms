@@ -1,10 +1,8 @@
-html {
+body {
+    font-size: 16px;
+    font-family: 'Montserrat';
     padding: 16px;
     background-color: #f9f6ee;
-}
-
-div > div {
-    padding: 5px 0;
 }
 
 canvas{
@@ -19,8 +17,13 @@ canvas{
 
 .wrapper{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+}
+
+.wrapper label {
+    margin-left: 10px;
 }
 
 .button:disabled, .button:hover {
@@ -52,26 +55,20 @@ canvas{
 }
 
 .chooseBar{
-    margin-top: 30px;
-    display: block;
-}
-
-.kMeansBar, .dbscanBar, .hierarchicalBar{
+    margin: auto;
     display: block;
 }
 
 .settings{
-    margin-left: auto;
-    margin-right: auto;
-    width: 1000px;
+    margin: 5px auto;
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .toolbar{
     display: flex;
-    max-width: 400px;
-    margin: 0 auto;
+    margin: 5px 20px;
     background-color: #f2f2f2;
     padding: 20px;
     border-radius: 10px;
@@ -79,16 +76,16 @@ canvas{
 }
 
 .settingsBars{
-    max-width: 400px;
-    margin: 0 auto;
+    min-width: 370px;
     background-color: #f2f2f2;
+    margin: 5px 20px;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .startAlgorithms {
-    margin-top: 50px;
+    margin: auto;
     background-color: red;
     color: white;
     font-size: 24px;
@@ -98,4 +95,40 @@ canvas{
     border: none;
     cursor: pointer;
     box-shadow: 0px 0px 10px 0px rgba(255, 0, 0, 1);
+}
+
+.start {
+    display: flex;
+}
+
+.distanceBlock{
+    text-align: center;
+    margin: auto;
+}
+
+#distanceBox {
+    font-size: 14px;
+    border: 1px solid #252525;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #333;
+}
+  
+  #distanceBox option {
+    font-size: 14px;
+    background-color: #fff;
+    color: #333;
+}
+
+  
+.kMeansBar, .dbscanBar, .hierarchicalBar{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+.kMeansBar div, .dbscanBar div, .hierarchicalBar div{
+    display: flex;
+    align-items: center;
+    margin: 3px;
 }
