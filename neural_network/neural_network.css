@@ -6,7 +6,7 @@ body {
     font-size: 16px;
     line-height: 1.6;
     color: #25251c;
-    background-image: radial-gradient(circle at 50% 50%, #f3f3ee, #ffffff);
+    background-image: radial-gradient(circle at center, #f3f3ee, #ffffff);
     justify-content: center;
 }
 

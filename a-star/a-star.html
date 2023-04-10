@@ -45,12 +45,12 @@
                 <button id="aStar" type="button">Запустить алгоритм поиска</button>
             </div>
             <div class="inputDiv">
-                <p class="extraLabel">Размер поля</p>
+                <p class="extraLabel">Размер поля:</p>
                 <input id="tableSize" type="number" autofocus step = "2" min = "5" max = "99" value = "21"/>
             </div>
-            <div class="inputDiv">
-                <input id="animationSpeed" type="range" min="10" max="100" value="30" oninput="document.getElementById('showAnimationSpeed').innerHTML = 'Скорость анимации алгоритма: ' + this.value "/>
-                <p  class="extraLabel" id="showAnimationSpeed">Скорость анимации алгоритма: 30</p>
+            <div class="inputDiv speedDiv">
+                <input id="animationSpeed" type="range" min="10" max="100" value="30" oninput="document.getElementById('showAnimationSpeed').innerHTML = 'Скорость анимации поиска: ' + this.value "/>
+                <p  class="extraLabel" id="showAnimationSpeed">Скорость анимации поиска: 30</p>
             </div>
             <div class="inputDiv">
                 <button id="setStartFinish" type="button">Поставить старт и финиш</button> 
