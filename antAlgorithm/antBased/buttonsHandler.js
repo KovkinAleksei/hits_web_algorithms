@@ -35,4 +35,8 @@ export function onAllButtons() {
     document.getElementById("iterationRange").disabled = false;
     document.getElementById("rhoRange").disabled = false;
     document.getElementById("warning").style.display = "none";
+    document.getElementById("done").style.display = "block";
+    setTimeout(() => {
+        document.getElementById("done").style.display = "none";
+    }, 3000);
 }

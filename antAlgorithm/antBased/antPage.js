@@ -60,6 +60,7 @@ document.getElementById("inputRange").addEventListener('input', (e) => {
 
 document.getElementById("iterationRange").addEventListener('input', (e) => {
     document.getElementById("counterIteration").innerHTML = iterationRange.value;
+    document.getElementById("allIterations").innerHTML = iterationRange.value;
     ITERATIONS = iterationRange.value;
 });
 

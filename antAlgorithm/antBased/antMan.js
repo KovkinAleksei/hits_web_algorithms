@@ -28,6 +28,7 @@ export async function antColonyOptimization(vertexes) {
     let pheromones = initiateStartPheromones(vertexes); //генерируем ферамоны
 
     for (let iteration = 0; iteration < ITERATIONS; iteration++) {
+        document.getElementById("nowIteration").innerHTML = iteration;
         // рандомный выбор откуда начинает каждый муравей
         ants.forEach(function (ant) {
             ant.path = [];
