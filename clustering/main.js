@@ -113,10 +113,9 @@ document.getElementById('removePointButton').addEventListener('click', (e) => {
 document.getElementById('clearButton').addEventListener('click', () => {
     nowButton = 0;
     returnToOriginalStage();
-    resetSolve();
-    for (let i = 0; i < pointCoordinates.length; i++) { 
-        pointCoordinates[i].drawAndCopy("#ceccc6", 1); 
-    }
+    ctx.reset();
+    ctx2.reset();
+    ctx3.reset();
     pointCoordinates = [];
 });
 
