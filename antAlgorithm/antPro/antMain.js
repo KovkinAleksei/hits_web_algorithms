@@ -14,7 +14,7 @@ export let antColony = {x: 0, y: 0};
 
 let nowButton = 0;
 let ants = [];
-let antCount = 20;
+let antCount = 1;
 let requestId;
 
 function initializeMap(){
@@ -97,7 +97,6 @@ function updateAnts() {
         updateMap();
         updatePheromones();
         ants.forEach((ant) => {
-            console.log(ant);
             ant.updatePosition();
             ant.draw();
             ant.drawPheromones();

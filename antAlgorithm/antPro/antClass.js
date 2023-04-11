@@ -58,9 +58,9 @@ export class Ant {
     }
 
     draw() {
-        ctx.fillStyle = "red";
+        ctx.fillStyle = this.isCarryingFood ? "green" : "red";
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI);
+        ctx.arc(this.x, this.y, 2, 0, 2 * Math.PI);
         ctx.fill();
     }
     
@@ -68,7 +68,7 @@ export class Ant {
         for (let i = 0; i < this.pheromones.length; i++) {
             ctx.fillStyle = "rgba(255, 0, 0, " + (this.pheromones[i].time / 25) + ")";
             ctx.beginPath();
-            ctx.arc(this.pheromones[i].x, this.pheromones[i].y, 2, 0, 2 * Math.PI);
+            ctx.arc(this.pheromones[i].x, this.pheromones[i].y, 0.5, 0, 2 * Math.PI);
             ctx.fill();
         }
     }
@@ -103,77 +103,46 @@ export class Ant {
     }
 
     followHome() {
-        // Найти координаты муравейника
-        let colonyX = Math.floor(antColony.x / 10);
-        let colonyY = Math.floor(antColony.y / 10);
-    
-        // Определить ячейку в массиве pheromoneMap, соответствующую текущему положению муравья
+       // Определить ячейку в массиве pheromoneMap, соответствующую текущему положению муравья
         let currentCellX = Math.floor(this.x / 10);
         let currentCellY = Math.floor(this.y / 10);
-    
+        
         // Определить область вокруг муравья, где будут искаться феромоны
         let searchRadius = 2;
         let startX = Math.max(0, currentCellX - searchRadius);
         let endX = Math.min(pheromoneMap.length - 1, currentCellX + searchRadius);
         let startY = Math.max(0, currentCellY - searchRadius);
         let endY = Math.min(pheromoneMap[0].length - 1, currentCellY + searchRadius);
-    
+        
         // Найти направление, ведущее к муравейнику, с учетом феромонов
         let maxPheromone = 0;
         let bestDirection = null;
-        let pheromoneProbability = 0.7;
-
         for (let x = startX; x <= endX; x++) {
             for (let y = startY; y <= endY; y++) {
-                if (x === colonyX && y === colonyY) {
+                if (x === currentCellX && y === currentCellY) {
                     continue;
                 }
                 let pheromoneLevel = pheromoneMap[x][y];
-                if (pheromoneLevel > 0) {
-                    // Вычислить расстояние до клетки с феромонами
-                    let distance = Math.sqrt((x - currentCellX) ** 2 + (y - currentCellY) ** 2);
-                    // Вычислить вероятность перехода на клетку с феромонами
-                    let probability = pheromoneLevel / distance;
-                    // Обновить значение вероятности
-                    pheromoneProbability = Math.max(pheromoneProbability, probability);
+                if (pheromoneLevel > maxPheromone) {
+                    maxPheromone = pheromoneLevel;
+                    let dx = x - currentCellX;
+                    let dy = y - currentCellY;
+                    bestDirection = Math.atan2(dy, dx);
                 }
             }
         }
-
-        // Сделать случайный выбор с учетом вероятности перехода на клетку с феромонами
-        if (Math.random() < pheromoneProbability * 2) {
-            // Найти клетку с максимальным уровнем феромонов
-            maxPheromone = 0;
-            bestDirection = null;
-            for (let x = startX; x <= endX; x++) {
-                for (let y = startY; y <= endY; y++) {
-                    if (x === colonyX && y === colonyY) {
-                        continue;
-                    }
-                    let pheromoneLevel = pheromoneMap[x][y];
-                    if (pheromoneLevel > maxPheromone) {
-                        maxPheromone = pheromoneLevel;
-                        let dx = x - currentCellX;
-                        let dy = y - currentCellY;
-                        bestDirection = Math.atan2(dy, dx);
-                    }
-                }
-            }
-            // Изменить направление муравья на направление к клетке с максимальным уровнем феромонов
-            this.direction = bestDirection;
+        
+        // Если муравей достиг муравейника, он сбрасывает феромоны
+        if (currentCellX === antColony.x && currentCellY === antColony.y) {
+            this.isCarryingFood = false;
+            this.pheromones = [];
         }
-    
-        // Если феромонов рядом нет, то выбрать направление наугад
+        
+        // Если рядом нет феромонов, то выбрать направление наугад
         if (bestDirection === null) {
             this.direction += (Math.random() - 0.5) * 0.5;
         } else {
             this.direction = bestDirection;
-        }
-    
-        // Если муравей достиг муравейника, он сбрасывает феромоны
-        if (currentCellX === colonyX && currentCellY === colonyY) {
-            this.isCarryingFood = false;
-            this.pheromones = [];
         }
     }
 }
@@ -194,7 +163,7 @@ function findDistance(x1, y1, x2, y2) { //алгоритм Брезенхэма
             err += dx;
             y1 += directionY;
         }
-        if (x1 < 0 || y1 < 0){ // бывает что выходит за границы, да костыль
+        if (x1 < 0 || y1 < 0 || x1 > size || y1 > size){ // бывает что выходит за границы, да костыль
             return Infinity;
         }
 
