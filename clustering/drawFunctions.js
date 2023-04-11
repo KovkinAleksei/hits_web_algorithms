@@ -1,4 +1,4 @@
-import { nowButton, pointCoordinates, countClusters, countClustersHierarchical, searchRadius, pointsCount, canvasKMeans, ctx} from "./main.js";
+import { nowButton, pointCoordinates, countClusters, countClustersHierarchical, searchRadius, pointsCount, canvasKMeans, ctx, ctx2, ctx3} from "./main.js";
 import { Point } from "./pointClass.js";
 import { dbscan } from "./DBSCAN.js";
 import { kMeans } from "./kMeans.js";
@@ -129,9 +129,13 @@ function deletePoint(x, y) {
     let index = pointPresenceCheck(x, y);
 
     if (index !== null) {
-        getAllPointsBlack();
-        pointCoordinates[index].drawAndCopy(canvasColor, 1);
+        ctx.reset();
+        ctx2.reset();
+        ctx3.reset();
         pointCoordinates.splice(index, 1);
+        for (let i = 0; i < pointCoordinates.length; i++){
+            pointCoordinates[i].drawAndCopy("black");
+        }
     }
 }
 
