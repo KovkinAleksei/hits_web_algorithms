@@ -230,11 +230,10 @@ let findPathButton = document.getElementById("findPathButton");
 let timeout = 10;
 
 // Запуск генетического алгоритма
-findPathButton.addEventListener('click', (e) => {
+function getPath() {
     // Сброс работы алгоритма
     clearInterval(interval);
     interval = null;
-    resetSolve();
 
     // Запуск работы алгоритма
     interval = setInterval(function() {
@@ -262,6 +261,12 @@ findPathButton.addEventListener('click', (e) => {
 
         iterations++;
     }, timeout);
+}
+
+// Перезапуск алгоритма нажатием кнопки Найти путь
+findPathButton.addEventListener('click', (e) => {
+    solves = [];
+    getPath();
 });
 
 let clearButton = document.getElementById("clearButton");
@@ -297,6 +302,6 @@ inputRange.addEventListener('input', (e) => {
         clearInterval(interval);
         interval = null;
 
-        findPathButton.click();
+        getPath();
     }
 });
