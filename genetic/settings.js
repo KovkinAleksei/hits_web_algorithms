@@ -2,6 +2,8 @@ import { solves, showSolve, drawVertexes, vertexes, resetSolve } from "./genetic
 
 export let drawFullGraph = false;   // Отображение/скрытие полного графа
 export let POPULATION = 1000;       // Кол-во решений в популяции
+export let CHILDS = 1000;           // Кол-во детей при скрещивании
+export let MUTPROB = 30;            // Вероятность мутации при скрещивании
 
 let canv = document.getElementById("canvas");
 
@@ -44,5 +46,25 @@ populationRange.addEventListener('change', (e) => {
     let counter = document.getElementById("populationCounter");
     counter.innerHTML = populationRange.value;
     POPULATION = Number(populationRange.value);
+    resetSolve();
+});
+
+let childsRange = document.getElementById("childsRange");
+
+// Изменение кол-ва детей при скрещивании
+childsRange.addEventListener('change', (e) => {
+    let counter = document.getElementById("childsCounter");
+    counter.innerHTML = childsRange.value;
+    CHILDS = Number(childsRange.value);
+    resetSolve();
+});
+
+let mutationRange = document.getElementById("mutationRange");
+
+// Изменение вероятности мутации при скрещивании
+mutationRange.addEventListener('change', (e) => {
+    let counter = document.getElementById("mutationCounter");
+    counter.innerHTML = mutationRange.value;
+    MUTPROB = Number(mutationRange.value);
     resetSolve();
 });

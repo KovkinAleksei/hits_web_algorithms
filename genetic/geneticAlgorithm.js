@@ -1,9 +1,7 @@
-import { POPULATION } from "./settings.js";
+import { POPULATION, CHILDS, MUTPROB } from "./settings.js";
 
 let vertexes = [];        // Массив вершин
 var solves = [];          // Решения
-let CHILDS = 1000;      // Кол-во детей при скрещивании
-let MUTPROB = 30;       // Вероятность мутации
 
 // Генерация случайного решения
 function getRandomSolve() {
