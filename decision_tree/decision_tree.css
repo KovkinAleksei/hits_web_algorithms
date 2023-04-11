@@ -1,0 +1,162 @@
+html {
+    padding: 16px;
+    background-color: #f9f6ee;
+}
+
+ul {
+    padding: 0px;
+}
+
+li {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#fileInput {
+    visibility: collapse;
+}
+
+#fileInputButton{
+    font-size: 16px;
+    text-align: center;
+    display: block;
+    width: 200px;
+    height: 40px;
+    padding-top: 7px;
+    left: 0px;
+    margin-left: -8px;
+    margin-top: -4px;
+    font-family: sans-serif;
+    line-height: 28px;
+}
+
+#firstRowButtons, #secondRowButtons {
+    overflow: hidden;
+    display: block;
+    width: 1000px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+button {
+    display: inline-block;
+    
+    border-radius: 10px;
+    background: #efeee8;
+    font-size: 16px;
+    text-align: center;
+    width: 200px;
+    height: 40px;
+    margin: 16px;
+    font-family: sans-serif;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    border-color: #f9f6ee;
+}
+
+#userInput {
+    width: 200px;
+    height: 40px;
+    margin: 16px;
+    font-size: 16px;
+    text-align: center;
+}
+
+#tree {
+    overflow: auto;
+    padding: 16px;
+    background-color: white;
+    border-radius: 10px;
+    border: 3px solid gray;
+    width: 1000px;
+    height: 500px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#tree:hover {
+    cursor: pointer;
+}
+#root {
+    zoom: 2;
+}
+
+#tree ul {
+    display: flex;
+    white-space: nowrap;
+	padding-top: 20px; 
+    position: relative;
+}
+
+#tree li {
+	float: left; 
+    text-align: center;
+	list-style-type: none;
+	position: relative;
+	padding: 20px 5px 0px 0px;
+}
+
+#tree li::before, #tree li::after{
+	content: '';
+	position: absolute; 
+    top: 0;
+    right: 50%;
+	border-top: 1px solid gray;
+	width: 50%; 
+    height: 23px;
+}
+
+#tree li::after{
+	right: auto; 
+    left: 50%;
+	border-left: 1px solid gray;
+}
+
+#tree li:only-child::after, #tree li:only-child::before {
+	display: none;
+}
+
+#tree li:only-child{ 
+    margin-top: -25px;
+}
+
+#tree li:first-child::before, #tree li:last-child::after{
+	border: none;
+}
+
+#tree li:last-child::before{
+	border-right: 1px solid gray;
+	border-radius: 0 5px 0 0;
+}
+
+#tree li:first-child::after{
+	border-radius: 5px 0 0 0;
+}
+
+#tree ul ul::before{
+	content: '';
+	position: absolute; 
+    top: 0; 
+    left: 50%;
+	border-left: 1px solid gray;
+	width: 0; 
+    height: 20px;
+}
+
+#tree li span{
+    background: whitesmoke;
+	border: 1px solid gray;
+    min-width: 70px;
+    max-width: min-content;
+    padding-top: 5px;
+    height: 10px;
+	text-decoration: none;
+	color: black;
+	font-family: sans-serif;
+	font-size: 6px;
+	display: inline-block;
+	border-radius: 3px;
+    border: 1px solid gray;
+}
