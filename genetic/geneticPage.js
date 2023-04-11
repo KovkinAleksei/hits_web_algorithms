@@ -8,6 +8,7 @@ export let vertexes = [];       // Массив вершин
 export let solves = [];         // Решения
 let interval = null;            // Интервал работы алгоритма
 const RADIUS = 10;              // Радиус вершины
+let iterations = 0;             // Кол-во итераций
 
 // Отображение всех вершин графа
 export function drawVertexes() {
@@ -23,6 +24,7 @@ export function drawVertexes() {
 // Сброс текущего решения
 export function resetSolve() {
     // Очиста поля
+    iterations = 0;
     let ctx = canv.getContext('2d');
     ctx.reset();
 
@@ -97,6 +99,7 @@ function deleteVertex(e) {
         vertexes.splice(nearestVertex, 1);
 
         // Завершение работы алгоритма
+        iterations = 0;
         clearInterval(interval);
         interval = null;
 
@@ -111,7 +114,14 @@ canv.addEventListener('click', (e) => {
         return;
     }
 
+    if (vertexes.length == 30)
+    {
+        alert("Куда разогнался? 30-ти городов хватит!");
+        return;
+    }
+
     // Завершение работы алгоритма
+    iterations = 0;
     clearInterval(interval);
     interval = null;
 
@@ -177,7 +187,14 @@ export function showSolve(solve) {
     for (let i = 0; i < solve.length - 1; i++) {
         ctx.moveTo(vertexes[solve[i]].x, vertexes[solve[i]].y);
         ctx.lineTo(vertexes[solve[i + 1]].x, vertexes[solve[i + 1]].y);
-        ctx.strokeStyle = "white";
+        
+        if (iterations < 100) {
+            ctx.strokeStyle = "white";
+        }
+        else {
+            ctx.strokeStyle = "aqua";
+        }
+
         ctx.lineWidth = "4";
         ctx.lineCap = "round";
         ctx.stroke();
@@ -187,7 +204,15 @@ export function showSolve(solve) {
     // Соединение начальной и конечной вершин в маршруте
     ctx.moveTo(vertexes[solve[solve.length - 1]].x, vertexes[solve[solve.length - 1]].y);
     ctx.lineTo(vertexes[solve[0]].x, vertexes[solve[0]].y);
-    ctx.strokeStyle = "white";
+    if (iterations < 100) {
+        ctx.strokeStyle = "white";
+    }
+    else {
+        ctx.strokeStyle = "aqua";
+
+        clearInterval(interval);
+        interval = null;
+    }
     ctx.lineWidth = "4";
     ctx.lineCap = "round";
     ctx.stroke();
@@ -222,8 +247,16 @@ findPathButton.addEventListener('click', (e) => {
         }
         
         // Вывод текущего решения
+        let prevSolve = solves[0];
+
         solves = getSolves(vertexes, solves);
         showSolve(solves[0]);
+
+        if (prevSolve != solves[0]){
+            iterations = 0;
+        }
+
+        iterations++;
     }, timeout);
 });
 
@@ -232,6 +265,7 @@ let clearButton = document.getElementById("clearButton");
 // Очистка поля
 clearButton.addEventListener('click', (e) => {
     // Удаление вешин с поля
+    iterations = 0;
     let ctx = canv.getContext('2d');
     ctx.reset();
 

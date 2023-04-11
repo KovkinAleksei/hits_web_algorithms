@@ -1,9 +1,9 @@
 import { solves, showSolve, drawVertexes, vertexes, resetSolve } from "./geneticPage.js";
 
 export let drawFullGraph = false;   // Отображение/скрытие полного графа
-export let POPULATION = 1000;       // Кол-во решений в популяции
-export let CHILDS = 1000;           // Кол-во детей при скрещивании
-export let MUTPROB = 30;            // Вероятность мутации при скрещивании
+export let POPULATION = 1500;       // Кол-во решений в популяции
+export let CHILDS = 1500;           // Кол-во детей при скрещивании
+export let MUTPROB = 70;            // Вероятность мутации при скрещивании
 
 let canv = document.getElementById("canvas");
 
