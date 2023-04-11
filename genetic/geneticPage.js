@@ -74,10 +74,12 @@ let deleteMode = false;
 // Переключение режима добавления/удаления вершины
 deleteVertexButton.addEventListener('click', (e) => {
     if (!deleteMode) {
+        deleteVertexButton.innerHTML = "Удаление вершин: ВКЛ"
         deleteVertexButton.style.border = "2px #f9f6ee inset";
         deleteMode = true;
     }
     else {
+        deleteVertexButton.innerHTML = "Удаление вершин: ВЫКЛ"
         deleteVertexButton.style.border = "2px #f9f6ee outset";
         deleteMode = false;
     }
