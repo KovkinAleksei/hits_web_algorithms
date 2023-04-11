@@ -46,10 +46,6 @@ canvas{
     margin-left: 10px;
 }
 
-.button:disabled, .button:hover {
-    opacity: 0.5;
-}
-
 .button{
     cursor: pointer;
     height: 40px;
@@ -68,6 +64,12 @@ canvas{
     display: block;
     border: 0px solid #47341c;
     border-radius: 17px;
+    
+    transition: opacity .3s;
+}
+
+.button:disabled, .button:hover {
+    opacity: 0.5;
 }
 
 .chooseBar{
@@ -143,10 +145,11 @@ canvas{
     cursor: pointer;
     box-shadow: 0px 0px 15px 1px #d92946;
     border: 2px solid #7c0b2f;
+    transition: opacity .3s;
 }
 
 .startAlgorithms:disabled, .startAlgorithms:hover {
-    opacity: 0.5;
+    opacity: 0.7;
 }
 
 .start {
