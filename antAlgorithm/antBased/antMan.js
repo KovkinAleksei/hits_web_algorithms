@@ -2,6 +2,7 @@ import { showSolve} from "./drawFunctions.js";
 import { ANTS, ITERATIONS, RHO } from "./antPage.js";
 import { onAllButtons } from "./buttonsHandler.js";
 
+const maxIterationWithoutChanges = 100;
 const ALPHA = 2; //коэффициент влияния феромона
 const BETA = 5; //коэффициент влияния эвристической информации
 
@@ -18,7 +19,7 @@ export async function antColonyOptimization(vertexes) {
         onAllButtons();
         return;
     }
-
+    let k = 0;
     let bestPath = null;
     let bestPathLength = MAXVALUE;
 
@@ -53,16 +54,18 @@ export async function antColonyOptimization(vertexes) {
             if (pathLength < bestPathLength) {
                 bestPathLength = pathLength;
                 bestPath = ant.path.slice();
-                console.log(bestPath);
+                k = 0;
                 showSolve(bestPath);
             }
         });
         await sleep(10);
-        // обновляем матрицу феромонов
+        k++;
+        if (k > 100) {
+            break;
+        }
         updatePheromones(pheromones, ants, distances, vertexes);
     }
 
-    console.log({ path: bestPath, pathLength: bestPathLength });
     onAllButtons();
     showSolve(bestPath, "#0000ff");
 }

@@ -53,17 +53,17 @@ document.getElementById("clearButton").addEventListener('click', (e) => {
     vertexes = [];
 })
 
-document.getElementById("inputRange").addEventListener('change', (e) => {
+document.getElementById("inputRange").addEventListener('input', (e) => {
     document.getElementById("counter").innerHTML = inputRange.value;
     ANTS = inputRange.value;
 });
 
-document.getElementById("iterationRange").addEventListener('change', (e) => {
+document.getElementById("iterationRange").addEventListener('input', (e) => {
     document.getElementById("counterIteration").innerHTML = iterationRange.value;
     ITERATIONS = iterationRange.value;
 });
 
-document.getElementById("rhoRange").addEventListener('change', (e) => {
+document.getElementById("rhoRange").addEventListener('input', (e) => {
     document.getElementById("counterRHO").innerHTML = rhoRange.value;
     RHO = rhoRange.value;
 });

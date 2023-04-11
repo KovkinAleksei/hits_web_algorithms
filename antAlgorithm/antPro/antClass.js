@@ -70,7 +70,7 @@ export class Ant {
     
     drawPheromones() {
         for (let i = 0; i < this.pheromones.length; i++) {
-            ctx.fillStyle = "rgba(255, 0, 0, " + (this.pheromones[i].time / 25) + ")";
+            ctx.fillStyle = this.isCarryingFood ? "rgba(0, 255, 0, " + (this.pheromones[i].time / 25) + ")" : "rgba(255, 0, 0, " + (this.pheromones[i].time / 25) + ")";
             ctx.beginPath();
             ctx.arc(this.pheromones[i].x, this.pheromones[i].y, 0.5, 0, 2 * Math.PI);
             ctx.fill();
@@ -100,6 +100,7 @@ export class Ant {
             this.direction = Math.atan2(dy, dx);
             if (dx < 1 && dy < 1){
                 this.isCarryingFood = true;
+                this.direction += (Math.random() - 0.5) * 0.5;
             }
         } else {
             this.direction += (Math.random() - 0.5) * 0.5;
@@ -112,7 +113,7 @@ export class Ant {
         let currentCellY = Math.floor(this.y / 10);
         
         // Определить область вокруг муравья, где будут искаться феромоны
-        let searchRadius = 20;
+        let searchRadius = 5;
         let startX = Math.max(0, currentCellX - searchRadius);
         let endX = Math.min(pheromoneMap[0].length - 1, currentCellX + searchRadius);
         let startY = Math.max(0, currentCellY - searchRadius);
@@ -143,16 +144,13 @@ export class Ant {
             return;
         }
         
-        // Если муравей несет еду и рядом есть феромоны, то он будет продолжать движение в том же направлении
-        if (this.isCarryingFood && bestDirection !== null) {
-            this.direction = bestDirection;
-            return;
-        }
-        
         // Если рядом нет феромонов, то выбрать направление наугад
         if (bestDirection === null) {
             this.direction += (Math.random() - 0.5) * 0.5;
-        } else {
+        } else if (!this.isCarryingFood) {
+            this.direction = Math.atan2(antColony.y - this.y, antColony.x - this.x);
+        }
+        else {
             this.direction = bestDirection;
         }
     }
