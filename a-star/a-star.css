@@ -181,6 +181,7 @@ td[data-mode = "empty"] {
 
 td[data-mode = "wall"] {
     background-color: #181817;
+    opacity: 1;
 }
 
 td[data-mode = "start"] {
