@@ -192,9 +192,11 @@ export function showSolve(solve) {
             ctx.strokeStyle = "white";
         }
         else {
-            ctx.strokeStyle = "aqua";
+            ctx.strokeStyle = "lemonchiffon";
         }
-
+//lemonchiffon
+//lightgoldenrodyellow
+//linen
         ctx.lineWidth = "4";
         ctx.lineCap = "round";
         ctx.stroke();
@@ -208,7 +210,7 @@ export function showSolve(solve) {
         ctx.strokeStyle = "white";
     }
     else {
-        ctx.strokeStyle = "aqua";
+        ctx.strokeStyle = "lemonchiffon";
 
         clearInterval(interval);
         interval = null;
@@ -281,7 +283,9 @@ clearButton.addEventListener('click', (e) => {
 let inputRange = document.getElementById("inputRange");
 
 // Изменение задержки работы алгоритма
-inputRange.addEventListener('change', (e) => {
+inputRange.addEventListener('input', (e) => {
+    inputRange.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
+
     let counter = document.getElementById("counter");
     counter.innerHTML = inputRange.value;
     timeout = inputRange.value;

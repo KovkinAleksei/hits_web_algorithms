@@ -10,45 +10,46 @@
 </head>
 
 <body> 
-    <div id ="settings">
-        <input type="checkbox" id ="fullGraph">
-        <label for ="fullGraph">Построить полный граф</label>
+    <div id = "wholeContent">
+        <div id ="settings">
+            <input type="checkbox" id ="fullGraph">
+            <label for ="fullGraph">Построить полный граф</label>
 
-        <div id = "input">
-            <div id = "rangeLabel">Задержка работы алгоритма в миллисекундах:</div>
-            <span id = "counter">10</span>
-            <input type = "range" id = "inputRange" value = "0" min = "10" max = "500" step = "10">
+            <div id = "input">
+                <div id = "rangeLabel">Задержка работы алгоритма в мс:</div>
+                <span id = "counter">10</span>
+                <input type = "range" id = "inputRange" value = "0" min = "10" max = "500" step = "10">
+            </div>
+
+            <div id = "population">
+                <div id = "populationLabel">Кол-во решений в популяции:</div>
+                <span id = "populationCounter">1500</span>
+                <input type = "range" id = "populationRange" value = "1500" min = "100" max = "1500" step = "10">
+            </div>
+
+            <div id = "childs">
+                <div id = "childsLabel">Кол-во детей при скрещивании:</div>
+                <span id = "childsCounter">1500</span>
+                <input type = "range" id = "childsRange" value = "1500" min = "100" max = "1500" step = "10">
+            </div>
+
+            <div id = "mutation">
+                <div id = "mutationLabel">Вероятность мутации:</div>
+                <span id = "mutationCounter">70</span>
+                <input type = "range" id = "mutationRange" value = "70" min = "0" max = "100" step = "1">
+            </div>
         </div>
 
-        <div id = "population">
-            <div id = "populationLabel">Кол-во решений в популяции:</div>
-            <span id = "populationCounter">1500</span>
-            <input type = "range" id = "populationRange" value = "1500" min = "100" max = "1500" step = "10">
-        </div>
+        <div id ="canvasDiv">
+            <div id = "buttons">
+                <button id = "findPathButton">Найти путь</button>
+                <button id = "deleteVertexButton">Удалить вершину</button>
+                <button id = "clearButton">Очистить поле</button>
+            </div>
 
-        <div id = "childs">
-            <div id = "childsLabel">Кол-во детей при скрещивании:</div>
-            <span id = "childsCounter">1500</span>
-            <input type = "range" id = "childsRange" value = "1500" min = "100" max = "1500" step = "10">
-        </div>
-
-        <div id = "mutation">
-            <div id = "mutationLabel">Вероятность мутации:</div>
-            <span id = "mutationCounter">70</span>
-            <input type = "range" id = "mutationRange" value = "70" min = "0" max = "100" step = "1">
-        </div>
+            <canvas id = "canvas" width = "800" height = "500"></canvas>
     </div>
-
-    <div id ="canvasDiv">
-        <div id = "buttons">
-            <button id = "findPathButton">Найти путь</button>
-            <button id = "deleteVertexButton">Удалить вершину</button>
-            <button id = "clearButton">Очистить поле</button>
-        </div>
-
-        <canvas id = "canvas" width = "800" height = "500"></canvas>
-    </div>
-    
+</div>
     
     <script src="geneticPage.js" type = "module"></script>
     <script src="settings.js" type = "module"></script>

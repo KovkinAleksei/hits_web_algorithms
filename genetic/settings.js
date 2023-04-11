@@ -42,29 +42,41 @@ fullGraphCheckbox.addEventListener('click', (e) => {
 let populationRange = document.getElementById("populationRange");
 
 // Изменение кол-ва решений в популяции
-populationRange.addEventListener('change', (e) => {
+populationRange.addEventListener('input', (e) => {
+    populationRange.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
+
     let counter = document.getElementById("populationCounter");
     counter.innerHTML = populationRange.value;
     POPULATION = Number(populationRange.value);
+
     resetSolve();
+    document.getElementById("findPathButton").click();
 });
 
 let childsRange = document.getElementById("childsRange");
 
 // Изменение кол-ва детей при скрещивании
-childsRange.addEventListener('change', (e) => {
+childsRange.addEventListener('input', (e) => {
+    childsRange.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
+
     let counter = document.getElementById("childsCounter");
     counter.innerHTML = childsRange.value;
     CHILDS = Number(childsRange.value);
+
     resetSolve();
+    document.getElementById("findPathButton").click();
 });
 
 let mutationRange = document.getElementById("mutationRange");
 
 // Изменение вероятности мутации при скрещивании
-mutationRange.addEventListener('change', (e) => {
+mutationRange.addEventListener('input', (e) => {
+    mutationRange.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
+
     let counter = document.getElementById("mutationCounter");
     counter.innerHTML = mutationRange.value;
     MUTPROB = Number(mutationRange.value);
+
     resetSolve();
+    document.getElementById("findPathButton").click();
 });

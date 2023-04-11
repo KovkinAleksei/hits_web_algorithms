@@ -1,8 +1,8 @@
 html {
     padding: 16px;
     background-color: #f9f6ee;
-   /* background-color: #00ff22;*/
 }
+
 #buttons {
 
     display: block;
@@ -10,6 +10,14 @@ html {
     margin-right: auto;
     height: 80px;
     min-width:max-content;
+}
+
+#wholeContent {
+    overflow: auto;
+    padding: 16px;
+    top:0;
+    position: absolute;
+    min-width: 1500px;
 }
 
 button {
@@ -23,11 +31,17 @@ button {
 }
 
 #settings {
-    width:300px;
+    width:320px;
+    height:470px;
     display: inline-block;
     position: relative;
     float:left;
-    top: 100px;
+    top: 80px;
+    border: 2px outset #efeee8;
+    border-radius: 10px;
+    padding: 16px;
+    background-color: #efeee8;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 #canvasDiv{
@@ -55,13 +69,46 @@ canvas {
 }
 
 #input, #population, #childs, #mutation {
+    border-radius: 10px;
+    background-color: #e3e2dd;
+    padding: 10px;
     margin-top: 16px;
+    font-family: sans-serif;
 }
 
 #inputRange, #populationRange, #childsRange, #mutationRange {
+    -webkit-appearance: none;
+    background-image: linear-gradient(#ff4500, #ff4500);
+    background-size: 70% 100%;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    height: 7px;
     width: 200px;
 }
 
+#inputRange{
+    background-size: 0% 100%;
+}
+
+#populationRange, #childsRange {
+    background-size: 100% 100%;
+}
+
+#mutationRange {
+    background-size: 70% 100%;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #ff4500;
+    cursor: ew-resize;
+    box-shadow: 0 0 2px 0 #555;
+    transition: background .3s ease-in-out;
+  }
+  
 #counter, #populationCounter, #childsCounter, #mutationCounter {
     width: 60px;
     float:right;
