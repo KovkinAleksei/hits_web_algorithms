@@ -3,6 +3,12 @@ html {
     background-color: #f9f6ee;
 }
 
+.container {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: space-around;
+}
+
 ul {
     padding: 0px;
 }
@@ -32,8 +38,11 @@ li {
 
 #firstRowButtons, #secondRowButtons {
     overflow: hidden;
-    display: block;
-    width: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    width: 100%;
     margin-right: auto;
     margin-left: auto;
 }
@@ -69,11 +78,10 @@ button {
     border: 3px solid gray;
     width: 1000px;
     height: 500px;
-    margin-right: auto;
-    margin-left: auto;
+    min-width: 400px;
+    min-height: 300px;
+    margin: 10px 20px;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 #tree:hover {
