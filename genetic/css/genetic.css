@@ -4,7 +4,6 @@ html {
 }
 
 #buttons {
-
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -17,10 +16,11 @@ html {
     padding: 16px;
     top:0;
     position: absolute;
-    min-width: 1500px;
+    min-width: 1400px;
 }
 
 button {
+    font-family: sans-serif;
     height: 50px;
     width: 300px;
     border-radius: 10px;
@@ -42,6 +42,10 @@ button {
     padding: 16px;
     background-color: #efeee8;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+#fullGraphLabel {
+    font-family: sans-serif;
 }
 
 #canvasDiv{
