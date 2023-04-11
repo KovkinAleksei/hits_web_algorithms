@@ -97,6 +97,7 @@ function updateAnts() {
         updateMap();
         updatePheromones();
         ants.forEach((ant) => {
+            console.log(ant);
             ant.updatePosition();
             ant.draw();
             ant.drawPheromones();
@@ -130,7 +131,7 @@ function updateMap(){
 function updatePheromones(){
     for (let i = 0; i < size; i++){ 
         for (let j = 0; j < size; j++){
-            pheromoneMap[i][j] = pheromoneMap[i][j] * pheromoneDestroy;
+            pheromoneMap[i][j] = pheromoneMap[i][j] * 0.95;
         }
     }
 }

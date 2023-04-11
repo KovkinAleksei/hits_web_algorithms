@@ -25,7 +25,11 @@ export class Ant {
 
         if (this.x > 0 && this.x < canvas.width && this.y > 0 && this.y < canvas.height){
             this.pheromones.push({ x: this.x, y: this.y, time: 25 });
-            pheromoneMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] = pheromoneStrength;
+            if (!this.isCarryingFood){
+                pheromoneMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] = pheromoneStrength;
+            } else {
+                pheromoneMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] = pheromoneStrength * 1.5;
+            }
         }
 
         if (this.x < 0 || this.x > canvas.width) {
@@ -108,9 +112,9 @@ export class Ant {
         let currentCellY = Math.floor(this.y / 10);
         
         // Определить область вокруг муравья, где будут искаться феромоны
-        let searchRadius = 2;
+        let searchRadius = 20;
         let startX = Math.max(0, currentCellX - searchRadius);
-        let endX = Math.min(pheromoneMap.length - 1, currentCellX + searchRadius);
+        let endX = Math.min(pheromoneMap[0].length - 1, currentCellX + searchRadius);
         let startY = Math.max(0, currentCellY - searchRadius);
         let endY = Math.min(pheromoneMap[0].length - 1, currentCellY + searchRadius);
         
@@ -122,7 +126,7 @@ export class Ant {
                 if (x === currentCellX && y === currentCellY) {
                     continue;
                 }
-                let pheromoneLevel = pheromoneMap[x][y];
+                const pheromoneLevel = pheromoneMap[x][y];
                 if (pheromoneLevel > maxPheromone) {
                     maxPheromone = pheromoneLevel;
                     let dx = x - currentCellX;
@@ -132,10 +136,17 @@ export class Ant {
             }
         }
         
-        // Если муравей достиг муравейника, он сбрасывает феромоны
-        if (currentCellX === antColony.x && currentCellY === antColony.y) {
+        if (currentCellX === Math.floor(antColony.x / 10) && currentCellY === Math.floor(antColony.y / 10)) {
             this.isCarryingFood = false;
             this.pheromones = [];
+            this.direction = Math.atan2(antColony.y - this.y, antColony.x - this.x);
+            return;
+        }
+        
+        // Если муравей несет еду и рядом есть феромоны, то он будет продолжать движение в том же направлении
+        if (this.isCarryingFood && bestDirection !== null) {
+            this.direction = bestDirection;
+            return;
         }
         
         // Если рядом нет феромонов, то выбрать направление наугад
