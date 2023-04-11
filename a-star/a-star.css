@@ -171,17 +171,12 @@ table {
     border-collapse: collapse;
 }
 
-td {
-    opacity: 0.9;
-}
-
 td[data-mode = "empty"] {
     background-color: #e7eff8;
 }
 
 td[data-mode = "wall"] {
     background-color: #181817;
-    opacity: 1;
 }
 
 td[data-mode = "start"] {
