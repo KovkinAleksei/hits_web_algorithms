@@ -3,7 +3,7 @@ import { canvas, ctx, map, pheromoneMap, speed, size, foodPositions, sizePixel, 
 const pheromoneStrength = 1;
 
 const foodSearchRadius = 10;
-
+let kostil = 0;
 export class Ant {
     constructor(x, y) {
         this.x = x;
@@ -14,10 +14,19 @@ export class Ant {
     }
 
     updatePosition() {
-        if (this.isCarryingFood) {
-            this.followHome();
-        } else {
+        if (!this.isCarryingFood) {
             this.followFood(foodPositions);
+        } else {
+            if (findDistance(Math.floor(this.x / 10), Math.floor(this.y / 10), Math.floor(antColony.x / 10), Math.floor(antColony.y / 10)) < 3) {
+                this.isCarryingFood = false;
+                this.pheromones = [];
+                this.direction += (Math.random() - 0.5) * 0.5;
+            }
+            kostil++;
+            if (kostil > 7){
+                kostil = 0;
+                this.followHome();
+            }
         }
 
         this.x += speed * Math.cos(this.direction);
@@ -27,8 +36,6 @@ export class Ant {
             this.pheromones.push({ x: this.x, y: this.y, time: 25 });
             if (!this.isCarryingFood){
                 pheromoneMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] = pheromoneStrength;
-            } else {
-                pheromoneMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] = pheromoneStrength * 1.5;
             }
         }
 
@@ -100,7 +107,7 @@ export class Ant {
             this.direction = Math.atan2(dy, dx);
             if (dx < 1 && dy < 1){
                 this.isCarryingFood = true;
-                this.direction += (Math.random() - 0.5) * 0.5;
+                this.followHome();
             }
         } else {
             this.direction += (Math.random() - 0.5) * 0.5;
@@ -113,7 +120,7 @@ export class Ant {
         let currentCellY = Math.floor(this.y / 10);
         
         // Определить область вокруг муравья, где будут искаться феромоны
-        let searchRadius = 5;
+        let searchRadius = 20;
         let startX = Math.max(0, currentCellX - searchRadius);
         let endX = Math.min(pheromoneMap[0].length - 1, currentCellX + searchRadius);
         let startY = Math.max(0, currentCellY - searchRadius);
@@ -135,14 +142,7 @@ export class Ant {
                     bestDirection = Math.atan2(dy, dx);
                 }
             }
-        }
-        
-        if (currentCellX === Math.floor(antColony.x / 10) && currentCellY === Math.floor(antColony.y / 10)) {
-            this.isCarryingFood = false;
-            this.pheromones = [];
-            this.direction = Math.atan2(antColony.y - this.y, antColony.x - this.x);
-            return;
-        }
+        }     
         
         // Если рядом нет феромонов, то выбрать направление наугад
         if (bestDirection === null) {

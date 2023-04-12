@@ -86,8 +86,16 @@ function setFood(x, y) {
 function setWalls(x, y){ 
     x = Math.floor(x/sizePixel);
 	y = Math.floor(y/sizePixel);
-    if (map[x][y] !== 2){
+    if (map[x][y] !== 2 && map[x - 1][y - 1] !== 2 && map[x + 1][y + 1] !== 2){
+        map[x - 1][y - 1] = 1;
+        map[x - 1][y] = 1;
+        map[x - 1][y + 1] = 1;
+        map[x][y - 1] = 1;
         map[x][y] = 1;
+        map[x][y + 1] = 1;
+        map[x + 1][y] = 1;
+        map[x + 1][y + 1] = 1;
+        map[x + 1][y - 1] = 1;
         updateMap();
     }
 }
@@ -97,7 +105,6 @@ function updateAnts() {
         updateMap();
         updatePheromones();
         ants.forEach((ant) => {
-            console.log(ant);
             ant.updatePosition();
             ant.draw();
             ant.drawPheromones();
@@ -112,7 +119,7 @@ function updateMap(){
         for (let j = 0; j < size; j++){ 
             if (map[i][j] === 1){
                 ctx.fillStyle = 'gray';
-	            ctx.fillRect(i*10, j*10, 10, 10);
+	            ctx.fillRect(i*10, j*10, 30, 30);
             }
             else if (map[i][j] === 2) {
                 ctx.fillStyle = 'red';
