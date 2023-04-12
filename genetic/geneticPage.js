@@ -266,6 +266,7 @@ function getPath() {
 // Перезапуск алгоритма нажатием кнопки Найти путь
 findPathButton.addEventListener('click', (e) => {
     solves = [];
+    iterations = 0;
     getPath();
 });
 
