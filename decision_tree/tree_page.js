@@ -91,6 +91,16 @@ let bypassTreeButton = document.getElementById("bypassTree");
 let bypassIndex;
 let bypassInterval;
 
+var visitedVertexes = [];
+
+function clearPath(currentNode) {
+    currentNode.isVisited = false;
+
+    for (let i = 0; i < currentNode.branches.length; i++) {
+        clearPath(currentNode.branches[i]);
+    }
+}
+
 // Обход дерева
 function bypassTree(currentNode, data) {
     // Конец обхода
@@ -98,18 +108,28 @@ function bypassTree(currentNode, data) {
         clearInterval(bypassInterval);
         bypassInterval = null;
 
+        // clearPath(treeRoot);
+        // resetTree();
+        // let treeRootElement = document.getElementById("root");
+        // displayTree(treeRoot, treeRootElement);
+
+        //alert('aaa');
         return treeRoot;
     }
 
     // Проход через корень дерева
     if (currentNode == null) {
         treeRoot.isVisited = true;
+        //alert('aaaa');
+        clearPath(treeRoot);
 
         // Перекрашивание посещённой вершины
+        treeRoot.isVisited = true;
+        visitedVertexes.push(treeRoot);
+
         resetTree();
         let treeRootElement = document.getElementById("root");
         displayTree(treeRoot, treeRootElement);
-        treeRoot.isVisited = false;
 
         return treeRoot;
     }
@@ -121,12 +141,13 @@ function bypassTree(currentNode, data) {
             currentNode.branches.length == 1) {
             currentNode = currentNode.branches[j];
             currentNode.isVisited = true;
+            visitedVertexes.push(currentNode);
 
             // Перекрашивание посещённой вершины
             resetTree();
             let treeRootElement = document.getElementById("root");
             displayTree(treeRoot, treeRootElement);
-            currentNode.isVisited = false;
+           // currentNode.isVisited = false;
 
             break;
         }
@@ -212,7 +233,7 @@ userBypassButton.addEventListener('click', (e) => {
     clearInterval(bypassInterval);
     bypassInterval = null;
 
-    let userData = document.getElementById("userInput").value.split(' ');
+    let userData = document.getElementById("userInput").value.split(', ');
 
     bypassIndex  = 1;
     let cNode = null;
