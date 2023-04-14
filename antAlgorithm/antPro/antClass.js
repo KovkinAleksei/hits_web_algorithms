@@ -120,7 +120,7 @@ export class Ant {
         let currentCellY = Math.floor(this.y / 10);
         
         // Определить область вокруг муравья, где будут искаться феромоны
-        let searchRadius = 20;
+        let searchRadius = 10;
         let startX = Math.max(0, currentCellX - searchRadius);
         let endX = Math.min(pheromoneMap[0].length - 1, currentCellX + searchRadius);
         let startY = Math.max(0, currentCellY - searchRadius);
