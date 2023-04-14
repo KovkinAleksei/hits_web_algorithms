@@ -1,19 +1,27 @@
 import { vertexes, canv, ctx, nowButton, lines } from "./antPage.js";
-const RADIUS = 10;
+const RADIUS = 12;
 const MAXVALUE = 10000000;
 
 let flag = false;
 
 export function drawVertexes() {
-    vertexes.forEach(element => {
-        ctx.beginPath();
-        ctx.arc(element.x, element.y, RADIUS, 0, 2 * Math.PI);
-        ctx.fill();
-    });
+    let index = 0;
 
     if (lines && !flag) { 
         drawLines() 
     }
+
+    vertexes.forEach(element => {
+        ctx.fillStyle = "black";
+        ctx.beginPath();
+        ctx.arc(element.x, element.y, RADIUS, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.fillStyle = "white";
+        ctx.font = "12px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText(index, element.x, element.y + 5);
+        index++;
+    });
 }
 
 export function handler (event) {
@@ -63,9 +71,14 @@ function drawOneVertex(xPos, yPos) {
     if (drawPossibility(xPos, yPos)) {
         vertexes.push({x: xPos, y: yPos});
         resetSolve();
+        ctx.fillStyle = "black";
         ctx.beginPath();
         ctx.arc(xPos, yPos, RADIUS, 0, 2 * Math.PI);
         ctx.fill();
+        ctx.fillStyle = "white";
+        ctx.font = "12px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText(vertexes.length - 1, xPos, yPos + 5);
     }
 }
 
