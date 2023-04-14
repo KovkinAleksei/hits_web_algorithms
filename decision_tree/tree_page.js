@@ -64,7 +64,6 @@ makeTreeButton.addEventListener('click', (e) => {
         reader.onload = function () {
             // Чтение файла
             data = readFile(reader.result);
-            //console.log(getColumn(data, data[0].length - 1));
 
             // Построение дерева решений
             treeRoot = makeTree(data);
@@ -91,8 +90,7 @@ let bypassTreeButton = document.getElementById("bypassTree");
 let bypassIndex;
 let bypassInterval;
 
-var visitedVertexes = [];
-
+// Очистка помеченных при обходе вершин
 function clearPath(currentNode) {
     currentNode.isVisited = false;
 
@@ -108,19 +106,16 @@ function bypassTree(currentNode, data) {
         clearInterval(bypassInterval);
         bypassInterval = null;
 
-        //alert('aaa');
         return treeRoot;
     }
 
     // Проход через корень дерева
     if (currentNode == null) {
         treeRoot.isVisited = true;
-        //alert('aaaa');
         clearPath(treeRoot);
 
         // Перекрашивание посещённой вершины
         treeRoot.isVisited = true;
-        visitedVertexes.push(treeRoot);
 
         resetTree();
         let treeRootElement = document.getElementById("root");
@@ -136,13 +131,11 @@ function bypassTree(currentNode, data) {
             currentNode.branches.length == 1) {
             currentNode = currentNode.branches[j];
             currentNode.isVisited = true;
-            visitedVertexes.push(currentNode);
 
             // Перекрашивание посещённой вершины
             resetTree();
             let treeRootElement = document.getElementById("root");
             displayTree(treeRoot, treeRootElement);
-           // currentNode.isVisited = false;
 
             break;
         }

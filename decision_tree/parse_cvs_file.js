@@ -14,7 +14,7 @@ export function readFile(text) {
         }
 
         // Сохранение строки файла
-        data.push(line.split(','));
+        data.push(line.split(/,(?=[^\s])/));
         
         // Чтение следующей строки файла
         line = "";

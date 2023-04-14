@@ -17,8 +17,6 @@ class Node {
 // Нахождение результата прохода по дереву
 function getAnswer(atr, result, currentData) {
     // Подсчёт кол-ва соответствующих уникальных классов выбранному значению атрибута
-    console.log(currentData);
-
     let uniqueAnswers = getUniqueElements(getColumn(currentData, currentData[0].length - 1, 0));
     let answersCount = [];
 
@@ -63,7 +61,6 @@ function growBranch(queue) {
         var currentNode = queue.shift();
 
         // Нахождение всех ответвлений от текущей вершины
-        let uniqueElements = getUniqueElements(getColumn(data, attributeNodes[currentIndex].index));
         let branches = getUniqueElements(getColumn(data, currentNode.attribute.index));
 
         // Добавление веток без уникальных атрибутов
@@ -76,7 +73,7 @@ function growBranch(queue) {
         }
 
         // Добавление ответвлений к текущей вершине
-        for (let j = 0; j < uniqueElements.length; j++) {
+        for (let j = 0; j < branches.length; j++) {
             if (currentIndex < attributeNodes.length) {
                 currentNode.branches.push(new Node(`${currentNode.attribute.name} = ${branches[j]}`, 
                     attributeNodes[currentIndex], branches[j]));
@@ -113,7 +110,7 @@ function addLeaves(currentNode, currentData) {
     else {
         // Нахождение возможных результатов прохода по дереву до текущего листа
         let results = getUniqueElements(getColumn(data, currentNode.attribute.index));
-
+        console.log(currentData, currentNode.attribute.name);
         for (let j = 0; j < results.length; j++) {
             // Добавление листьев
             currentNode.branches.push(new Node(`${currentNode.attribute.name} = ${results[j]}`, 
