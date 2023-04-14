@@ -241,7 +241,7 @@ export function showSolve(solve) {
 }
 
 let findPathButton = document.getElementById("findPathButton");
-let timeout = 500;
+let timeout = 10;
 
 // Запуск генетического алгоритма
 function getPath() {
