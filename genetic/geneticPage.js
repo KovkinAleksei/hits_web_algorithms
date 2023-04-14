@@ -309,8 +309,8 @@ inputRange.addEventListener('input', (e) => {
     inputRange.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
 
     let counter = document.getElementById("counter");
-    counter.innerHTML = inputRange.value;
-    timeout = 510 - inputRange.value;
+    counter.innerHTML = inputRange.value + "%";
+    timeout = 510 - inputRange.value * 5;
 
     // Изменение скорости выполнения текущего запущенного алгоритма
     if (interval) {
