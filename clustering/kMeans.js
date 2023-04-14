@@ -21,10 +21,38 @@ function findDistance(point1, point2) {
 }
 
 function generateStartCentroids(countClusters) {
-    let centroids = [];
-    for (let i = 0; i < countClusters; i++) {
-        let point = pointCoordinates[Math.floor(Math.random() * pointCoordinates.length)];
-        centroids.push(new Point(point.x, point.y));
+    //Выбрать первый центроид из точек рандомно
+    let centroids = [pointCoordinates[Math.floor(Math.random() * pointCoordinates.length)]];
+
+    // Выбрать оставшиеся центроиды с помощью алгоритма Kmeans++
+    for (let i = 1; i < countClusters; i++) {
+        let distances = new Array(pointCoordinates.length);
+        let sum = 0;
+
+        for (let j = 0; j < pointCoordinates.length; j++) {
+            let point = pointCoordinates[j];
+            let minDistance = MAXVALUE;
+
+            for (let k = 0; k < centroids.length; k++) {
+                let distance = findDistance(point, centroids[k]); //считаем расстояние между точкой и центроидом
+                minDistance = Math.min(minDistance, distance);
+            }
+            distances[j] = minDistance;
+            sum += minDistance;
+        }
+
+        //выбираем случайное число из диапазона суммы
+        let rand = Math.random() * sum;
+        sum = 0;
+        let nextCentroid;
+        for (let j = 0; j < pointCoordinates.length; j++) {
+            sum += distances[j];
+            if (sum >= rand) {
+                nextCentroid = pointCoordinates[j];
+                break;
+            }
+        }
+        centroids.push(nextCentroid);
     }
     return centroids;
 }
