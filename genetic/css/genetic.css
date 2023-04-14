@@ -91,7 +91,7 @@ canvas {
 }
 
 #inputRange{
-    background-size: 0% 100%;
+    background-size: 100% 100%;
 }
 
 #populationRange, #childsRange {

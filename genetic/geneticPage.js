@@ -241,7 +241,7 @@ export function showSolve(solve) {
 }
 
 let findPathButton = document.getElementById("findPathButton");
-let timeout = 10;
+let timeout = 500;
 
 // Запуск генетического алгоритма
 function getPath() {
@@ -310,7 +310,7 @@ inputRange.addEventListener('input', (e) => {
 
     let counter = document.getElementById("counter");
     counter.innerHTML = inputRange.value;
-    timeout = inputRange.value;
+    timeout = 510 - inputRange.value;
 
     // Изменение скорости выполнения текущего запущенного алгоритма
     if (interval) {
