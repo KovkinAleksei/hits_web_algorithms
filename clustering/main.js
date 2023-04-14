@@ -32,6 +32,8 @@ canvas3.height = 400;
 let pointCoordinates = [];
 
 document.getElementById('canvasKMeans').addEventListener('click', (e) => { drawer(e) });
+document.getElementById('canvas3').addEventListener('click', (e) => { drawer(e) });
+document.getElementById('canvasDBSCAN').addEventListener('click', (e) => { drawer(e) });
 
 function handleRange(parameter) {
     const numberInput = document.getElementById(parameter);
@@ -127,3 +129,11 @@ document.getElementById('distanceBox').addEventListener('change', (event) => {
 document.getElementById('canvasKMeans').addEventListener('mousedown', startDrawing);
 document.getElementById('canvasKMeans').addEventListener('mouseup', stopDrawing);
 document.getElementById('canvasKMeans').addEventListener('mouseleave', stopDrawing);
+
+document.getElementById('canvas3').addEventListener('mousedown', startDrawing);
+document.getElementById('canvas3').addEventListener('mouseup', stopDrawing);
+document.getElementById('canvas3').addEventListener('mouseleave', stopDrawing);
+
+document.getElementById('canvasDBSCAN').addEventListener('mousedown', startDrawing);
+document.getElementById('canvasDBSCAN').addEventListener('mouseup', stopDrawing);
+document.getElementById('canvasDBSCAN').addEventListener('mouseleave', stopDrawing);

@@ -5,41 +5,44 @@ import { kMeans } from "./kMeans.js";
 import { hierarchicalClustering } from "./hierarchical.js";
 export { drawer, startDrawing, stopDrawing, startDBSCAN, startKMeans, findNearestPointIndex, getAllPointsBlack, startHierarchical, startAllAlgorithms};
 
-
 const colors = [
-    'rgb(0, 0 ,100)',
-    'rgb(0, 0 ,200)',
-    'rgb(0, 100 ,0)',
-    'rgb(0, 100 ,100)',
-    'rgb(0, 100 ,200)',
-    'rgb(0, 200 ,0)',
-    'rgb(0, 200 ,100)',
-    'rgb(0, 200 ,200)',
-    'rgb(100, 0 ,0)',
-    'rgb(100, 0 ,100)',
-    'rgb(100, 0 ,200)',
-    'rgb(100, 100 ,0)',
-    'rgb(100, 100 ,100)',
-    'rgb(100, 100 ,200)',
-    'rgb(100, 200 ,0)',
-    'rgb(100, 200 ,100)',
-    'rgb(100, 200 ,200)',
-    'rgb(200, 0 ,0)',
-    'rgb(200, 0 ,100)',
-    'rgb(200, 0 ,200)',
-    'rgb(200, 100 ,0)',
-    'rgb(200, 100 ,100)',
-    'rgb(200, 100 ,200)',
-    'rgb(200, 200 ,0)',
-    'rgb(200, 200 ,100)',
-    'rgb(200, 200 ,200)',
+    "aqua",
+    "aquamarine",
+    "burlywood",
+    "cadetblue",
+    "chartreuse",
+    "chocolate",
+    "crimson",
+    "darkblue",
+    "deeppink",
+    "forestgreen",
+    "gold",
+    "firebrick",
+    "green",
+    "indigo",
+    "lightgray",
+    "lightgreen",
+    "lightseagreen",
+    "limegreen",
+    "magenta",
+    "mediumpurple",
+    "mistyrose",
+    "olive",
+    "orange",
+    "purple",
+    "red",
+    "slategray",
+    "tomato",
+    "yellow",
+    "yellowgreen",
+    "darkslategray",
+    "white"
 ];
 
 const blackColor = 'rgb(0, 0, 0)'
-const canvasColor = '#ceccc6';
 const MAXVALUE = 100000000;
 const RADIUS = 7;
-const minDistanceBetweenPoint = 14;
+const minDistanceBetweenPoint = 12;
 let algorithm = 1;
 
 function startAllAlgorithms() {
@@ -67,6 +70,7 @@ function startKMeans () {
 function startDBSCAN (){
     algorithm = 2;
     getDbscanBlack();
+    getDbscanCross();
     drawClusters(dbscan(pointCoordinates, searchRadius, pointsCount));
 }
 
@@ -76,7 +80,7 @@ function startHierarchical() {
 }
 
 function drawCentroids(centroids) { 
-    let crossSize = 7;
+    let crossSize = 6;
     for (let i = 0; i < centroids.length; i++) {
         ctx.beginPath();
         ctx.moveTo(centroids[i].x - crossSize, centroids[i].y - crossSize);
@@ -84,7 +88,7 @@ function drawCentroids(centroids) {
         ctx.moveTo(centroids[i].x + crossSize, centroids[i].y - crossSize);
         ctx.lineTo(centroids[i].x - crossSize, centroids[i].y + crossSize);
         ctx.strokeStyle = "red";
-        ctx.lineWidth = 4;
+        ctx.lineWidth = 3;
         ctx.stroke();
     }
 }
@@ -180,6 +184,20 @@ function getDbscanBlack() {
     }
 }
 
+function getDbscanCross(){
+    let crossSize = 4;
+    for (let i = 0; i < pointCoordinates.length; i++) {
+        ctx2.beginPath();
+        ctx2.moveTo(pointCoordinates[i].x - crossSize, pointCoordinates[i].y - crossSize);
+        ctx2.lineTo(pointCoordinates[i].x + crossSize, pointCoordinates[i].y + crossSize);
+        ctx2.moveTo(pointCoordinates[i].x + crossSize, pointCoordinates[i].y - crossSize);
+        ctx2.lineTo(pointCoordinates[i].x - crossSize, pointCoordinates[i].y + crossSize);
+        ctx2.strokeStyle = "white";
+        ctx2.lineWidth = 2;
+        ctx2.stroke();
+    }
+}
+
 function findNearestPointIndex(x, y) {
     let minDistance = MAXVALUE;
     let index = null;
@@ -212,10 +230,14 @@ function findDistance(x1, y1, x2, y2) {
 
 function startDrawing() {
     document.getElementById('canvasKMeans').addEventListener('mousemove', drawer);
+    document.getElementById('canvas3').addEventListener('mousemove', drawer);
+    document.getElementById('canvasDBSCAN').addEventListener('mousemove', drawer);
 }
 
 function stopDrawing() {
     document.getElementById('canvasKMeans').removeEventListener('mousemove', drawer);
+    document.getElementById('canvas3').removeEventListener('mousemove', drawer);
+    document.getElementById('canvasDBSCAN').removeEventListener('mousemove', drawer);
 }
 
 export function returnToOriginalStage(){
