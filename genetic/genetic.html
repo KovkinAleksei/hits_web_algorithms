@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link href="./css/genetic.css" rel="stylesheet">
+    <title>Генетический алгоритм</title>
+</head>
+
+<body> 
+    <input type="checkbox" id="nav-toggle" hidden>
+    <nav class="nav">
+        <label for="nav-toggle" class="nav-toggle" onclick></label>
+        <div>
+            <a href="../index.html"><img class='img' src="../assets/home.png" width="60px"/></a>
+        </div>
+        <div>
+            <a href="../a-star/a-star.html"><img class='img' src="../assets/path.png" width="60px"/></a>
+        </div>
+        <div>
+            <a href="../clustering/cluster.html"><img src="../assets/clust.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../genetic/genetic.html"><img src="../assets/gen.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../antAlgorithm/antBased/ant.html"><img src="../assets/ant.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a><img src="../assets/tree.png" class='img alreadyHere' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../neural_network/neural_network.html"><img src="../assets/brain.png" class='img' width="60px"/></a>
+        </div>
+        
+    </nav>
+    
+    <div id = "wholeContent">
+        <div id ="settings">
+            <input type="checkbox" id ="fullGraph">
+            <label for ="fullGraph" id = "fullGraphLabel">Построить полный граф</label>
+
+            <div id = "input">
+                <div id = "rangeLabel">Задержка работы алгоритма в мс:</div>
+                <span id = "counter">10</span>
+                <input type = "range" id = "inputRange" value = "0" min = "10" max = "500" step = "10">
+            </div>
+
+            <div id = "population">
+                <div id = "populationLabel">Кол-во решений в популяции:</div>
+                <span id = "populationCounter">1500</span>
+                <input type = "range" id = "populationRange" value = "1500" min = "100" max = "1500" step = "10">
+            </div>
+
+            <div id = "childs">
+                <div id = "childsLabel">Кол-во детей при скрещивании:</div>
+                <span id = "childsCounter">1500</span>
+                <input type = "range" id = "childsRange" value = "1500" min = "100" max = "1500" step = "10">
+            </div>
+
+            <div id = "mutation">
+                <div id = "mutationLabel">Вероятность мутации:</div>
+                <span id = "mutationCounter">70</span>
+                <input type = "range" id = "mutationRange" value = "70" min = "0" max = "100" step = "1">
+            </div>
+        </div>
+
+        <div id ="canvasDiv">
+            <div id = "buttons">
+                <button id = "findPathButton">Найти путь</button>
+                <button id = "deleteVertexButton">Удаление вершин: ВЫКЛ</button>
+                <button id = "clearButton">Очистить поле</button>
+            </div>
+
+            <canvas id = "canvas" width = "800" height = "500"></canvas>
+    </div>
+</div>
+    
+    <script src="geneticPage.js" type = "module"></script>
+    <script src="settings.js" type = "module"></script>
+</body>
+</html>
