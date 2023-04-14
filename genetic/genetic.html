@@ -40,9 +40,17 @@
     </nav>
     
     <div id = "wholeContent">
+        <div id ="canvasDiv">
+            <canvas id = "canvas" width = "800" height = "500"></canvas>
+
+            <div id = "buttons">
+                <button id = "findPathButton">Найти путь</button>
+                <button id = "deleteVertexButton">Удаление вершин: ВЫКЛ</button>
+                <button id = "clearButton">Очистить поле</button>
+            </div>
+        </div>
+
         <div id ="settings">
-            <input type="checkbox" id ="fullGraph">
-            <label for ="fullGraph" id = "fullGraphLabel">Построить полный граф</label>
 
             <div id = "input">
                 <div id = "rangeLabel">Скорость анимации:</div>
@@ -67,18 +75,12 @@
                 <span id = "mutationCounter">70</span>
                 <input type = "range" id = "mutationRange" value = "70" min = "0" max = "100" step = "1">
             </div>
-        </div>
-
-        <div id ="canvasDiv">
-            <div id = "buttons">
-                <button id = "findPathButton">Найти путь</button>
-                <button id = "deleteVertexButton">Удаление вершин: ВЫКЛ</button>
-                <button id = "clearButton">Очистить поле</button>
+            <div id="fullGraphBox">
+                <input type="checkbox" id ="fullGraph">
+                <label for ="fullGraph" id = "fullGraphLabel">Построить полный граф</label>
             </div>
-
-            <canvas id = "canvas" width = "800" height = "500"></canvas>
+        </div>
     </div>
-</div>
     
     <script src="geneticPage.js" type = "module"></script>
     <script src="settings.js" type = "module"></script>

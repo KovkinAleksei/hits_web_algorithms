@@ -63,23 +63,27 @@ document.getElementById('startAlgorithms').addEventListener('click', (e) => {
 });
 
 
-document.getElementById('rangeKMeans').addEventListener('input', () => {
+document.getElementById('rangeKMeans').addEventListener('input', (e) => {
     handleRange('rangeKMeans');
+    rangeKMeans.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
     document.getElementById('rangeValue').textContent = "Количество кластеров: " + document.getElementById('rangeKMeans').value;
 });
 
-document.getElementById('rangeRadius').addEventListener('input', () => {
+document.getElementById('rangeRadius').addEventListener('input', (e) => {
     handleRange('rangeRadius');
+    rangeRadius.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
     document.getElementById('radiusValue').textContent = "Радиус поиска точек: " + document.getElementById('rangeRadius').value;
 });
 
-document.getElementById('rangePoints').addEventListener('input', () => {
+document.getElementById('rangePoints').addEventListener('input', (e) => {
     handleRange('rangePoints');
+    rangePoints.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
     document.getElementById('pointsValue').textContent = "Количество точек в округе: " + document.getElementById('rangePoints').value;
 });
 
-document.getElementById('rangeHierarchical').addEventListener('input', () => {
+document.getElementById('rangeHierarchical').addEventListener('input', (e) => {
     handleRange('rangeHierarchical');
+    rangeHierarchical.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
     document.getElementById('rangeValueHierarchical').textContent = "Количество кластеров: " + document.getElementById('rangeHierarchical').value;
 });
 

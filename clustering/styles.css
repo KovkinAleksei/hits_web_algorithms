@@ -112,10 +112,28 @@ canvas{
     -webkit-appearance: none;
     width: 150px;
     height: 10px;
+    background-image: linear-gradient(#2f4a50, #2f4a50);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     border-radius: 5px;
-    background-color: #2f4a50;
     outline: none;
 }
+
+#rangeRadius {
+    background-size: 40% 100%;
+}
+
+ #rangePoints {
+    background-size: 10% 100%;
+ }
+
+ #rangeKMeans {
+    background-size: 10% 100%;
+ }
+
+ #rangeHierarchical {
+    background-size: 10% 100%;
+ }
 
 #rangeRadius::-webkit-slider-thumb,
  #rangePoints::-webkit-slider-thumb,

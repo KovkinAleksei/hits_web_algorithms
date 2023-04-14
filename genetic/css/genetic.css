@@ -1,10 +1,13 @@
-html {
+body {
     padding: 16px;
     background-color: #f9f6ee;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
 }
 
 #buttons {
-    display: block;
+    display: flex;
     margin-left: auto;
     margin-right: auto;
     height: 80px;
@@ -12,54 +15,60 @@ html {
 }
 
 #wholeContent {
-    overflow: auto;
-    padding: 16px;
-    top:0;
-    position: absolute;
-    min-width: 1400px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    min-width: 900px;
+    justify-content: center;
 }
 
-button {
-    font-family: sans-serif;
-    height: 50px;
-    width: 300px;
-    border-radius: 10px;
-    background-color: #efeee8;
-    border-color: #f9f6ee;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-    margin: 5px;
+button{
+    cursor: pointer;
+    height: 40px;
+    width: 250px;
+
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+
+    margin: 10px 10px;
+    padding: auto;
+    background: #000000;
+    color: #ebf5f4;
+
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.2); 
+    display: block;
+    border: 0px solid #47341c;
+    border-radius: 17px;
+    
+    transition: opacity .3s;
+}
+
+button:disabled, button:hover {
+    opacity: 0.5;
 }
 
 #settings {
     width:320px;
-    height:470px;
-    display: inline-block;
-    position: relative;
-    float:left;
-    top: 80px;
-    border: 2px outset #efeee8;
+    height:465px;
     border-radius: 10px;
     padding: 16px;
+    margin: 20px;
     background-color: #efeee8;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-#fullGraphLabel {
-    font-family: sans-serif;
-}
-
 #canvasDiv{
-    display: inline-block;
-    margin-left:auto;
-    margin-right:auto;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
 }
 
 canvas {
     border-radius: 10px;
     background-color: #ceccc6;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 10px auto;
     width: 800px;
 }
 
@@ -72,12 +81,11 @@ canvas {
     display: inline-block;
 }
 
-#input, #population, #childs, #mutation {
+#input, #population, #childs, #mutation, #fullGraphBox {
     border-radius: 10px;
     background-color: #e3e2dd;
     padding: 10px;
-    margin-top: 16px;
-    font-family: sans-serif;
+    margin: 15px;
 }
 
 #inputRange, #populationRange, #childsRange, #mutationRange {
