@@ -108,11 +108,6 @@ function bypassTree(currentNode, data) {
         clearInterval(bypassInterval);
         bypassInterval = null;
 
-        // clearPath(treeRoot);
-        // resetTree();
-        // let treeRootElement = document.getElementById("root");
-        // displayTree(treeRoot, treeRootElement);
-
         //alert('aaa');
         return treeRoot;
     }

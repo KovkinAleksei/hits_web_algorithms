@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./decision_tree.css" rel="stylesheet">
-    <link href="../css.nav.css" rel="stylesheet">
+    <link href="../css/nav.css" rel="stylesheet">
+    <link href="../css/appearanceAnimation.css" rel="stylesheet">
     <link href="./modal_window.css" rel = "stylesheet">
     <title>Дерево решений</title>
 </head>
@@ -58,24 +59,26 @@
     <div>
         <input id = "fileInput" type = "file">
     </div> 
-    <div id = "firstRowButtons">
-        <button><label id = "fileInputButton" for="fileInput">Загрузить файл</label></button>
-        <a href="#openModal"><button>Выбрать файл</button></a>
-        <button id = "deleteTree">Удалить дерево</button>
+    <div class="container">
+        <div id = "tree">
+            <ul id = "root">
 
-        <input type="text" id="userInput" placeholder="Ввод ваших данных">
-    </div>
-    <div id = "secondRowButtons">
-         <button id = "makeTree">Построить дерево</button>
-        <button id = "reduceTree">Сократить дерево</button>
-        <button id = "bypassTree">Обход по дереву</button>
-        <button id = "userBypass">Обход ваших данных</button>
-    </div>
+            </ul>
+        </div>
 
-    <div id = "tree">
-        <ul id = "root">
+        <div id = "firstRowButtons">
+            <button><label id = "fileInputButton" for="fileInput">Загрузить файл</label></button>
+            <a href="#openModal"><button>Выбрать файл</button></a>
+            <button id = "deleteTree">Удалить дерево</button>
 
-        </ul>
+            <input type="text" id="userInput" placeholder="Ввод ваших данных">
+        </div>
+        <div id = "secondRowButtons">
+            <button id = "makeTree">Построить дерево</button>
+            <button id = "reduceTree">Сократить дерево</button>
+            <button id = "bypassTree">Обход по дереву</button>
+            <button id = "userBypass">Обход ваших данных</button>
+        </div>
     </div>
 
     <script src = "./tree_page.js" type = "module"></script>
