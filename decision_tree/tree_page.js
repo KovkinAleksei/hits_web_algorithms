@@ -1,6 +1,6 @@
 import { readFile } from "./parse_cvs_file.js";
 import { makeTree } from "./tree_building.js";
-import { data, getUniqueElements } from "./entropy_calculation.js";
+import { data, getUniqueElements, getColumn } from "./entropy_calculation.js";
 import { getData } from "./data.js"
 
 // Отображение дерева на странице
@@ -64,6 +64,7 @@ makeTreeButton.addEventListener('click', (e) => {
         reader.onload = function () {
             // Чтение файла
             data = readFile(reader.result);
+            //console.log(getColumn(data, data[0].length - 1));
 
             // Построение дерева решений
             treeRoot = makeTree(data);
@@ -261,4 +262,12 @@ let weatherButton = document.getElementById("weatherButton");
 weatherButton.addEventListener('click', (e) => {
     file.value = '';
     chosenFileIndex = 3;
+});
+
+// Выбор файла species
+let speciesButton = document.getElementById("speciesButton");
+
+speciesButton.addEventListener('click', (e) => {
+    file.value = '';
+    chosenFileIndex = 4;
 });

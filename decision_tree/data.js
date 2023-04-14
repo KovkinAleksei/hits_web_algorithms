@@ -35,9 +35,10 @@ export function getData(index) {
             ["TB",      "GIAM",     "CAO",      "CAO",      "CAO"  ],
             ["GIAM",    "ON DINH",  "CAO",      "THAP",     "THAP" ],
             ["GIAM",    "GIAM",     "CAO",      "CAO",      "CAO"  ],
-            ["GIAM",    "TANG",     "CAO",      "TB",       "THAP" ],
+            ["GIAM",    "TANG",     "CAO",      "TB",       "CAO" ],
             ["GIAM",    "TANG",     "THAP",     "THAP",     "THAP" ],
-            ["GIAM",    "ON DINH",  "CAO",      "TB",       "CAO"  ]
+            ["GIAM",    "ON DINH",  "CAO",      "TB",       "THAP"  ],
+            ["GIAM",    "ON DINH",  "THAP",     "TB",       "CAO"  ]
         ];
     }
 
@@ -59,5 +60,23 @@ export function getData(index) {
             ["Overcast",  "Hot",         "Normal",   "Weak",   "Yes"],
             ["Rain",      "Mild",        "High",     "Strong", "No"]
         ];
+    }
+
+    if (index == 4)
+    {
+    return [
+        ["Toothed",     "Hair",     "Breathes",     "Legs",     "Species"],
+        ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+        ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+        ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
+        ["Not Toothed", "Hair",     "Breathes",     "Legs",     "Mammal"],
+        ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+        ["Toothed",     "Hair",     "Breathes",     "Legs",     "Mammal"],
+        ["Toothed",     "Not Hair", "Not Breathes", "Not Legs", "Reptile"],
+        ["Toothed",     "Not Hair", "Breathes",     "Not Legs", "Reptile"],
+        ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
+        ["Toothed",     "Not Hair", "Breathes",     "Legs",     "Mammal"],
+        ["Not Toothed", "Not Hair", "Breathes",     "Legs",     "Mammal"],
+    ];
     }
 }
