@@ -14,3 +14,10 @@ changeSize.addEventListener('change', function() { createTable(); })
 
 let settargets = document.getElementById('setStartFinish');
 settargets.addEventListener('click', function() { setStartFinish(); })
+
+let animationSpeed = document.getElementById("animationSpeed");
+animationSpeed.addEventListener('input', (e) => {
+    animationSpeed.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
+
+    document.getElementById('showAnimationSpeed').innerHTML = 'Скорость анимации поиска: ' + animationSpeed.value;
+});

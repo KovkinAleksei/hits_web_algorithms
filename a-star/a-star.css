@@ -122,10 +122,11 @@ button {
     margin: 0px auto;
     width: 85%;
     height: 10px;
+    background: #879dd167;
+    background-repeat: no-repeat;
+    background-size: 70% 100%;
     border-radius: 5px;
     border: 2px solid #1e1920a8;
-    background-color: #b387d118 ;
-    outline: none;
 }
 
 #animationSpeed::-webkit-slider-thumb {
