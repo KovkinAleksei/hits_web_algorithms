@@ -7,17 +7,24 @@ let canv = document.getElementById("canvas");
 export let vertexes = [];       // Массив вершин
 export let solves = [];         // Решения
 let interval = null;            // Интервал работы алгоритма
-const RADIUS = 10;              // Радиус вершины
+const RADIUS = 12;              // Радиус вершины
 let iterations = 0;             // Кол-во итераций
 
 // Отображение всех вершин графа
 export function drawVertexes() {
     let ctx = canv.getContext('2d');
+    let index = 0;
 
     vertexes.forEach(element => {
+        ctx.fillStyle = "black";
         ctx.beginPath();
         ctx.arc(element.x, element.y, RADIUS, 0, 2 * Math.PI);
         ctx.fill();
+        ctx.fillStyle = "white";
+        ctx.font = "12px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText(index, element.x, element.y + 5);
+        index++;
     });
 }
 
@@ -139,9 +146,14 @@ canv.addEventListener('click', (e) => {
 
         // Отображение новой вершины графа
         let ctx = canv.getContext('2d');
+        ctx.fillStyle = "black";
         ctx.beginPath();
         ctx.arc(xPos, yPos, RADIUS, 0, 2 * Math.PI);
         ctx.fill();
+        ctx.fillStyle = "white";
+        ctx.font = "12px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText(vertexes.length, xPos, yPos + 5);
 
         // Добавление в массив вершин
         vertexes.push({x: xPos, y: yPos});
@@ -150,6 +162,8 @@ canv.addEventListener('click', (e) => {
         if (drawFullGraph) {
             drawLines();
         }
+        
+        drawVertexes();
     }
 });
 
