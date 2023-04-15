@@ -108,7 +108,7 @@ function bypassTree(currentNode, data) {
 
         return treeRoot;
     }
-
+И
     // Проход через корень дерева
     if (currentNode == null) {
         treeRoot.isVisited = true;

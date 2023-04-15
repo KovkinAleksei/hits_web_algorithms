@@ -14,6 +14,9 @@ class Node {
     }
 }
 
+// Атрибут для создания вершины без ветвлений
+let leafAttr = {name: "leafAttr", index: -1};
+
 // Нахождение результата прохода по дереву
 function getAnswer(atr, result, currentData) {
     // Подсчёт кол-ва соответствующих уникальных классов выбранному значению атрибута
@@ -68,7 +71,7 @@ function growBranch(queue) {
             let lastAttr = attributeNodes[attributeNodes.length - 1];
 
             for (let i = 0; i < branches.length - 1; i++) {
-                attributeNodes.push(lastAttr);
+                attributeNodes.push(leafAttr);
             }
         }
 
@@ -111,15 +114,19 @@ function addLeaves(currentNode, currentData) {
         // Нахождение возможных результатов прохода по дереву до текущего листа
         let results = getUniqueElements(getColumn(data, currentNode.attribute.index));
         console.log(currentData, currentNode.attribute.name);
+        
         for (let j = 0; j < results.length; j++) {
             // Добавление листьев
+            if (currentNode.attribute != leafAttr){
             currentNode.branches.push(new Node(`${currentNode.attribute.name} = ${results[j]}`, 
                 currentNode.attribute, results[j]));
 
-            // Добавление результата прохода по дереву до текущего листа
-            if (currentData.length != 0)
-            {
-            currentNode.branches[j].branches.push(new Node(`${data[0][data[0].length - 1]} = 
+                currentNode.branches[j].branches.push(new Node(`${data[0][data[0].length - 1]} = 
+                ${getAnswer(currentNode.attribute, results[j], currentData)}`, null, 
+                getAnswer(currentNode.attribute, results[j], currentData)));
+            }
+            else{
+                currentNode.branches.push(new Node(`${data[0][data[0].length - 1]} = 
                 ${getAnswer(currentNode.attribute, results[j], currentData)}`, null, 
                 getAnswer(currentNode.attribute, results[j], currentData)));
             }
