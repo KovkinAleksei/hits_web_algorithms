@@ -9,6 +9,7 @@ export const sizePixel = 10;
 export let speed = 1;
 export let map = [];
 export let pheromoneMap = []; 
+export let pheromoneWithFoodMap = []; 
 export let foodPositions = [];
 export let antColony = {x: 0, y: 0};
 
@@ -21,9 +22,11 @@ function initializeMap(){
     for (let i = 0; i <= size; i++){
         map[i] = [];
         pheromoneMap[i] = [];
+        pheromoneWithFoodMap[i] = [];
         for (let j = 0; j <= size; j++) { 
             map[i][j] = 0;
             pheromoneMap[i][j] = 0;
+            pheromoneWithFoodMap[i][j] = 0;
         }
     }
 }

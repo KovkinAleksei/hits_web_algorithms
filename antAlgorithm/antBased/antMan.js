@@ -59,9 +59,9 @@ export async function antColonyOptimization(vertexes) {
                 showSolve(bestPath);
             }
         });
-        await sleep(10);
+        await sleep(3);
         k++;
-        if (k > 100) {
+        if (k > maxIterationWithoutChanges) {
             break;
         }
         updatePheromones(pheromones, ants, distances, vertexes);
