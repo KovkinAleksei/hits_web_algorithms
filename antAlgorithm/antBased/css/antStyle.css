@@ -1,27 +1,47 @@
-html {
+body {
+    width: 100%;
+    height: 100%;
     padding: 16px;
     background-color: #f9f6ee;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #name {
     font-size: 32px;
-    font-weight: bold;
-    color: white;
-    background: linear-gradient(to right, #ff6b6b, #3a7bd5);
-    background-clip: text;
+    font-weight: 700;
+    width: 100%;
+    margin: 10px;
     text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    color: rgb(0, 0, 0);
 }
 
-#buttons {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 1000px;
+#inputBlock {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+.buttons {
+    max-width: 700px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+#interface { 
+    max-width: 600px;
+    margin: 20px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 #findPathButton {
@@ -34,7 +54,7 @@ html {
 
 button {
     height: 50px;
-    width: 300px;
+    min-width: 300px;
     margin: 5px;
     cursor: pointer;
     font-size: 16px;
@@ -55,9 +75,8 @@ canvas {
     border-radius: 10px;
     background-color: #ceccc6;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 800px;
+    margin: 10px;
+    max-width: 1000px;
 }
 
 #vertex {
@@ -91,15 +110,6 @@ canvas {
     width: 316px;
     top: 0px;
     float: left
-}
-
-#interface { 
-    max-width: 600px;
-    margin: 0 auto;
-    background-color: #f2f2f2;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .blink {
