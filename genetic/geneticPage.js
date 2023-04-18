@@ -112,11 +112,11 @@ function deleteVertex(e) {
 
         // Сброс текущего решения
         resetSolve();
-    }
 
-    // Отображение полного графа
-    if (drawFullGraph) {
-        drawLines();
+        // Отображение полного графа
+        if (drawFullGraph) {
+            drawLines();
+        }
     }
 }
 
