@@ -1,5 +1,4 @@
 import { Ant } from "./antClass.js";
-const pheromoneDestroy = 0.98;
 
 export const canvas = document.getElementById('canvas');
 export const ctx = canvas.getContext('2d');
@@ -15,7 +14,7 @@ export let antColony = {x: 0, y: 0};
 
 let nowButton = 0;
 let ants = [];
-let antCount = 1;
+let antCount = 100;
 let requestId;
 
 function initializeMap(){
@@ -89,16 +88,8 @@ function setFood(x, y) {
 function setWalls(x, y){ 
     x = Math.floor(x/sizePixel);
 	y = Math.floor(y/sizePixel);
-    if (map[x][y] !== 2 && map[x - 1][y - 1] !== 2 && map[x + 1][y + 1] !== 2){
-        map[x - 1][y - 1] = 1;
-        map[x - 1][y] = 1;
-        map[x - 1][y + 1] = 1;
-        map[x][y - 1] = 1;
+    if (map[x][y] !== 2){
         map[x][y] = 1;
-        map[x][y + 1] = 1;
-        map[x + 1][y] = 1;
-        map[x + 1][y + 1] = 1;
-        map[x + 1][y - 1] = 1;
         updateMap();
     }
 }
@@ -122,7 +113,7 @@ function updateMap(){
         for (let j = 0; j < size; j++){ 
             if (map[i][j] === 1){
                 ctx.fillStyle = 'gray';
-	            ctx.fillRect(i*10, j*10, 30, 30);
+	            ctx.fillRect(i*10, j*10, 10, 10);
             }
             else if (map[i][j] === 2) {
                 ctx.fillStyle = 'red';
@@ -142,6 +133,10 @@ function updatePheromones(){
     for (let i = 0; i < size; i++){ 
         for (let j = 0; j < size; j++){
             pheromoneMap[i][j] = pheromoneMap[i][j] * 0.95;
+            ctx.fillStyle = "rgba(255, 0, 0, " + pheromoneMap[i][j] * 2  + ")";
+            ctx.beginPath();
+            ctx.arc(i * 10, j * 10, 0.7, 0, 2 * Math.PI);
+            ctx.fill();
         }
     }
 }
