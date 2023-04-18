@@ -206,7 +206,7 @@ export function showSolve(solve) {
             ctx.strokeStyle = "white";
         }
         else {
-            ctx.strokeStyle = "lemonchiffon";
+            ctx.strokeStyle = "#20b9e5";
         }
 //lemonchiffon
 //lightgoldenrodyellow
@@ -224,7 +224,7 @@ export function showSolve(solve) {
         ctx.strokeStyle = "white";
     }
     else {
-        ctx.strokeStyle = "lemonchiffon";
+        ctx.strokeStyle = "#20b9e5";
 
         clearInterval(interval);
         interval = null;
