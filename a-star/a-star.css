@@ -67,6 +67,7 @@ button {
 
     border: 2px solid #1e1920a8;
     border-radius: 20px;
+    transition: opacity .2s ease-in-out;
 }
 
 #tableSize {
@@ -137,7 +138,7 @@ button {
     border-radius: 50%;
     border: 2px solid #252525;
     background-color: #252525;
-    cursor: pointer;
+    cursor: ew-resize;
 }
 
 button:disabled, button:hover {
