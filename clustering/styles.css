@@ -15,9 +15,9 @@ canvas{
     width: 100%;
     margin: 0px auto 40px auto;
     text-align: center;
-    font-size: 35px;
+    font-size: 40px;
     font-weight: 800;
-    color: #071413;
+    color: #050e0d;
 }
 
 .secondCanvas, .firstCanvas, .thirdCanvas {
