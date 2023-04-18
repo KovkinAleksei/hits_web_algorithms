@@ -113,6 +113,11 @@ function deleteVertex(e) {
         // Сброс текущего решения
         resetSolve();
     }
+
+    // Отображение полного графа
+    if (drawFullGraph) {
+        drawLines();
+    }
 }
 
 // Создание новой вершины
