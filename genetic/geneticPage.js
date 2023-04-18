@@ -121,9 +121,9 @@ canv.addEventListener('click', (e) => {
         return;
     }
 
-    if (vertexes.length == 30)
+    if (vertexes.length == 60)
     {
-        alert("Куда разогнался? 30-ти городов хватит!");
+        alert("Куда разогнался? 60-ти городов хватит!");
         return;
     }
 
