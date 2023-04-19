@@ -22,6 +22,12 @@ body {
     margin: 15px;
 }
 
+.container {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: space-around;
+}
+
 ul {
     padding: 0px;
 }

@@ -1,10 +1,10 @@
 export let data = []; // Таблица с данными
 
 // Возврат массива с элементами столбца таблицы
-export function getColumn(matrix, columnIndex) {
+export function getColumn(matrix, columnIndex, start = 1) {
     let column = [];
 
-    for (let i = 1; i < matrix.length; i++) {
+    for (let i = start; i < matrix.length; i++) {
         column.push(matrix[i][columnIndex]);
     }
 
