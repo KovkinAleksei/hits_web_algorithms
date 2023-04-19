@@ -68,6 +68,7 @@ function setColony(x, y) {
         }
     }
     map[x][y] = 2;
+    pheromoneMap[x][y] = 20;
     ants = [];
     for (let i = 0; i < antCount; i++){
         ants.push(new Ant(antColony.x, antColony.y, antColony));
@@ -97,12 +98,12 @@ function setWalls(x, y){
 function updateAnts() {
     if (ants.length != 0){
         updateMap();
-        updatePheromones();
         ants.forEach((ant) => {
             ant.updatePosition();
             ant.draw();
             ant.drawPheromones();
         });
+        updatePheromones();
         requestId = requestAnimationFrame(updateAnts);
     }
 }
@@ -133,9 +134,9 @@ function updatePheromones(){
     for (let i = 0; i < size; i++){ 
         for (let j = 0; j < size; j++){
             pheromoneMap[i][j] = pheromoneMap[i][j] * 0.95;
-            ctx.fillStyle = "rgba(255, 0, 0, " + pheromoneMap[i][j] * 2  + ")";
+            ctx.fillStyle = "rgba(255, 0, 0, " + pheromoneMap[i][j] * 5  + ")";
             ctx.beginPath();
-            ctx.arc(i * 10, j * 10, 0.7, 0, 2 * Math.PI);
+            ctx.arc(i * 10, j * 10, 0.8, 0, 2 * Math.PI);
             ctx.fill();
         }
     }
@@ -145,6 +146,10 @@ function updatePheromones(){
 document.getElementById("startButton").addEventListener('click', (e) => {
     updateAnts();
     document.getElementById("startButton").disabled = true;
+});
+document.getElementById("debugButton").addEventListener('click', (e) => {
+    console.log(pheromoneMap);
+    console.log(pheromoneWithFoodMap);
 });
  
 document.getElementById("clearButton").addEventListener('click', (e) => {

@@ -1,6 +1,5 @@
-import { canvas, ctx, map, pheromoneMap, speed, size, foodPositions, sizePixel, antColony } from "./antMain.js";
+import { canvas, ctx, map, pheromoneMap, speed, size, foodPositions, sizePixel, antColony, pheromoneWithFoodMap } from "./antMain.js";
 
-const pheromoneStrength = 1;
 
 const foodSearchRadius = 10;
 
@@ -11,25 +10,28 @@ export class Ant {
         this.direction = Math.random() * 2 * Math.PI;
         this.pheromones = [];
         this.isCarryingFood = false;
+        this.timeWithOutFood = 1;
+        this.pheromoneStrength = 1;
+        this.changeDirection = 1;
     }
 
     updatePosition() {
         if (!this.isCarryingFood) {
+            this.timeWithOutFood++;
+            if (this.timeWithOutFood > 300) {
+                this.pheromoneStrength *= 0.998;
+            } 
             this.followFood(foodPositions);
         } else {
-            this.direction += (Math.random() - 0.5) * 0.5;
-            this.followHome();
+            this.changeDirection++;
+            if (this.changeDirection > 5){
+                this.changeDirection = 1;
+                this.followHome();
+            }
         }
 
         this.x += speed * Math.cos(this.direction);
         this.y += speed * Math.sin(this.direction);
-
-        if (this.x > 0 && this.x < canvas.width && this.y > 0 && this.y < canvas.height){
-            this.pheromones.push({ x: this.x, y: this.y, time: 25 });
-            if (!this.isCarryingFood){
-                pheromoneMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] = pheromoneStrength;
-            }
-        }
 
         if (this.x < 0 || this.x > canvas.width) {
             this.direction = Math.PI - this.direction;
@@ -56,6 +58,16 @@ export class Ant {
             if (this.pheromones[i].time <= 0) {
                 this.pheromones.splice(i, 1);
                 i--;
+            }
+        }
+
+        if (this.x > 0 && this.x < canvas.width && this.y > 0 && this.y < canvas.height){
+            this.pheromones.push({ x: this.x, y: this.y, time: 25 });
+            if (!this.isCarryingFood){
+                pheromoneMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] += this.pheromoneStrength;
+            }
+            else {
+                pheromoneWithFoodMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] += this.pheromoneStrength;
             }
         }
     }
@@ -92,41 +104,68 @@ export class Ant {
     }
 
     followFood(foodPositions) {
-        let food = this.findFood(foodPositions);
-        if (food && !this.isCarryingFood) {
-            let dx = food.x - Math.floor(this.x / 10);
-            let dy = food.y - Math.floor(this.y / 10);
-            this.direction = Math.atan2(dy, dx);
-            if (dx < 1 && dy < 1){
-                this.isCarryingFood = true;
+        let searchRadius = 10;
+        let startX = Math.max(0, Math.floor(this.x / 10) - searchRadius);
+        let endX = Math.min(size - 1, Math.floor(this.x / 10) + searchRadius);
+        let startY = Math.max(0, Math.floor(this.y / 10) - searchRadius);
+        let endY = Math.min(size - 1, Math.floor(this.y / 10) + searchRadius);
+
+        let maxPheromone = 0;
+        let bestDirection = null;
+        for (let x = startX; x <= endX; x++) {
+            for (let y = startY; y <= endY; y++) {
+                const pheromoneLevel = pheromoneWithFoodMap[x][y];
+                if (pheromoneLevel > maxPheromone) {
+                    maxPheromone = pheromoneLevel;
+                    let dx = x - Math.floor(this.x / 10);
+                    let dy = y - Math.floor(this.y / 10);
+                    bestDirection = Math.atan2(dy, dx);
+                }
             }
-        } else {
-            this.direction += (Math.random() - 0.5) * 0.5;
+        }
+
+        if (bestDirection === null || maxPheromone < 0.05) {
+            let food = this.findFood(foodPositions);
+            if (food && !this.isCarryingFood) {
+                let dx = food.x - Math.floor(this.x / 10);
+                let dy = food.y - Math.floor(this.y / 10);
+                this.direction = Math.atan2(dy, dx);
+                if (dx < 1 && dy < 1){
+                    this.isCarryingFood = true;
+                    this.timeWithOutFood = 1;
+                    this.pheromoneStrength = 1;
+                    this.followHome();
+                }
+            } else {
+                this.direction += (Math.random() - 0.5) * 0.5;
+            }
         }
     }
 
     followHome() {
-        
         // Определить ячейку в массиве pheromoneMap, соответствующую текущему положению муравья
         let currentCellX = Math.floor(this.x / 10);
         let currentCellY = Math.floor(this.y / 10);
 
         if (currentCellX === antColony.x && currentCellY === antColony.y){
             this.isCarryingFood = false;
+            this.timeWithOutFood = 1;
             this.direction += (Math.random() - 0.5) * 0.5;
             return;
         }
 
-        if (findDistance(Math.floor(antColony.x / 10), Math.floor(antColony.y / 10), currentCellX, currentCellY) < 10){
-            this.direction = - Math.atan2(Math.floor(antColony.y / 10), Math.floor(antColony.x / 10));
+        if (findDistance(Math.floor(antColony.x / 10), Math.floor(antColony.y / 10), currentCellX, currentCellY) < 5){
+            let dx = Math.floor(antColony.x / 10) - currentCellX;
+            let dy = Math.floor(antColony.y / 10) - currentCellY;
+            this.direction = Math.atan2(dy, dx);
             return;
         }
          // Определить область вокруг муравья, где будут искаться феромоны
-        let searchRadius = 10;
+        let searchRadius = 20;
         let startX = Math.max(0, currentCellX - searchRadius);
-        let endX = Math.min(pheromoneMap[0].length - 1, currentCellX + searchRadius);
+        let endX = Math.min(size - 1, currentCellX + searchRadius);
         let startY = Math.max(0, currentCellY - searchRadius);
-        let endY = Math.min(pheromoneMap[0].length - 1, currentCellY + searchRadius);
+        let endY = Math.min(size - 1, currentCellY + searchRadius);
          
          // Найти направление, ведущее к муравейнику, с учетом феромонов
         let maxPheromone = 0;
@@ -141,7 +180,7 @@ export class Ant {
                     maxPheromone = pheromoneLevel;
                     let dx = x - currentCellX;
                     let dy = y - currentCellY;
-                    bestDirection = Math.atan2(dy, dx);
+                    bestDirection = Math.atan2(dx, dy);
                 }
             }
         }     
