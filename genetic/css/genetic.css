@@ -122,7 +122,7 @@ canvas {
 }
 
 #populationRange, #childsRange {
-    background-size: 100% 100%;
+    background-size: 70% 100%;
 }
 
 #mutationRange {
