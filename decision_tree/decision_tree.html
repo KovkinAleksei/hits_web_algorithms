@@ -9,6 +9,7 @@
     <link href="../css/nav.css" rel="stylesheet">
     <link href="../css/appearanceAnimation.css" rel="stylesheet">
     <link href="./modal_window.css" rel = "stylesheet">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
     <title>Дерево решений</title>
 </head>
 <body>
@@ -24,6 +25,7 @@
           <a href="#" id = "infectionButton">Infection</a><br>
           <a href="#" id = "weatherButton">Weather</a><br>
           <a href="#" id = "thapButton">THAP</a><br>
+          <a href="#" id = "speciesButton">Species</a><br>
         </div>
       </div>
     </div>
@@ -69,17 +71,26 @@
 
         <div id = "firstRowButtons">
             <button><label id = "fileInputButton" for="fileInput">Загрузить файл</label></button>
-            <a href="#openModal"><button>Выбрать файл</button></a>
-            <button id = "deleteTree">Удалить дерево</button>
-
+            <button id = "makeTree">Построить дерево</button>
+            <button id = "bypassTree">Обход по дереву</button>
             <input type="text" id="userInput" placeholder="Ввод ваших данных">
         </div>
         <div id = "secondRowButtons">
-            <button id = "makeTree">Построить дерево</button>
+            <a href="#openModal"><button>Выбрать файл</button></a>
+            <button id = "deleteTree">Удалить дерево</button>
             <button id = "reduceTree">Сократить дерево</button>
-            <button id = "bypassTree">Обход по дереву</button>
             <button id = "userBypass">Обход ваших данных</button>
         </div>
+
+        <div>Выбор разделителя</div>
+        <div id = "selection">
+            <select id = "select">
+                <option value="comma">Запятая</option>
+                <option value="dotComma">Точка с запятой</option>
+                <option value="space">Пробел</option>
+            </select>
+        </div>
+        
     </div>
 
     <script src = "./tree_page.js" type = "module"></script>

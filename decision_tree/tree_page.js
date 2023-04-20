@@ -1,7 +1,9 @@
 import { readFile } from "./parse_cvs_file.js";
 import { makeTree } from "./tree_building.js";
-import { data, getUniqueElements } from "./entropy_calculation.js";
+import { data, getUniqueElements, getColumn } from "./entropy_calculation.js";
 import { getData } from "./data.js"
+
+export let divider = ",";
 
 // Отображение дерева на странице
 function displayTree(currentNode, treeElement) {
@@ -90,6 +92,15 @@ let bypassTreeButton = document.getElementById("bypassTree");
 let bypassIndex;
 let bypassInterval;
 
+// Очистка помеченных при обходе вершин
+function clearPath(currentNode) {
+    currentNode.isVisited = false;
+
+    for (let i = 0; i < currentNode.branches.length; i++) {
+        clearPath(currentNode.branches[i]);
+    }
+}
+
 // Обход дерева
 function bypassTree(currentNode, data) {
     // Конец обхода
@@ -103,12 +114,14 @@ function bypassTree(currentNode, data) {
     // Проход через корень дерева
     if (currentNode == null) {
         treeRoot.isVisited = true;
+        clearPath(treeRoot);
 
         // Перекрашивание посещённой вершины
+        treeRoot.isVisited = true;
+
         resetTree();
         let treeRootElement = document.getElementById("root");
         displayTree(treeRoot, treeRootElement);
-        treeRoot.isVisited = false;
 
         return treeRoot;
     }
@@ -125,7 +138,6 @@ function bypassTree(currentNode, data) {
             resetTree();
             let treeRootElement = document.getElementById("root");
             displayTree(treeRoot, treeRootElement);
-            currentNode.isVisited = false;
 
             break;
         }
@@ -211,7 +223,7 @@ userBypassButton.addEventListener('click', (e) => {
     clearInterval(bypassInterval);
     bypassInterval = null;
 
-    let userData = document.getElementById("userInput").value.split(' ');
+    let userData = document.getElementById("userInput").value.split(divider);
 
     bypassIndex  = 1;
     let cNode = null;
@@ -261,4 +273,27 @@ let weatherButton = document.getElementById("weatherButton");
 weatherButton.addEventListener('click', (e) => {
     file.value = '';
     chosenFileIndex = 3;
+});
+
+// Выбор файла species
+let speciesButton = document.getElementById("speciesButton");
+
+speciesButton.addEventListener('click', (e) => {
+    file.value = '';
+    chosenFileIndex = 4;
+});
+
+// Выбор разделителя
+let selectionButton = document.getElementById("select");
+
+selectionButton.addEventListener('change', (e) => {
+    if (selectionButton.selectedIndex == 0) {
+        divider = ",";
+    }
+    else if (selectionButton.selectedIndex == 1) {
+        divider = ";";
+    }
+    else if (selectionButton.selectedIndex == 2) {
+        divider = " ";
+    }
 });
