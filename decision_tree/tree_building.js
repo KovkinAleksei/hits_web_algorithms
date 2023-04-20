@@ -20,9 +20,9 @@ let leafAttr = {name: "leafAttr", index: -1};
 // Нахождение результата прохода по дереву
 function getAnswer(atr, result, currentData) {
     if (currentData.length == 0) {
-        return "idk";
+        return "leafAttr";
     }
-    
+
     // Подсчёт кол-ва соответствующих уникальных классов выбранному значению атрибута
     let uniqueAnswers = getUniqueElements(getColumn(currentData, currentData[0].length - 1, 0));
     let answersCount = [];
@@ -58,6 +58,44 @@ function getAnswer(atr, result, currentData) {
     return uniqueAnswers[0];
 }
 
+// Сортировка ветвей вершины по убыванию вероятности перехода на них
+function sortBranches(column) {
+    // Счёт вероятности перехода на ветви
+    let results = [];
+    let count = [];
+
+    let uniqueRes = getUniqueElements(column);
+
+    for (let i = 0; i < uniqueRes.length; i++) {
+        results.push(uniqueRes[i]);
+        count.push(0);
+    }
+
+    for (let j = 0; j < column.length; j++) {
+        for (let k = 0; k < results.length; k++) {
+            if (column[j] == results[k]) {
+                count[k]++;
+            }
+        }
+    }
+
+    // Сортировка ветвей
+    for (let a = 0; a < results.length; a++) {
+        for (let b = a + 1; b < results.length; b++) {
+            if (count[a] < count[b]) {
+                let temp = count[a];
+                count[a] = count[b];
+                count[b] = temp;
+
+                temp = results[a];
+                results[a] = results[b];
+                results[b] = temp;
+            }
+        }
+    }
+
+    return results;
+}
 // Добавление ветвей дерева
 function growBranch(queue) {
     // Индекс добавляемой вершины
@@ -68,12 +106,10 @@ function growBranch(queue) {
         var currentNode = queue.shift();
 
         // Нахождение всех ответвлений от текущей вершины
-        let branches = getUniqueElements(getColumn(data, currentNode.attribute.index));
+        let branches = sortBranches(getColumn(data, currentNode.attribute.index));
 
         // Добавление веток без уникальных атрибутов
         if (currentNode.branches.length == 0 && attributeNodes.length - currentIndex < branches.length) {
-            let lastAttr = attributeNodes[attributeNodes.length - 1];
-
             for (let i = 0; i < branches.length - 1; i++) {
                 attributeNodes.push(leafAttr);
             }

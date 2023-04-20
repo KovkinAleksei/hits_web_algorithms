@@ -1,3 +1,5 @@
+import {divider} from "./tree_page.js";
+
 export function readFile(text) {
     // Таблица с данными
     let data = [];
@@ -14,7 +16,15 @@ export function readFile(text) {
         }
 
         // Сохранение строки файла
-        data.push(line.split(/,(?=[^\s])/));
+        if (divider == ",") {
+            data.push(line.split(/,(?=[^\s])/));
+        }
+        else if (divider == ";") {
+            data.push(line.split(/;(?=[^\s])/));
+        }
+        else {
+            data.push(line.split(/\s(?=[^\s])/));
+        }
         
         // Чтение следующей строки файла
         line = "";

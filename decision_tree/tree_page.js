@@ -3,6 +3,8 @@ import { makeTree } from "./tree_building.js";
 import { data, getUniqueElements, getColumn } from "./entropy_calculation.js";
 import { getData } from "./data.js"
 
+export let divider = ",";
+
 // Отображение дерева на странице
 function displayTree(currentNode, treeElement) {
     // Создание новой вершины
@@ -221,7 +223,7 @@ userBypassButton.addEventListener('click', (e) => {
     clearInterval(bypassInterval);
     bypassInterval = null;
 
-    let userData = document.getElementById("userInput").value.split(', ');
+    let userData = document.getElementById("userInput").value.split(divider);
 
     bypassIndex  = 1;
     let cNode = null;
@@ -279,4 +281,19 @@ let speciesButton = document.getElementById("speciesButton");
 speciesButton.addEventListener('click', (e) => {
     file.value = '';
     chosenFileIndex = 4;
+});
+
+// Выбор разделителя
+let selectionButton = document.getElementById("select");
+
+selectionButton.addEventListener('change', (e) => {
+    if (selectionButton.selectedIndex == 0) {
+        divider = ",";
+    }
+    else if (selectionButton.selectedIndex == 1) {
+        divider = ";";
+    }
+    else if (selectionButton.selectedIndex == 2) {
+        divider = " ";
+    }
 });
