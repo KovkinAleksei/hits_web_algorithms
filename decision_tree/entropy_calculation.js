@@ -109,27 +109,53 @@ function getAttributes(informationGains) {
     return attributes;
 }
 
-// Сортировка атрибутов по уменьшению их информационной энтропии
-function sortAttributes(attributes, informationGain) {
-    for (let i = 0; i < attributes.length; i++) {
-        for (let j = i + 1; j < attributes.length; j++) {
-            if (informationGain[i] < informationGain[j]) {
-                let temp = attributes[i];
-                attributes[i] = attributes[j];
-                attributes[j] = temp;
+let attributes = [];
+let informationGains = [];
 
-                temp = informationGain[i];
-                informationGain[i] = informationGain[j];
-                informationGain[j] = temp;
-            }
+// Сортировка атрибутов по уменьшению их информационной энтропии
+function sortAttributes(begin, end) {
+    let mid = (end + begin) / 2;
+    
+    let i = begin;
+    let j = end;
+
+    while (i < j) {
+        while (informationGains[i] > informationGains[mid]) {
+            i++;
         }
+
+        while (informationGains[j] < informationGains[mid]) {
+            j--;
+        }
+
+        if (i <= j) {
+            let temp = informationGains[i];
+            informationGains[i] = informationGains[j];
+            informationGains[j] = temp;
+
+            temp = attributes[i];
+            attributes[i] = attributes[j];
+            attributes[j] = temp;
+
+            i++;
+            j--;
+        }
+    }
+
+    if (begin < j){
+        sortAttributes(begin, j);
+    }
+
+    if (i < end) {
+        sortAttributes(i, end);
     }
 }
 
 // Нахождение последовательности атрибутов для построения дерева
 export function getTreeNodes(input) {
+    attributes = [];            // Атрибуты вершин дерева
+    informationGains = [];      // Прирост информации атрибута
     data = input;               // Таблица с данными
-    var informationGains = [];  // Информационная энтропия атрибутов
 
     // Вычисление информационной энтропии для каждого атрибута
     for (let i = 0; i < data[0].length - 1; i++) {
@@ -138,7 +164,7 @@ export function getTreeNodes(input) {
     }
 
     // Нахождение всех атрибутов
-    var attributes = getAttributes(informationGains);
+    attributes = getAttributes(informationGains);
 
     // Удаление лишних атрибутов
     let deletedCount = 0;
@@ -151,7 +177,7 @@ export function getTreeNodes(input) {
     }
 
     // Сортировка атрибутов по уменьшению их информационной энтропии
-    sortAttributes(attributes, informationGains);
-
+    sortAttributes(0, informationGains.length - 1);
+    
     return attributes;
 }
