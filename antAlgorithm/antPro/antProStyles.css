@@ -3,6 +3,15 @@ html {
     background-color: #f9f6ee;
 }
 
+#name {
+    font-size: 32px;
+    font-weight: 700;
+    width: 100%;
+    margin: 10px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
 #buttons {
     display: block;
     margin-left: auto;

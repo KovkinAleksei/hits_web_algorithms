@@ -16,13 +16,14 @@ let nowButton = 0;
 let ants = [];
 let antCount = 100;
 let requestId;
+let isColonySet = false;
 
 function initializeMap(){
     for (let i = 0; i <= size; i++){
         map[i] = [];
         pheromoneMap[i] = [];
         pheromoneWithFoodMap[i] = [];
-        for (let j = 0; j <= size; j++) { 
+        for (let j = 0; j <= size; j++) {
             map[i][j] = 0;
             pheromoneMap[i][j] = 0;
             pheromoneWithFoodMap[i][j] = 0;
@@ -51,13 +52,36 @@ function handler(e){
     else if (nowButton === 3){
         setFood(x, y);
     }
+    else if (nowButton === 4){
+        erase(x, y);
+    }
+    else if (nowButton === 5) {
+        debugMode(x, y);
+    }
+}
+
+function debugMode(x, y){
+    x = Math.floor(x / sizePixel);
+	y = Math.floor(y / sizePixel);
+    console.log(pheromoneMap[x][y]);
+    console.log(pheromoneWithFoodMap[x][y]);
+}
+
+function erase(x, y){
+    x = Math.floor(x/sizePixel);
+	y = Math.floor(y/sizePixel);
+
+    if (map[x][y] !== 0 || map[x][y] !== 2) {
+        map[x][y] = 0;
+        updateMap();
+    }
 }
 
 function setColony(x, y) {
     antColony.x = x;
     antColony.y = y;
-    x = Math.floor(x/sizePixel);
-	y = Math.floor(y/sizePixel);
+    x = Math.floor(x / sizePixel);
+	y = Math.floor(y / sizePixel);
 
     for (let i = 0; i <= size; i++){
         for (let j = 0; j <= size; j++){
@@ -65,20 +89,23 @@ function setColony(x, y) {
                 map[i][j] = 0;
                 break;
             }
+            pheromoneMap[i][j] = 0;
+            pheromoneWithFoodMap[i][j] = 0;
         }
     }
     map[x][y] = 2;
-    pheromoneMap[x][y] = 20;
+    pheromoneMap[x][y] = 200;
     ants = [];
     for (let i = 0; i < antCount; i++){
         ants.push(new Ant(antColony.x, antColony.y, antColony));
     }
+    isColonySet = true;
     updateMap();
 }
 
 function setFood(x, y) { 
-    x = Math.floor(x/sizePixel);
-	y = Math.floor(y/sizePixel);
+    x = Math.floor(x / sizePixel);
+	y = Math.floor(y / sizePixel);
     if (map[x][y] === 0) {
         map[x][y] = 3;
         foodPositions.push({x: x, y: y});
@@ -87,10 +114,12 @@ function setFood(x, y) {
 }
 
 function setWalls(x, y){ 
-    x = Math.floor(x/sizePixel);
-	y = Math.floor(y/sizePixel);
+    x = Math.floor(x / sizePixel);
+	y = Math.floor(y / sizePixel);
     if (map[x][y] !== 2){
         map[x][y] = 1;
+        pheromoneMap[x][y] = 0;
+        pheromoneWithFoodMap[x][y] = 0;
         updateMap();
     }
 }
@@ -131,12 +160,36 @@ function updateMap(){
 }
 
 function updatePheromones(){
+    let x = Math.floor(antColony.x / sizePixel);
+	let y = Math.floor(antColony.y / sizePixel);
     for (let i = 0; i < size; i++){ 
         for (let j = 0; j < size; j++){
-            pheromoneMap[i][j] = pheromoneMap[i][j] * 0.95;
-            ctx.fillStyle = "rgba(255, 0, 0, " + pheromoneMap[i][j] * 5  + ")";
+            if (i === x && j === y){
+                pheromoneMap[i][j] = 200;
+                continue;
+            }
+
+            if (map[i][j] === 1) {
+                pheromoneMap[i][j] = 0;
+                pheromoneWithFoodMap[i][j] = 0;
+            }
+
+            if (pheromoneMap[i][j] === Infinity || pheromoneWithFoodMap[i][j] === Infinity) {
+                pheromoneMap[i][j] = 0;
+                pheromoneWithFoodMap[i][j] = 0;
+            }
+
+            pheromoneMap[i][j] = pheromoneMap[i][j] * 0.988;
+            ctx.fillStyle = "rgba(255, 0, 0, " + pheromoneMap[i][j] * 10  + ")";
             ctx.beginPath();
             ctx.arc(i * 10, j * 10, 0.8, 0, 2 * Math.PI);
+            ctx.fill();
+            
+
+            pheromoneWithFoodMap[i][j] = pheromoneWithFoodMap[i][j] * 0.988;
+            ctx.fillStyle = "rgba(0, 100, 0, " + pheromoneWithFoodMap[i][j] * 10  + ")";
+            ctx.beginPath();
+            ctx.arc(i * 10, j * 10, 1, 0, 2 * Math.PI);
             ctx.fill();
         }
     }
@@ -144,10 +197,16 @@ function updatePheromones(){
 /*---------------------------------------Просто отработчики нажатий-------------------------------------------*/
 
 document.getElementById("startButton").addEventListener('click', (e) => {
-    updateAnts();
-    document.getElementById("startButton").disabled = true;
+    if (isColonySet){
+        updateAnts();
+        document.getElementById("startButton").disabled = true;
+    } else {
+        nowButton = 0;
+        alert("Сначала установите колонию муравьев!");
+    } 
 });
 document.getElementById("debugButton").addEventListener('click', (e) => {
+    nowButton = 5;
     console.log(pheromoneMap);
     console.log(pheromoneWithFoodMap);
 });
@@ -159,6 +218,7 @@ document.getElementById("clearButton").addEventListener('click', (e) => {
     ants = [];
     foodPositions = [];
     initializeMap();
+    isColonySet = false;
     document.getElementById("startButton").disabled = false;
 }); 
 
