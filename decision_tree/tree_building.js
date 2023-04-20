@@ -19,6 +19,10 @@ let leafAttr = {name: "leafAttr", index: -1};
 
 // Нахождение результата прохода по дереву
 function getAnswer(atr, result, currentData) {
+    if (currentData.length == 0) {
+        return "idk";
+    }
+    
     // Подсчёт кол-ва соответствующих уникальных классов выбранному значению атрибута
     let uniqueAnswers = getUniqueElements(getColumn(currentData, currentData[0].length - 1, 0));
     let answersCount = [];
