@@ -13,12 +13,12 @@ export function sleep(milliseconds) {
 }
 
 export async function antColonyOptimization(vertexes) { 
-
     if (vertexes.length < 2) {
         alert("Поставьте хотя-бы 2 вершины графа");
         onAllButtons();
         return;
     }
+
     let k = 0;
     let bestPath = null;
     let bestPathLength = MAXVALUE;
@@ -59,7 +59,7 @@ export async function antColonyOptimization(vertexes) {
                 showSolve(bestPath);
             }
         });
-        await sleep(3);
+        await sleep(1);
         k++;
         if (k > maxIterationWithoutChanges) {
             break;
