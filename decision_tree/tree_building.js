@@ -156,7 +156,7 @@ function addLeaves(currentNode, currentData) {
         }
         // Нахождение возможных результатов прохода по дереву до текущего листа
         let results = getUniqueElements(getColumn(data, currentNode.attribute.index));
-        console.log(currentData, currentNode.attribute.name);
+        //console.log(currentData, currentNode.attribute.name);
         
         for (let j = 0; j < results.length; j++) {
             // Добавление листьев

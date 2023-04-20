@@ -7,8 +7,8 @@ list.addEventListener('wheel', function(event) {
     const delta = Math.sign(event.deltaY);
     const zoomValue = parseFloat(window.getComputedStyle(list).zoom);
 
-    if (zoomValue + delta > 0.1 && zoomValue + delta < 5) {
-        list.style.zoom = zoomValue + delta * 0.1;
+    if (zoomValue - delta > 0.1 && zoomValue - delta < 5) {
+        list.style.zoom = zoomValue - delta * 0.1;
     }
 });
 
