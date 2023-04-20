@@ -73,7 +73,12 @@ function getUniqueMatrix(columnIndex, columnValue) {
 // Нахождение величины информации в колонке
 function calculateInformationGain(column, columnIndex) {
     let uniqueClasses = getUniqueElements(column); // Уникальные классы в колонке
-    let entropySumm = 0;                           // Сумма энтропий уникальных классов в колонке
+
+    if (column.length / uniqueClasses.length < 2) {
+        return -999;
+    }
+
+    let entropySumm = 0;    // Сумма энтропий уникальных классов в колонке
 
     // Нахождение энтропии для каждого уникального класса колонки
     for (let i = 0; i < uniqueClasses.length; i++) {
@@ -92,11 +97,13 @@ function calculateInformationGain(column, columnIndex) {
 }
 
 // Нахождение всех атрибутов
-function getAttributes() {
+function getAttributes(informationGains) {
     let attributes = [];
 
     for (let i = 0; i < data[0].length - 1; i++) {
+        if (informationGains[i] != -999){
         attributes.push({name: data[0][i], index: i});
+        }
     }
 
     return attributes;
@@ -126,14 +133,25 @@ export function getTreeNodes(input) {
 
     // Вычисление информационной энтропии для каждого атрибута
     for (let i = 0; i < data[0].length - 1; i++) {
-        informationGains.push(calculateInformationGain(getColumn(data, i), i));
+        let idk = calculateInformationGain(getColumn(data, i), i);
+        informationGains.push(idk);
     }
 
     // Нахождение всех атрибутов
-    var attributes = getAttributes();
+    var attributes = getAttributes(informationGains);
+
+    // Удаление лишних атрибутов
+    let deletedCount = 0;
+
+    for (let j = 0; j < informationGains.length; j++) {
+        if (informationGains[j - deletedCount] == -999){
+            informationGains.splice(j - deletedCount, 1);
+            deletedCount++;
+        }
+    }
 
     // Сортировка атрибутов по уменьшению их информационной энтропии
     sortAttributes(attributes, informationGains);
-    
+
     return attributes;
 }
