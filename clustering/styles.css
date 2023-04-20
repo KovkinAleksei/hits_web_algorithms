@@ -86,7 +86,7 @@ canvas{
 
 .toolbar{
     display: flex;
-    min-width: 440px;
+    width: 440px;
     margin: 5px 20px;
     justify-content: center;
     background-color: #649ea8;
@@ -97,7 +97,8 @@ canvas{
 }
 
 .settingsBars{
-    min-width: 440px;
+    width: 440px;
+    min-width: 400px;
     background-color: #649ea8;
     margin: 5px 20px;
     padding: 20px;
