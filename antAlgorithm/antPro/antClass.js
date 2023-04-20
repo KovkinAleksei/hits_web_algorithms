@@ -13,11 +13,13 @@ export class Ant {
         this.timeWithOutFood = 1;
         this.pheromoneStrength = 2;
         this.changeDirection = 1;
+        this.path = [];
     }
 
     updatePosition() {
         this.x += speed * Math.cos(this.direction);
         this.y += speed * Math.sin(this.direction);
+        this.path.push({x: Math.floor(this.x / 10), y: Math.floor(this.y / 10)});
 
         if (this.x < 0 || this.x > canvas.width) {
             this.direction = Math.PI - this.direction;
@@ -115,10 +117,10 @@ export class Ant {
         if (food && !this.isCarryingFood) {
             let dx = food.x - currentCellX;
             let dy = food.y - currentCellY;
-            this.pheromoneStrength = 1;
+            this.pheromoneStrength = 2;
             this.direction = Math.atan2(dy, dx);
         } else {
-            let searchRadius = 7;
+            let searchRadius = 10;
             let startX = Math.max(0, currentCellX - searchRadius);
             let endX = Math.min(size - 1, currentCellX + searchRadius);
             let startY = Math.max(0, currentCellY - searchRadius);
@@ -151,6 +153,7 @@ export class Ant {
                 this.isCarryingFood = true;
                 this.timeWithOutFood = 1;
                 this.pheromoneStrength = 1;
+                this.path = [];
             } 
         }   
     } 
@@ -161,7 +164,7 @@ export class Ant {
         let currentCellY = Math.floor(this.y / 10);
 
          // Определить область вокруг муравья, где будут искаться феромоны
-        let searchRadius = 7;
+        let searchRadius = 10;
         let startX = Math.max(0, currentCellX - searchRadius);
         let endX = Math.min(size - 1, currentCellX + searchRadius);
         let startY = Math.max(0, currentCellY - searchRadius);
@@ -170,6 +173,8 @@ export class Ant {
          // Найти направление, ведущее к муравейнику, с учетом феромонов
         let maxPheromone = 0;
         let bestDirection = null;
+        let possibbleDirection = null;
+        let newCoordinate;
         for (let x = startX; x <= endX; x++) {
             for (let y = startY; y <= endY; y++) {
                 if (x === currentCellX && y === currentCellY) {
@@ -182,31 +187,42 @@ export class Ant {
                     let dx = x - currentCellX;
                     let dy = y - currentCellY;
                     bestDirection = Math.atan2(dy, dx);
+                    newCoordinate = {x: Math.floor((this.x + speed * Math.cos(bestDirection)) / 10), y: Math.floor((this.y + speed * Math.sin(bestDirection)) / 10)};
+                    if (!checker(newCoordinate, this.path)){
+                        possibbleDirection = bestDirection;
+                    }
                 }
             }
         }     
 
          // Если рядом нет феромонов, то выбрать направление наугад
-        if (bestDirection === null || maxPheromone < 0.01 || Math.random() < 0.2) {
+        if (possibbleDirection === null || Math.random() < 0.1) {
             this.direction += (Math.random() - 0.5) * 0.5;
         }
         else {
-            this.direction = bestDirection;
+            this.direction = possibbleDirection;
         }
-
-       //if (findDistance(Math.floor(antColony.x / 10), Math.floor(antColony.y / 10), currentCellX, currentCellY) < 5){
-       //    let dx = Math.floor(antColony.x / 10) - currentCellX;
-       //    let dy = Math.floor(antColony.y / 10) - currentCellY;
-       //    this.direction = Math.atan2(dy, dx);
-       //}
 
        if (findDistance(Math.floor(antColony.x / 10), Math.floor(antColony.y / 10), currentCellX, currentCellY) < 2){
            this.isCarryingFood = false;
            this.timeWithOutFood = 1;
+           this.path = [];
            this.direction += (Math.random() - 0.5) * 0.5;
         }
     }
     
+}
+
+function checker(newCoordinate, path){
+    console.log("lox");
+    if (path.length != 0){
+        for (let i = 0; i < path.length; i++) { 
+            if (path[i].x === newCoordinate.x && path[i].y === newCoordinate.y) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 function findDistance(x1, y1, x2, y2) { //алгоритм Брезенхэма
@@ -235,4 +251,3 @@ function findDistance(x1, y1, x2, y2) { //алгоритм Брезенхэма
     }
     return Math.sqrt(dx * dx + dy * dy);
 }
-

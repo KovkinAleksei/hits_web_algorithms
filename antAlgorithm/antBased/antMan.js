@@ -25,20 +25,24 @@ export async function antColonyOptimization(vertexes) {
 
     let distances = findMatrixDistances(vertexes); //рассчитываем расстояния
     let ants = createAnts(); //генерируем муравьев
-    let pheromones = initiateStartPheromones(vertexes); //генерируем ферамоны
+    let pheromones = initiateStartPheromones(vertexes); //генерируем феромоны
+
+    // рандомный выбор откуда начинает каждый муравей
 
     for (let iteration = 0; iteration < ITERATIONS; iteration++) {
         document.getElementById("nowIteration").innerHTML = iteration;
+
         // рандомный выбор откуда начинает каждый муравей
         ants.forEach(function (ant) {
             ant.path = [];
+            ant.pathLength = Infinity;
             ant.visited = new Array(vertexes.length).fill(false);
             let startVertex = Math.floor(Math.random() * vertexes.length);
             ant.path.push(startVertex);
             ant.visited[startVertex] = true;
             ant.currentVertex = startVertex;
         });
-    
+
         // выбор каждым муравьем следующей точки
         for (let i = 0; i < vertexes.length - 1; i++) {
             ants.forEach(function (ant) {
@@ -51,9 +55,9 @@ export async function antColonyOptimization(vertexes) {
     
         // ищем лучший маршрут у каждого муравья
         ants.forEach(function (ant) {
-            let pathLength = calculatePathLength(ant.path, distances);
-            if (pathLength < bestPathLength) {
-                bestPathLength = pathLength;
+            ant.pathLength = calculatePathLength(ant.path, distances);
+            if (ant.pathLength < bestPathLength) {
+                bestPathLength = ant.pathLength;
                 bestPath = ant.path.slice();
                 k = 0;
                 showSolve(bestPath);
@@ -75,7 +79,7 @@ export async function antColonyOptimization(vertexes) {
 function createAnts() {
     let ants = [];
     for (let i = 0; i < ANTS; i++) {
-        ants.push({ path: [], visited: [] });
+        ants.push({ path: [], visited: [], pathLength: Infinity });
     }
     return ants;
 }
@@ -131,14 +135,14 @@ function calculatePathLength(path, distances) {
     return pathLength;
 }
 
-//обновить ферамоны
+//обновить феромоны
 function updatePheromones(pheromones, ants, distances, vertexes) {
     for (let i = 0; i < vertexes.length; i++) {
         for (let j = i + 1; j < vertexes.length; j++) {
             let pheromone = 0;
             for (let k = 0; k < ants.length; k++) {
                 let path = ants[k].path;
-                let pathLength = calculatePathLength(path, distances);
+                let pathLength = ants[k].pathLength;
                 if (path.includes(i) && path.includes(j)) {
                     pheromone += 1 / pathLength;
                 }

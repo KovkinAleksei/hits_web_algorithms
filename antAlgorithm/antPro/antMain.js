@@ -27,6 +27,9 @@ function initializeMap(){
             map[i][j] = 0;
             pheromoneMap[i][j] = 0;
             pheromoneWithFoodMap[i][j] = 0;
+            if (i === size || j === size) {
+                map[i][j] = 1;
+            }
         }
     }
 }
