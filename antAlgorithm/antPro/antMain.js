@@ -179,14 +179,14 @@ function updatePheromones(){
                 pheromoneWithFoodMap[i][j] = 0;
             }
 
-            pheromoneMap[i][j] = pheromoneMap[i][j] * 0.988;
+            pheromoneMap[i][j] = pheromoneMap[i][j] * 0.998;
             ctx.fillStyle = "rgba(255, 0, 0, " + pheromoneMap[i][j] * 10  + ")";
             ctx.beginPath();
             ctx.arc(i * 10, j * 10, 0.8, 0, 2 * Math.PI);
             ctx.fill();
             
 
-            pheromoneWithFoodMap[i][j] = pheromoneWithFoodMap[i][j] * 0.988;
+            pheromoneWithFoodMap[i][j] = pheromoneWithFoodMap[i][j] * 0.998;
             ctx.fillStyle = "rgba(0, 100, 0, " + pheromoneWithFoodMap[i][j] * 10  + ")";
             ctx.beginPath();
             ctx.arc(i * 10, j * 10, 1, 0, 2 * Math.PI);

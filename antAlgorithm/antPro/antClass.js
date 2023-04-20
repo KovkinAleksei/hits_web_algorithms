@@ -11,7 +11,7 @@ export class Ant {
         this.pheromones = [];
         this.isCarryingFood = false;
         this.timeWithOutFood = 1;
-        this.pheromoneStrength = 1;
+        this.pheromoneStrength = 2;
         this.changeDirection = 1;
     }
 
@@ -29,27 +29,16 @@ export class Ant {
 
         if (!this.isCarryingFood) {
             this.timeWithOutFood++;
-            if (this.timeWithOutFood > 300) {
-                this.pheromoneStrength *= 0.988;
+            if (this.timeWithOutFood > 200) {
+                this.pheromoneStrength *= 0.98;
             } 
             this.followFood(foodPositions);
         } else {
             this.timeWithOutFood++;
-            if (this.timeWithOutFood > 300) {
-                this.pheromoneStrength *= 0.988;
-            } 
+            if (this.timeWithOutFood > 200) {
+                this.pheromoneStrength *= 0.98;
+            }
             this.followHome();
-        }
-
-        this.x += speed * Math.cos(this.direction);
-        this.y += speed * Math.sin(this.direction);
-
-        if (this.x < 0 || this.x > canvas.width) {
-            this.direction = Math.PI - this.direction;
-        }
-
-        if (this.y < 0 || this.y > canvas.height) {
-            this.direction = -this.direction;
         }
 
         // 1 - это стена
@@ -75,11 +64,15 @@ export class Ant {
         if (this.x > 0 && this.x < canvas.width && this.y > 0 && this.y < canvas.height){
             this.pheromones.push({ x: this.x, y: this.y, time: 25 });
             if (!this.isCarryingFood){
-                pheromoneMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] += this.pheromoneStrength / this.timeWithOutFood * 2; 
+                pheromoneMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] = this.pheromoneStrength / this.timeWithOutFood * 2; 
             } else {
-                pheromoneWithFoodMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] += this.pheromoneStrength / this.timeWithOutFood * 2; 
+                pheromoneWithFoodMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] = this.pheromoneStrength / this.timeWithOutFood * 2; 
             }
         }
+    }
+
+    getRandomDirection(){
+        this.direction += (Math.random() - 0.5) * 0.5;
     }
 
     draw() {
@@ -122,15 +115,10 @@ export class Ant {
         if (food && !this.isCarryingFood) {
             let dx = food.x - currentCellX;
             let dy = food.y - currentCellY;
-            this.pheromoneStrength = 0.1;
+            this.pheromoneStrength = 1;
             this.direction = Math.atan2(dy, dx);
-            if (Math.abs(dx) < 1 && Math.abs(dy) < 1) { 
-                this.isCarryingFood = true;
-                this.timeWithOutFood = 1;
-                this.pheromoneStrength = 1;
-            } 
         } else {
-            let searchRadius = 10;
+            let searchRadius = 7;
             let startX = Math.max(0, currentCellX - searchRadius);
             let endX = Math.min(size - 1, currentCellX + searchRadius);
             let startY = Math.max(0, currentCellY - searchRadius);
@@ -154,7 +142,17 @@ export class Ant {
             } else {
                 this.direction = bestDirection;
             }
-        } 
+        }
+
+        if (food){
+            let dx = food.x - currentCellX;
+            let dy = food.y - currentCellY;
+            if (Math.abs(dx) < 1 && Math.abs(dy) < 1) { 
+                this.isCarryingFood = true;
+                this.timeWithOutFood = 1;
+                this.pheromoneStrength = 1;
+            } 
+        }   
     } 
 
     followHome() {
@@ -163,7 +161,7 @@ export class Ant {
         let currentCellY = Math.floor(this.y / 10);
 
          // Определить область вокруг муравья, где будут искаться феромоны
-        let searchRadius = 10;
+        let searchRadius = 7;
         let startX = Math.max(0, currentCellX - searchRadius);
         let endX = Math.min(size - 1, currentCellX + searchRadius);
         let startY = Math.max(0, currentCellY - searchRadius);
@@ -189,9 +187,10 @@ export class Ant {
         }     
 
          // Если рядом нет феромонов, то выбрать направление наугад
-        if (bestDirection === null || maxPheromone < 0.01 || Math.random() < 0.1) {
+        if (bestDirection === null || maxPheromone < 0.01 || Math.random() < 0.2) {
             this.direction += (Math.random() - 0.5) * 0.5;
-        } else {
+        }
+        else {
             this.direction = bestDirection;
         }
 
