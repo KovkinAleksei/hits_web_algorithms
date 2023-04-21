@@ -12,6 +12,7 @@ body {
     background-image: radial-gradient(circle at center, #f3f3ee, #ffffff);
 
     justify-content: center;
+    overflow-x: hidden;
 }
 
 .container {
@@ -30,8 +31,13 @@ body {
     font-weight: 700;
 }
 
-p {
+#answerLabel {
     font-size: 60px;
+    min-width: 100px;
+    min-height: 100px;
+    font-weight: 700;
+    margin: 0px;
+    text-align: center;
 }
 
 .containerInner {
@@ -74,11 +80,11 @@ p {
 }
 
 .leftWow {
-    margin-right: 670px;
+    margin-right: 660px;
     z-index: -10;
 }
 
 .rightWow {
-    margin-left: 670px;
+    margin-left: 660px;
     z-index: -10;
 }

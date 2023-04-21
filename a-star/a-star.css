@@ -37,6 +37,10 @@ body {
     font-weight: bold;
 }
 
+#title {
+    margin: 30px 0px 0px 0px;
+}
+
 #inputBlock {
     display: flex;
     flex-direction: column;
