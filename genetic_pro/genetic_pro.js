@@ -4,7 +4,7 @@ const CHILDS = 10;
 const MIN_LEN = 1;
 const MAX_LEN = 100;
 
-const FIBAMOUNT = 10;
+const FIBAMOUNT = 20;
 
 // Числа Фибоначи
 let fibonacci = [];
@@ -109,7 +109,6 @@ function cross() {
     let minLen = Math.min(solves[first].operationIndexes.length, solves[second].operationIndexes.length);
     let cut1 = randInt(0, minLen);
     let cut2 = randInt(0, minLen);
-    //console.log(cut1);
 
     // Первый потомок
     var firstChild = {
@@ -134,8 +133,6 @@ function cross() {
     // Нахождение приспособленности первого потомка
     firstChild.fitness = calculateFitness(firstChild);
 
-    //console.log(firstChild);
-
     // Второй потомок
     var secondChild = {
         operationIndexes: solves[second].operationIndexes.slice(0, cut1 + 1).concat(solves[first].operationIndexes.slice(cut1 + 1, cut2)).concat(solves[second].operationIndexes.slice(cut2 + 1, 
@@ -159,8 +156,6 @@ function cross() {
     // Нахождение приспособленности второго потомка
     secondChild.fitness = calculateFitness(secondChild);
 
-    //console.log(secondChild);
-
     // Добавление потомков в популяцию
     solves.push(firstChild);
     solves.push(secondChild);
@@ -181,23 +176,20 @@ startButton.addEventListener('click', (e) => {
     // Генерация начальной популяции
     generateSolve();
 
-    for (let i = 0; i < 500; i++) {
+    const interval = setInterval(function() {
         // Добавление детей в популяцию
         for (let j = 0; j < CHILDS; j++) {
             cross();
         }
-
+    
         // Сортировка решений в популяции по их приспособленности
         sortSolves();
-
+    
         // Удаление лишних решений из популяции
         for (let k = 0; k < CHILDS * 2; k++) {
             solves.pop();
         }
-
-        //best.innerHTML += `${solves[0].fitness}<br>`;
-        console.log(i);
-    }
-
-    display.innerHTML = solves[0].code.replace(/\n/gi, '<br>');
+    
+        display.innerHTML = `let a = 0;<br>let b = 0;<br>let c = 1;<br>let result = 0;<br>` + solves[0].code.replace(/\n/gi, '<br>') + `result = a + b;<br>`;
+    }, 10);
 });
