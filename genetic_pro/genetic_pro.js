@@ -1,19 +1,20 @@
 const MUTPROB = 70;
-const POPULATION = 100;
-const CHILDS = 200;
+const POPULATION = 10;
+const CHILDS = 10;
 const MIN_LEN = 1;
-const MAX_LEN = 70;
+const MAX_LEN = 100;
 
 const FIBAMOUNT = 10;
 
 // Числа Фибоначи
 let fibonacci = [];
 
+// Заполнение массива чисел Фибоначи
 function getFibonacciNumbers() {
     for (let a = 0, b = 1, i = 0; i < FIBAMOUNT; i++, [a, b] = [b, a + b]){
         fibonacci.push(a);
     }
-}
+}   
 
 // Генерация случайного числа в диапозоне min-max
 function randInt(min, max) {
@@ -98,6 +99,73 @@ function sortSolves() {
     }
 }
 
+// Скрещивание
+function cross() {
+    // Случайный выбор родителей
+    let first = randInt(0, solves.length);
+    let second = randInt(0, solves.length);
+
+    // Случайный выбор разделителя в генах
+    let minLen = Math.min(solves[first].operationIndexes.length, solves[second].operationIndexes.length);
+    let cut1 = randInt(0, minLen);
+    let cut2 = randInt(0, minLen);
+    //console.log(cut1);
+
+    // Первый потомок
+    var firstChild = {
+        operationIndexes: solves[first].operationIndexes.slice(0, cut1 + 1).concat(solves[second].operationIndexes.slice(cut1 + 1, cut2)).concat(solves[first].operationIndexes.slice(cut2 + 1, 
+            solves[first].operationIndexes.length)),
+        fitness: Infinity,
+        code: ""
+    };
+
+    // Мутация первого потомка
+    if (Math.random() * 100 < MUTPROB) {
+        for (let a = 0; a < firstChild.operationIndexes.length / 4; a++) {
+            firstChild.operationIndexes[randInt(0, firstChild.operationIndexes.length)] = randInt(0, operations.length);
+        }
+    }
+
+    // Генерация алгоритма первого потомка
+    for (let i = 0; i < firstChild.operationIndexes.length; i++) {
+        firstChild.code += operations[firstChild.operationIndexes[i]];
+    }
+
+    // Нахождение приспособленности первого потомка
+    firstChild.fitness = calculateFitness(firstChild);
+
+    //console.log(firstChild);
+
+    // Второй потомок
+    var secondChild = {
+        operationIndexes: solves[second].operationIndexes.slice(0, cut1 + 1).concat(solves[first].operationIndexes.slice(cut1 + 1, cut2)).concat(solves[second].operationIndexes.slice(cut2 + 1, 
+            solves[second].operationIndexes.length)),
+        fitness: Infinity,
+        code: ""
+    };
+
+    // Мутация второго потомка
+    if (Math.random() * 100 < MUTPROB) {
+        for (let a = 0; a < secondChild.operationIndexes.length / 4; a++) {
+            secondChild.operationIndexes[randInt(0, secondChild.operationIndexes.length)] = randInt(0, operations.length);
+        }
+    }
+
+    // Генерация алгоритма второго потомка
+    for (let i = 0; i < secondChild.operationIndexes.length; i++) {
+        secondChild.code += operations[secondChild.operationIndexes[i]];
+    }
+
+    // Нахождение приспособленности второго потомка
+    secondChild.fitness = calculateFitness(secondChild);
+
+    //console.log(secondChild);
+
+    // Добавление потомков в популяцию
+    solves.push(firstChild);
+    solves.push(secondChild);
+}
+
 // Экран вывода алгоритма
 let display = document.getElementById("container");
 
@@ -113,9 +181,23 @@ startButton.addEventListener('click', (e) => {
     // Генерация начальной популяции
     generateSolve();
 
-    // Сортировка решений в популяции по их приспособленности
-    sortSolves();
+    for (let i = 0; i < 500; i++) {
+        // Добавление детей в популяцию
+        for (let j = 0; j < CHILDS; j++) {
+            cross();
+        }
 
-    console.log(solves);
+        // Сортировка решений в популяции по их приспособленности
+        sortSolves();
+
+        // Удаление лишних решений из популяции
+        for (let k = 0; k < CHILDS * 2; k++) {
+            solves.pop();
+        }
+
+        //best.innerHTML += `${solves[0].fitness}<br>`;
+        console.log(i);
+    }
+
     display.innerHTML = solves[0].code.replace(/\n/gi, '<br>');
 });
