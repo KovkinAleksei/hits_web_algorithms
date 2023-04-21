@@ -2,7 +2,7 @@ import { showSolve} from "./drawFunctions.js";
 import { ANTS, ITERATIONS, RHO } from "./antPage.js";
 import { onAllButtons } from "./buttonsHandler.js";
 
-const maxIterationWithoutChanges = 100;
+const maxIterationWithoutChanges = 100; //максимальное количество итераций без изменений
 const ALPHA = 2; //коэффициент влияния феромона
 const BETA = 5; //коэффициент влияния эвристической информации
 
@@ -43,7 +43,7 @@ export async function antColonyOptimization(vertexes) {
             ant.currentVertex = startVertex;
         });
 
-        // выбор каждым муравьем следующей точки
+        // муравьи бегают по всем вершинам
         for (let i = 0; i < vertexes.length - 1; i++) {
             ants.forEach(function (ant) {
                 let nextVertex = selectNextVertex(ant, ant.visited, pheromones, distances, vertexes);
@@ -63,12 +63,13 @@ export async function antColonyOptimization(vertexes) {
                 showSolve(bestPath);
             }
         });
+
         await sleep(1);
         k++;
         if (k > maxIterationWithoutChanges) {
             break;
         }
-        updatePheromones(pheromones, ants, distances, vertexes);
+        updatePheromones(pheromones, ants, vertexes);
     }
 
     onAllButtons();
@@ -91,15 +92,15 @@ function findMatrixDistances (vertexes){
     for (let i = 0; i < vertexes.length; i++) { 
         distances[i] = new Array(vertexes.length);
         for (let j = 0; j < vertexes.length; j++) { 
-            const X = vertexes[i].x - vertexes[j].x;
-            const Y = vertexes[i].y - vertexes[j].y;
-            distances[i][j] = Math.sqrt(X * X + Y * Y);
+            const x = vertexes[i].x - vertexes[j].x;
+            const y = vertexes[i].y - vertexes[j].y;
+            distances[i][j] = Math.sqrt(x * x + y * y);
         }
     }
     return distances;
 }
 
-//расчитать количество начальных феромонов на каждом ребре
+//установить количество начальных феромонов на каждом ребре
 function initiateStartPheromones(vertexes) { 
     let pheromones = [];
     for (let i = 0; i < vertexes.length; i++) { 
@@ -114,11 +115,11 @@ function initiateStartPheromones(vertexes) {
 
 //функция вероятности поменять маршрут
 function changePathProbability(i, j, visited, pheromones, distances, vertexes) {
-    let numerator = Math.pow(pheromones[i][j], ALPHA) * Math.pow(1 / distances[i][j], BETA);
+    const numerator = Math.pow(pheromones[i][j], ALPHA) * Math.pow(1 / distances[i][j], BETA); //вычисляем числитель по формуле
     let denominator = 0;
     for (let k = 0; k < vertexes.length; k++) {
         if (!visited[k]) {
-            denominator += Math.pow(pheromones[i][k], ALPHA) * Math.pow(1 / distances[i][k], BETA);
+            denominator += Math.pow(pheromones[i][k], ALPHA) * Math.pow(1 / distances[i][k], BETA); //считаем знаменатель
         }
     }
     return numerator / denominator;
@@ -136,7 +137,7 @@ function calculatePathLength(path, distances) {
 }
 
 //обновить феромоны
-function updatePheromones(pheromones, ants, distances, vertexes) {
+function updatePheromones(pheromones, ants, vertexes) {
     for (let i = 0; i < vertexes.length; i++) {
         for (let j = i + 1; j < vertexes.length; j++) {
             let pheromone = 0;
