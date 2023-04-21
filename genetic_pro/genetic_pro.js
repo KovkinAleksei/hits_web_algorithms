@@ -57,6 +57,8 @@ let display = document.getElementById("container");
 const startButton = document.getElementById("startButton");
 
 startButton.addEventListener('click', (e) => {
+    solves = [];
+
     generateSolve();
     console.log(solves);
     display.innerHTML = solves[0].code.replace(/\n/gi, '<br>');
