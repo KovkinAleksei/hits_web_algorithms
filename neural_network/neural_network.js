@@ -58,7 +58,7 @@ let ctx = cnv.getContext("2d");
 let imgWidth = canvas.width;
 let imgHeight = canvas.height;
 
-function imageCenterig(imgData) {
+function imageCenterig(imgData, image) {
     let test = new Array(imgHeight * imgWidth); 
         for (let i = 3; i < imgData.length; i += 4) {
             test[ Math.floor(i / 4) ] = (imgData[i] / 255);
@@ -98,7 +98,7 @@ function neuralNetwork() {
     image.onload = () => {
         // Получить данные с канваса и центрировать изображение
         var imgData = context.getImageData(0, 0, imgWidth, imgHeight).data;
-        let scaledImage = imageCenterig(imgData);
+        let scaledImage = imageCenterig(imgData, image);
 
         // Преобразовать в одноканальную картинку
         let oneChannelImage = new Array(28 ** 2);
