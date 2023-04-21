@@ -190,6 +190,6 @@ startButton.addEventListener('click', (e) => {
             solves.pop();
         }
     
-        display.innerHTML = `let a = 0;<br>let b = 0;<br>let c = 1;<br>let result = 0;<br>` + solves[0].code.replace(/\n/gi, '<br>') + `result = a + b;<br>`;
+        display.innerHTML = `let a = 0;<br>let b = 0;<br>let c = 0;<br>let result = 0;<br>` + solves[0].code.replace(/\n/gi, '<br>') + `result = a + b;<br>`;
     }, 10);
 });

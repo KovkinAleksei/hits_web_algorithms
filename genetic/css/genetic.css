@@ -15,6 +15,19 @@ body {
     margin: 15px;
 }
 
+.proLink {
+    white-space: nowrap;
+    text-decoration: none;
+    text-align: top;
+    height: 30px;
+    width: 200px;
+    margin: 60px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    color: rgb(3, 1, 8);
+}
+
 #buttons {
     display: flex;
     margin: 15px;
