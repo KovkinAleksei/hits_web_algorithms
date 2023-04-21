@@ -69,21 +69,25 @@
             </ul>
         </div>
 
-        <div id = "firstRowButtons">
-            <button><label id = "fileInputButton" for="fileInput">Загрузить файл</label></button>
-            <button id = "makeTree">Построить дерево</button>
-            <button id = "bypassTree">Обход по дереву</button>
-            <input type="text" id="userInput" placeholder="Ввод ваших данных">
-        </div>
-        <div id = "secondRowButtons">
-            <a href="#openModal"><button>Выбрать файл</button></a>
-            <button id = "deleteTree">Удалить дерево</button>
-            <button id = "reduceTree">Сократить дерево</button>
-            <button id = "userBypass">Обход ваших данных</button>
+        <div id = "buttons">
+            <div class="buttonsInnerBlocks">
+                <button><label id = "fileInputButton" for="fileInput">Загрузить свой файл</label></button>
+                <a href="#openModal"><button>Выбрать готовый файл</button></a>
+            </div>
+            <div class="buttonsInnerBlocks">
+                <button id = "makeTree">Построить дерево</button>
+                <button id = "deleteTree">Удалить дерево</button>
+            </div>
+                <div class="buttonsInnerBlocksInput">
+                <button id = "bypassTree">Обход по дереву</button>
+                <input type="text" id="userInput" placeholder="Ввод ваших данных">
+                <button id = "reduceTree">Сократить дерево</button>
+                <button id = "userBypass">Обход ваших данных</button>
+            </div>
         </div>
 
-        <div>Выбор разделителя</div>
         <div id = "selection">
+            <p>Выбор разделителя</p>
             <select id = "select">
                 <option value="comma">Запятая</option>
                 <option value="dotComma">Точка с запятой</option>
