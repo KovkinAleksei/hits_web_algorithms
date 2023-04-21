@@ -1,0 +1,130 @@
+body {
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    background-color: #f9f6ee;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#name {
+    font-size: 32px;
+    font-weight: 700;
+    width: 100%;
+    margin: 10px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+#inputBlock {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+.buttons {
+    max-width: 700px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+#interface { 
+    max-width: 600px;
+    margin: 20px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#findPathButton {
+    background-color: forestgreen;
+}
+
+#clearButton {
+    background-color: crimson;
+}
+
+button {
+    height: 50px;
+    min-width: 300px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    padding: auto;
+    background-color: #ceccc6;
+    color: rgb(19, 19, 19);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+    border: none;
+    border-radius: 20px;
+}
+
+button:hover, button:disabled {
+    opacity: 0.5;
+}
+
+canvas {
+    border-radius: 10px;
+    background-color: #ceccc6;
+    display: block;
+    margin: 10px;
+    max-width: 1000px;
+}
+
+#vertex {
+    background-color: black;
+    height: 20px;
+    width: 20px;
+    margin: -10px 0 0 -10px;
+    border-radius: 100%;
+    display: inline-block;
+}
+
+#input {
+    width: 590px;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+}
+
+#inputRange, #iterationRange, #rhoRange  {
+    width: 200px;
+}
+
+#counter, #counterIteration, #counterRHO {
+    display: block;
+    width: 60px;
+    float: right;
+}
+
+#rangeLabel, #iterationLabel, #rhoLabel, #linesLable {
+    width: 316px;
+    top: 0px;
+    float: left
+}
+
+.blink {
+    padding: 20px;
+    animation: blinker 1s linear infinite;
+}
+  
+@keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+}
+
+.red {
+    font-size: 72px;
+    color: red;
+    text-align: center;
+}
