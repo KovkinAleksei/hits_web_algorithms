@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700&display=swap" rel="stylesheet">
     <link href="./css/antStyle.css" rel="stylesheet">
     <link href="../../css/nav.css" rel="stylesheet">
+    <link href="../../css/appearanceAnimation.css" rel="stylesheet">
     <title>Муравьиный алгоритм</title>
 </head>
 
@@ -36,52 +37,55 @@
             <a href="../../neural_network/neural_network.html"><img src="../../assets/brain.png" class='img' width="60px"/></a>
         </div>
     </nav>
+    <div class="container">
+        <label id = "name"> Муравьиный алгоритм<a class='proLink' href="../antPro/antPro.html">Перейти в про режим</a></label>
 
-    <label id = "name"> Муравьиный алгоритм </label>
-    <a class='button' href="../antPro/antPro.html">Перейти в режим для профессионалов</a>
-
-    <canvas id = "canvas" width = "1000px" height = "500px"></canvas>
-<div id = "inputBlock">
+        <canvas id = "canvas" width = "1200px" height = "500px"></canvas>
+        <div id = "inputBlock">
+            
+        <div id = "interface">
+            <div id = "input">
+                <div id = "rangeLabel">Количество муравьев:</div>
+                <input type = "range" id = "inputRange" value = "50" min = "10" max = "1000" step = "10">
+                <span id = "counter">50</span>
+                
+            </div>
+            <div id = "input">
+                <div id = "iterationLabel">Количество итераций:</div>
+                <input type = "range" id = "iterationRange" value = "200" min = "50" max = "2000" step = "50">
+                <span id = "counterIteration">200</span>
+                
+            </div>
+            <div id = "input">
+                <div id = "rhoLabel">Скорость испарения феромонов:</div>
+                <input type = "range" id = "rhoRange" value = "0.5" min = "0.1" max = "0.7" step = "0.1">
+                <span id = "counterRHO">0.5</span>
+                
+            </div>
+            <div id = "input">
+                <div id = "linesLable">Отображение всех ребер графа:</div>
+                <input type="checkbox" id="getLines">
+            </div>
+        </div>
+        <div class="buttons">
+            <button id = "findPathButton">Найти путь</button>
+            <button id = "addVertexButton">Добавить вершину</button>
+            <button id = "deleteVertexButton">Удалить вершину</button>
+            <button id = "clearButton">Очистить поле</button>
+        </div>
         
-    <div id = "interface">
-        <div id = "input">
-            <div id = "rangeLabel">Количество муравьев:</div>
-            <span id = "counter">50</span>
-            <input type = "range" id = "inputRange" value = "50" min = "10" max = "1000" step = "10">
+        <div class="blink red" id = "done" style="display: none; ">
+            МАРШРУТ НАЙДЕН!
         </div>
-        <div id = "input">
-            <div id = "iterationLabel">Количество итераций:</div>
-            <span id = "counterIteration">200</span>
-            <input type = "range" id = "iterationRange" value = "200" min = "50" max = "2000" step = "50">
-        </div>
-        <div id = "input">
-            <div id = "rhoLabel">Скорость испарения феромонов:</div>
-            <span id = "counterRHO">0.5</span>
-            <input type = "range" id = "rhoRange" value = "0.5" min = "0.1" max = "0.7" step = "0.1">
-        </div>
-        <div id = "input">
-            <div id = "linesLable">Включить отображение всех ребер графа:</div>
-            <input type="checkbox" id="getLines">
-        </div>
-    </div>
-    <div class="buttons">
-        <button id = "findPathButton">Найти путь</button>
-        <button id = "addVertexButton">Добавить вершину</button>
-        <button id = "deleteVertexButton">Удалить вершину</button>
-        <button id = "clearButton">Очистить поле</button>
-    </div>
-    
-    <div class="blink red" id = "done" style="display: none; ">
-        МАРШРУТ НАЙДЕН!
-    </div>
 
-    <div class="blink red" id = "warning" style="display: none; ">
-        WARNING! ИДЕТ ВЫПОЛНЕНИЕ АЛГОРИТМА!
-        <div>
-            ИТЕРАЦИЯ: 
-            <span id = "nowIteration">1</span>
-            /
-            <span id = "allIterations">200</span>
+        <div class="blink red" id = "warning" style="display: none; ">
+            WARNING! ИДЕТ ВЫПОЛНЕНИЕ АЛГОРИТМА!
+            <div>
+                ИТЕРАЦИЯ: 
+                <span id = "nowIteration">1</span>
+                /
+                <span id = "allIterations">200</span>
+            </div>
         </div>
     </div>
     <script src="antPage.js" type = "module"></script>
