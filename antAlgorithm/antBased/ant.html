@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
     <link href="./css/antStyle.css" rel="stylesheet">
     <link href="../../css/nav.css" rel="stylesheet">
     <link href="../../css/appearanceAnimation.css" rel="stylesheet">
@@ -40,7 +40,7 @@
     <div class="container">
         <label id = "name"> Муравьиный алгоритм<a class='proLink' href="../antPro/antPro.html">Перейти в про режим</a></label>
 
-        <canvas id = "canvas" width = "1200px" height = "500px"></canvas>
+        <canvas id = "canvas" width = "1200px" height = "600px"></canvas>
         <div id = "inputBlock">
             
         <div id = "interface">
@@ -69,23 +69,22 @@
         </div>
         <div class="buttons">
             <button id = "findPathButton">Найти путь</button>
-            <button id = "addVertexButton">Добавить вершину</button>
-            <button id = "deleteVertexButton">Удалить вершину</button>
+            <button id = "addVertexButton">Добавить вершину <b>ВЫКЛ</b></button>
+            <button id = "deleteVertexButton">Удалить вершину <b>ВЫКЛ</b></button>
             <button id = "clearButton">Очистить поле</button>
         </div>
-        
-        <div class="blink red" id = "done" style="display: none; ">
-            МАРШРУТ НАЙДЕН!
-        </div>
+    </div>
+    <div class="blink red" id = "done" style="display: none; ">
+        МАРШРУТ НАЙДЕН!
+    </div>
 
-        <div class="blink red" id = "warning" style="display: none; ">
-            WARNING! ИДЕТ ВЫПОЛНЕНИЕ АЛГОРИТМА!
-            <div>
-                ИТЕРАЦИЯ: 
-                <span id = "nowIteration">1</span>
-                /
-                <span id = "allIterations">200</span>
-            </div>
+    <div class="blink red" id = "warning" style="display: none; ">
+        WARNING! ИДЕТ ВЫПОЛНЕНИЕ АЛГОРИТМА!
+        <div>
+            ИТЕРАЦИЯ: 
+            <span id = "nowIteration">1</span>
+            /
+            <span id = "allIterations">200</span>
         </div>
     </div>
     <script src="antPage.js" type = "module"></script>

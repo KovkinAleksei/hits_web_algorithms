@@ -4,7 +4,7 @@ const CHILDS = 10;
 const MIN_LEN = 1;
 const MAX_LEN = 100;
 
-const FIBAMOUNT = 20;
+const FIBAMOUNT = 100;
 
 // Числа Фибоначи
 let fibonacci = [];
