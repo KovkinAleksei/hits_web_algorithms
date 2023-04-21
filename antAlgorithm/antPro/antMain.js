@@ -228,7 +228,7 @@ document.getElementById("stopButton").addEventListener('click', (e) => {
             pheromoneWithFoodMap[i][j] = 0;
         }
     }
-    map[Math.floor(antColony.x / 10)][Math.floor(antColony.y / 10)] = 0;
+    map[Math.floor(antColony.x / sizePixel)][Math.floor(antColony.y / sizePixel)] = 0;
     updateMap();
 });
  
