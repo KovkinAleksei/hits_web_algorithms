@@ -20,7 +20,7 @@
             <a href="../../index.html"><img class='img' src="../../assets/home.png" width="60px"/></a>
         </div>
         <div>
-            <a><img src="../../assets/path.png" width="60px"/></a>
+            <a href="../../a-star/a-star.html"><img class='img' src="../../assets/path.png" width="60px"/></a>
         </div>
         <div>
             <a href="../../clustering/cluster.html"><img src="../../assets/clust.png" class='img' width="60px"/></a>
@@ -38,31 +38,39 @@
             <a href="../../neural_network/neural_network.html"><img src="../../assets/brain.png" class='img' width="60px"/></a>
         </div>
     </nav>
+    
     <div class="title">
         <label id = "name"> Муравьиный алгоритм для настоящих профессионалов (альфа-тестирование) <a class='navBase' href="../antBased/ant.html">Перейти в режим для базированных</a></label>
     </div>
-    <div id = "buttons">
-        <button id = "startButton">Запуск!</button>
-        <button id = "addAnthillButton">Добавить колонию муравьев</button>
-        <button id = "addWallsButton">Нарисовать стены</button>
-        <button id = "addFoodButton">Покормить</button>
-        <button id = "eraseButton">Ластик</button>
-        <button id = "clearButton">Стереть все</button>
-        <button id = "stopButton">Остановить симуляцию</button>
-    </div>
-    
-    <canvas id = "canvas" width = "800" height = "800"></canvas>
-    
-    <div id = "input">
-        <div id = "antCountLabel">Количество муравьев:</div>
-        <span id = "antCount">200</span>
-        <input type = "range" id = "antRange" value = "200" min = "100" max = "800" step = "50">
-    </div>
-    
-    <div id = "input">
-        <div id = "speedCountLabel">Скорость муравьев:</div>
-        <span id = "speedCount">5</span>
-        <input type = "range" id = "speedRange" value = "5" min = "3" max = "15" step = "1">
+    <div id="mainBlock">
+        <canvas id = "canvas" width = "800" height = "800"></canvas>
+        <div id="inputBlock">
+            <div id = "buttons">
+                <button id = "startButton">Запуск!</button>
+                <button id = "addAnthillButton">Добавить колонию муравьев</button>
+                <button id = "addWallsButton">Нарисовать стены</button>
+                <button id = "addFoodButton">Покормить</button>
+                <button id = "eraseButton">Ластик</button>
+                <button id = "clearButton">Стереть все</button>
+                <button id = "stopButton">Остановить симуляцию</button>
+            </div>
+            <div id = "input">
+                <div id="antCountDiv">
+                    <div>
+                        <div id = "antCountLabel">Количество муравьев:</div>
+                        <span id = "antCount">200</span>
+                    </div>
+                    <input type = "range" id = "antRange" value = "200" min = "100" max = "800" step = "50">
+                </div>
+                <div id="speedCountDiv">
+                    <div>
+                        <div id = "speedCountLabel">Скорость муравьев:</div>
+                        <span id = "speedCount">5</span>
+                    </div>
+                    <input type = "range" id = "speedRange" value = "5" min = "3" max = "15" step = "1">
+                </div>
+            </div>
+        </div>
     </div>
     <script src="antMain.js" type = "module"></script>
 </body>

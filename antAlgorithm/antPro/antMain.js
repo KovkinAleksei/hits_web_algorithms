@@ -244,11 +244,16 @@ document.getElementById("clearButton").addEventListener('click', (e) => {
 }); 
 
 document.getElementById("antRange").addEventListener('input', (e) => {
+    antRange.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
+
     document.getElementById("antCount").innerHTML = antRange.value;
     antCount = antRange.value;
 });
 
 document.getElementById("speedRange").addEventListener('input', (e) => {
+    speedRange.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
+
+
     document.getElementById("speedCount").innerHTML = speedRange.value;
     speed = speedRange.value;
 });
