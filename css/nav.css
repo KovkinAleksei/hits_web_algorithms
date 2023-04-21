@@ -143,8 +143,16 @@
     user-select: none;
 }
 
-.img:hover, .alreadyHere{
+.img:hover{
     cursor: pointer;
+    opacity: 1;
+    padding: 0px;
+    height: 70px;
+    width: 70px;
+}
+
+.alreadyHere {
+    cursor: default;
     opacity: 1;
     padding: 0px;
     height: 70px;
