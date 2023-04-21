@@ -48,7 +48,7 @@ function calculateEntropy(column) {
     let entropy = 0;
 
     // Нахождение уникальных классов в колонке
-    let uniqueClasses = getUniqueElements(column);
+    const uniqueClasses = getUniqueElements(column);
 
     // Нахождение энтропии для каждого из уникальных классов
     for (let i = 0; i < uniqueClasses.length; i++) {
@@ -74,7 +74,7 @@ function getUniqueMatrix(columnIndex, columnValue) {
 
 // Нахождение величины информации в колонке
 function calculateInformationGain(column, columnIndex) {
-    let uniqueClasses = getUniqueElements(column); // Уникальные классы в колонке
+    const uniqueClasses = getUniqueElements(column); // Уникальные классы в колонке
 
     if (column.length / uniqueClasses.length < 2) {
         return ERROR_CODE;
@@ -84,16 +84,16 @@ function calculateInformationGain(column, columnIndex) {
 
     // Нахождение энтропии для каждого уникального класса колонки
     for (let i = 0; i < uniqueClasses.length; i++) {
-        let probability = getProbability(uniqueClasses[i], column);
-        let uniqueMatrix = getUniqueMatrix(columnIndex, uniqueClasses[i]);
-        let currentEntropy = probability * calculateEntropy(getColumn(uniqueMatrix, uniqueMatrix[0].length - 1));
+        const probability = getProbability(uniqueClasses[i], column);
+        const uniqueMatrix = getUniqueMatrix(columnIndex, uniqueClasses[i]);
+        const currentEntropy = probability * calculateEntropy(getColumn(uniqueMatrix, uniqueMatrix[0].length - 1));
 
         // Суммирование найденных энтропий
         entropySumm += currentEntropy;
     }
 
     // Нахождение величины информации в колонке
-    let informationGain = calculateEntropy(getColumn(data, data[0].length - 1)) - entropySumm;
+    const informationGain = calculateEntropy(getColumn(data, data[0].length - 1)) - entropySumm;
 
     return informationGain;
 }
@@ -136,8 +136,7 @@ export function getTreeNodes(input) {
 
     // Вычисление информационной энтропии для каждого атрибута
     for (let i = 0; i < data[0].length - 1; i++) {
-        let idk = calculateInformationGain(getColumn(data, i), i);
-        informationGains.push(idk);
+        informationGains.push(calculateInformationGain(getColumn(data, i), i));
     }
 
     // Нахождение всех атрибутов

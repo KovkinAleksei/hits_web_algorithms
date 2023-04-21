@@ -15,7 +15,7 @@ class Node {
 }
 
 // Атрибут для создания вершины без ветвлений
-let leafAttr = {name: "leafAttr", index: -1};
+const leafAttr = {name: "leafAttr", index: -1};
 
 // Нахождение результата прохода по дереву
 function getAnswer(atr, result, currentData) {
@@ -64,7 +64,7 @@ function sortBranches(column) {
     let results = [];
     let count = [];
 
-    let uniqueRes = getUniqueElements(column);
+    const uniqueRes = getUniqueElements(column);
 
     for (let i = 0; i < uniqueRes.length; i++) {
         results.push(uniqueRes[i]);
@@ -104,7 +104,7 @@ function growBranch(queue) {
 
     // Взятие текущей вершины
     while (queue && currentIndex < attributeNodes.length) {
-        var currentNode = queue.shift();
+        let currentNode = queue.shift();
 
         // Нахождение всех ответвлений от текущей вершины
         let branches = sortBranches(getColumn(data, currentNode.attribute.index));
@@ -134,9 +134,8 @@ function addLeaves(currentNode, currentData) {
     if (currentNode.branches.length != 0) {
         for (let i = 0; i < currentNode.branches.length; i++) {
             // Таблица для нахождения наиболее вероятного результата прохода по дереву
-            let newData = [];
+            let newData = currentData.slice();
             let deletedCount = 0;
-            newData = currentData.slice();
 
             // Удаление из таблицы строк с неподходящими значениями атрибутов
             for (let j = 0; j < data.length; j++) {
@@ -155,9 +154,9 @@ function addLeaves(currentNode, currentData) {
         if (data.length == 0) {
             return;
         }
+
         // Нахождение возможных результатов прохода по дереву до текущего листа
-        let results = getUniqueElements(getColumn(data, currentNode.attribute.index));
-        //console.log(currentData, currentNode.attribute.name);
+        const results = getUniqueElements(getColumn(data, currentNode.attribute.index));
         
         for (let j = 0; j < results.length; j++) {
             // Добавление листьев

@@ -1,5 +1,5 @@
 export function getData(index) {
-    if (index == 1) {
+    if (index === 1) {
         return [
             ["Fever", "Cough", "Breathing", "Infected"],
             ["YES",   "NO",    "YES",       "YES"],
@@ -19,7 +19,7 @@ export function getData(index) {
         ];
     }
     
-    if (index == 2) {
+    if (index === 2) {
         return [
             ["usd",     "lamphat",  "nctt",     "slkt",     "play" ],
             ["TANG",    "GIAM",     "THAP",     "TB",       "THAP" ],
@@ -42,7 +42,7 @@ export function getData(index) {
         ];
     }
 
-    if (index == 3) {
+    if (index === 3) {
         return [
             ["Outlook",   "Temperature", "Humidity", "Wind",   "Play Tennis"],
             ["Sunny",     "Hot",         "High",     "Weak",   "No"],
@@ -62,7 +62,7 @@ export function getData(index) {
         ];
     }
 
-    if (index == 4)
+    if (index === 4)
     {
     return [
         ["Toothed",     "Hair",     "Breathes",     "Legs",     "Species"],

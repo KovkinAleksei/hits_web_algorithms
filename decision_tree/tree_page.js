@@ -9,7 +9,7 @@ export let divider = ",";
 function displayTree(currentNode, treeElement) {
     // Создание новой вершины
     let newNode = document.createElement("li");
-    let nodeName = currentNode.nodeName;
+    const nodeName = currentNode.nodeName;
 
     // Добавление текста к новой вершине
     let newNodeText = document.createElement("span");
@@ -29,7 +29,7 @@ function displayTree(currentNode, treeElement) {
     }
 
     // Добавление ветвей к новой вершине
-    let newNodeBranch = document.createElement("ul");
+    const newNodeBranch = document.createElement("ul");
     newNode.appendChild(newNodeBranch);
 
     for (let i = 0; i < currentNode.branches.length; i++) {
@@ -37,8 +37,8 @@ function displayTree(currentNode, treeElement) {
     }
 }
 
-let file = document.getElementById("fileInput");
-let makeTreeButton = document.getElementById("makeTree");
+const file = document.getElementById("fileInput");
+const makeTreeButton = document.getElementById("makeTree");
 let treeRoot;
 let chosenFileIndex = null;
 
@@ -58,7 +58,7 @@ makeTreeButton.addEventListener('click', (e) => {
         // Открытие файла
         fileInput = file.files[0];
 
-        let reader = new FileReader();
+        const reader = new FileReader();
 
         // Открытие файла
         reader.readAsText(fileInput);
@@ -82,15 +82,12 @@ makeTreeButton.addEventListener('click', (e) => {
         treeRoot = makeTree(getData(chosenFileIndex));
 
         // Отображение дерева решений
-        let treeRootElement = document.getElementById("root");
+        const treeRootElement = document.getElementById("root");
         displayTree(treeRoot, treeRootElement);
     }
 });
 
-let bypassTreeButton = document.getElementById("bypassTree");
-
-let bypassIndex;
-let bypassInterval;
+const bypassTreeButton = document.getElementById("bypassTree");
 
 // Очистка помеченных при обходе вершин
 function clearPath(currentNode) {
@@ -100,6 +97,9 @@ function clearPath(currentNode) {
         clearPath(currentNode.branches[i]);
     }
 }
+
+let bypassIndex;
+let bypassInterval;
 
 // Обход дерева
 function bypassTree(currentNode, data) {
@@ -120,7 +120,7 @@ function bypassTree(currentNode, data) {
         treeRoot.isVisited = true;
 
         resetTree();
-        let treeRootElement = document.getElementById("root");
+        const treeRootElement = document.getElementById("root");
         displayTree(treeRoot, treeRootElement);
 
         return treeRoot;
@@ -136,7 +136,7 @@ function bypassTree(currentNode, data) {
 
             // Перекрашивание посещённой вершины
             resetTree();
-            let treeRootElement = document.getElementById("root");
+            const treeRootElement = document.getElementById("root");
             displayTree(treeRoot, treeRootElement);
 
             break;
@@ -168,7 +168,7 @@ bypassTreeButton.addEventListener('click', (e) => {
     }
 });
 
-let reduceTreeButton = document.getElementById("reduceTree");
+const reduceTreeButton = document.getElementById("reduceTree");
 
 // Сокращение размера дерева
 reduceTreeButton.addEventListener('click', (e) => {
@@ -216,14 +216,14 @@ function reduceTree(currentNode) {
     return answers;
 }
 
-let userBypassButton = document.getElementById("userBypass");
+const userBypassButton = document.getElementById("userBypass");
 
 // Обход дерева по введённым пользоавтелем данным
 userBypassButton.addEventListener('click', (e) => {
     clearInterval(bypassInterval);
     bypassInterval = null;
 
-    let userData = document.getElementById("userInput").value.split(divider);
+    const userData = document.getElementById("userInput").value.split(divider);
 
     bypassIndex  = 1;
     let cNode = null;
@@ -235,7 +235,7 @@ userBypassButton.addEventListener('click', (e) => {
     }
 });
 
-let deleteTreeButton = document.getElementById("deleteTree");
+const deleteTreeButton = document.getElementById("deleteTree");
 
 // Вызов очистки поля по нажатию кнопки
 deleteTreeButton.addEventListener('click', (e) => {
@@ -252,7 +252,7 @@ function resetTree() {
 }
 
 // Выбор файла infection
-let infectionButton = document.getElementById("infectionButton");
+const infectionButton = document.getElementById("infectionButton");
 
 infectionButton.addEventListener('click', (e) => {
     file.value = '';
@@ -260,7 +260,7 @@ infectionButton.addEventListener('click', (e) => {
 });
 
 // Выбор файла THAP
-let thapButton = document.getElementById("thapButton");
+const thapButton = document.getElementById("thapButton");
 
 thapButton.addEventListener('click', (e) => {
     file.value = '';
@@ -268,7 +268,7 @@ thapButton.addEventListener('click', (e) => {
 });
 
 // Выбор файла weather
-let weatherButton = document.getElementById("weatherButton");
+const weatherButton = document.getElementById("weatherButton");
 
 weatherButton.addEventListener('click', (e) => {
     file.value = '';
@@ -276,7 +276,7 @@ weatherButton.addEventListener('click', (e) => {
 });
 
 // Выбор файла species
-let speciesButton = document.getElementById("speciesButton");
+const speciesButton = document.getElementById("speciesButton");
 
 speciesButton.addEventListener('click', (e) => {
     file.value = '';
@@ -284,7 +284,7 @@ speciesButton.addEventListener('click', (e) => {
 });
 
 // Выбор разделителя
-let selectionButton = document.getElementById("select");
+const selectionButton = document.getElementById("select");
 
 selectionButton.addEventListener('change', (e) => {
     if (selectionButton.selectedIndex == 0) {
