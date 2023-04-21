@@ -21,14 +21,18 @@ export class Ant {
 
         if (!this.isCarryingFood) {
             this.timeWithOutFood++;
-            if (this.timeWithOutFood > 150) {
-                this.pheromoneStrength *= 0.97;
+            if (this.timeWithOutFood > 200) {
+                if (this.pheromoneStrength > 0.01){
+                    this.pheromoneStrength *= 0.98;
+                }
             } 
             this.followFood(foodPositions);
         } else {
             this.timeWithOutFood++;
-            if (this.timeWithOutFood > 150) {
-                this.pheromoneStrength *= 0.97;
+            if (this.timeWithOutFood > 200) {
+                if (this.pheromoneStrength > 0.01){
+                    this.pheromoneStrength *= 0.98;
+                }
             }
             this.followHome();
         }
@@ -64,9 +68,13 @@ export class Ant {
         if (this.x > 0 && this.x < canvas.width && this.y > 0 && this.y < canvas.height){
             this.pheromones.push({ x: this.x, y: this.y, time: 25 });
             if (!this.isCarryingFood){
-                pheromoneMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] = this.pheromoneStrength / this.timeWithOutFood * 2; 
+                if (pheromoneMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] < this.pheromoneStrength / this.timeWithOutFood * 2){
+                    pheromoneMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] = this.pheromoneStrength / this.timeWithOutFood * 2; 
+                }
             } else {
-                pheromoneWithFoodMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] = this.pheromoneStrength / this.timeWithOutFood * 2; 
+                if (pheromoneWithFoodMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] < this.pheromoneStrength / this.timeWithOutFood * 2){
+                    pheromoneWithFoodMap[Math.floor(this.x / 10)][Math.floor(this.y / 10)] = this.pheromoneStrength / this.timeWithOutFood * 2; 
+                }
             }
         }
     }
@@ -126,7 +134,7 @@ export class Ant {
             this.pheromoneStrength = 2;
             this.direction = Math.atan2(dy, dx);
         } else {
-            let searchRadius = 20;
+            let searchRadius = 10;
             let startX = Math.max(0, currentCellX - searchRadius);
             let endX = Math.min(size - 1, currentCellX + searchRadius);
             let startY = Math.max(0, currentCellY - searchRadius);
@@ -183,7 +191,7 @@ export class Ant {
             if (Math.abs(dx) < 1 && Math.abs(dy) < 1) { 
                 this.isCarryingFood = true;
                 this.timeWithOutFood = 1;
-                this.pheromoneStrength = 1;
+                this.pheromoneStrength = 3;
                 this.pheromoneWay = [];
             } 
         }   
@@ -223,7 +231,7 @@ export class Ant {
             }
         }     
 
-        if (possibbleDirection === null || Math.random() < 0.1) {
+        if (possibbleDirection === null || Math.random() < 0.1 || possibbleDirection === 0) {
             let index = 0;
             do {
                 index++;
