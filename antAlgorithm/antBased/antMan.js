@@ -15,7 +15,7 @@ export function sleep(milliseconds) {
 export async function antColonyOptimization(vertexes) { 
     if (vertexes.length < 2) {
         alert("Поставьте хотя-бы 2 вершины графа");
-        onAllButtons();
+        onAllButtons(true);
         return;
     }
 
@@ -72,7 +72,7 @@ export async function antColonyOptimization(vertexes) {
         updatePheromones(pheromones, ants, vertexes);
     }
 
-    onAllButtons();
+    onAllButtons(false);
     showSolve(bestPath, "#0000ff");
 }
 

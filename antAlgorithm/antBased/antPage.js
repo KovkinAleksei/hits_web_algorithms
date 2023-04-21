@@ -54,17 +54,23 @@ document.getElementById("clearButton").addEventListener('click', (e) => {
 })
 
 document.getElementById("inputRange").addEventListener('input', (e) => {
+    document.getElementById("inputRange").style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
+
     document.getElementById("counter").innerHTML = inputRange.value;
     ANTS = inputRange.value;
 });
 
 document.getElementById("iterationRange").addEventListener('input', (e) => {
+    document.getElementById("iterationRange").style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
+
     document.getElementById("counterIteration").innerHTML = iterationRange.value;
     document.getElementById("allIterations").innerHTML = iterationRange.value;
     ITERATIONS = iterationRange.value;
 });
 
 document.getElementById("rhoRange").addEventListener('input', (e) => {
+    document.getElementById("rhoRange").style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
+
     document.getElementById("counterRHO").innerHTML = rhoRange.value;
     RHO = rhoRange.value;
 });

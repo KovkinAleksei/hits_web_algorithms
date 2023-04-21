@@ -4,7 +4,7 @@ const CHILDS = 10;
 const MIN_LEN = 1;
 const MAX_LEN = 100;
 
-const FIBAMOUNT = 20;
+const FIBAMOUNT = 100;
 
 // Числа Фибоначи
 let fibonacci = [];
@@ -200,6 +200,6 @@ startButton.addEventListener('click', (e) => {
             solves.pop();
         }
     
-        display.innerHTML = `const n = ${n};<br>let a = 0;<br>let b = 0;<br>let c = 1;<br>` + solves[0].code.replace(/\n/gi, '<br>') + `const result = a + b;<br>`;
+        display.innerHTML = `const n = ${n};<br>let a = 0;<br>let b = 0;<br>let c = 0;<br>` + solves[0].code.replace(/\n/gi, '<br>') + `const result = a + b;<br>`;
     }, 10);
 });

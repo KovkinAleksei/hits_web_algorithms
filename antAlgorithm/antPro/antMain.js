@@ -58,17 +58,8 @@ function handler(e){
     else if (nowButton === 4){
         erase(x, y);
     }
-    else if (nowButton === 5) {
-        debugMode(x, y);
-    }
 }
 
-function debugMode(x, y){
-    x = Math.floor(x / sizePixel);
-	y = Math.floor(y / sizePixel);
-    console.log(pheromoneMap[x][y]);
-    console.log(pheromoneWithFoodMap[x][y]);
-}
 
 function erase(x, y){
     x = Math.floor(x/sizePixel);
@@ -111,6 +102,7 @@ function setFood(x, y) {
 	y = Math.floor(y / sizePixel);
     if (map[x][y] === 0) {
         map[x][y] = 3;
+        pheromoneWithFoodMap[x][y] = 10;
         foodPositions.push({x: x, y: y});
         updateMap();
     }
@@ -204,6 +196,13 @@ function updatePheromones(){
             ctx.beginPath();
             ctx.arc(i * 10, j * 10, 1, 0, 2 * Math.PI);
             ctx.fill();
+
+            if (pheromoneMap[i][j] < 0.01){
+                pheromoneMap[i][j] = 0;
+            }
+            if (pheromoneWithFoodMap[i][j] < 0.01){
+                pheromoneWithFoodMap[i][j] = 0;
+            }
         }
     }
 }
@@ -218,10 +217,19 @@ document.getElementById("startButton").addEventListener('click', (e) => {
         alert("Сначала установите колонию муравьев!");
     } 
 });
-document.getElementById("debugButton").addEventListener('click', (e) => {
-    nowButton = 5;
-    console.log(pheromoneMap);
-    console.log(pheromoneWithFoodMap);
+document.getElementById("stopButton").addEventListener('click', (e) => {
+    cancelAnimationFrame(requestId);
+    ants = [];
+    isColonySet = false;
+    document.getElementById("startButton").disabled = false;
+    for (let i = 0; i <= size; i++){
+        for (let j = 0; j <= size; j++){
+            pheromoneMap[i][j] = 0;
+            pheromoneWithFoodMap[i][j] = 0;
+        }
+    }
+    map[Math.floor(antColony.x / sizePixel)][Math.floor(antColony.y / sizePixel)] = 0;
+    updateMap();
 });
  
 document.getElementById("clearButton").addEventListener('click', (e) => {
