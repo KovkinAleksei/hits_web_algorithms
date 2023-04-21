@@ -5,7 +5,7 @@ export const ctx = canvas.getContext('2d');
 export const size = 80;
 export const sizePixel = 10;
 
-export let speed = 1;
+export let speed = 5;
 export let map = [];
 export let pheromoneMap = []; 
 export let pheromoneWithFoodMap = []; 
@@ -14,7 +14,7 @@ export let antColony = {x: 0, y: 0};
 
 let nowButton = 0;
 let ants = [];
-let antCount = 100;
+let antCount = 200;
 let requestId;
 let isColonySet = false;
 
@@ -119,12 +119,22 @@ function setFood(x, y) {
 function setWalls(x, y){ 
     x = Math.floor(x / sizePixel);
 	y = Math.floor(y / sizePixel);
-    if (map[x][y] !== 2){
-        map[x][y] = 1;
-        pheromoneMap[x][y] = 0;
-        pheromoneWithFoodMap[x][y] = 0;
-        updateMap();
+
+    let startX = Math.max(0, x - 1);
+    let endX = Math.min(size - 1, x + 1);
+    let startY = Math.max(0, y - 1);
+    let endY = Math.min(size - 1, y + 1);
+
+    for (let i = startX; i <= endX; i++){
+        for (let j = startY; j <= endY; j++){
+            if (map[i][j] !== 2){
+                map[i][j] = 1;
+                pheromoneMap[i][j] = 0;
+                pheromoneWithFoodMap[i][j] = 0;
+            }
+        }
     }
+    updateMap();
 }
 
 function updateAnts() {

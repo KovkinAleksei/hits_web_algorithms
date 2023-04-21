@@ -1,6 +1,5 @@
 import { canvas, ctx, map, pheromoneMap, speed, size, foodPositions, sizePixel, antColony, pheromoneWithFoodMap } from "./antMain.js";
 
-
 const foodSearchRadius = 10;
 
 export class Ant {
@@ -11,50 +10,49 @@ export class Ant {
         this.pheromones = [];
         this.isCarryingFood = false;
         this.timeWithOutFood = 1;
-        this.pheromoneStrength = 2;
-        this.changeDirection = 1;
-        this.path = [];
+        this.pheromoneStrength = 3;
+        this.pheromoneWay = [];
     }
 
     updatePosition() {
         this.x += speed * Math.cos(this.direction);
         this.y += speed * Math.sin(this.direction);
-        this.path.push({x: Math.floor(this.x / 10), y: Math.floor(this.y / 10)});
-
-        if (this.x < 0 || this.x > canvas.width) {
-            this.direction = Math.PI - this.direction;
-        }
-
-        if (this.y < 0 || this.y > canvas.height) {
-            this.direction = -this.direction;
-        }
+        this.pheromoneWay.push({x: Math.floor(this.x / 10), y: Math.floor(this.y / 10)});
 
         if (!this.isCarryingFood) {
             this.timeWithOutFood++;
-            if (this.timeWithOutFood > 200) {
-                this.pheromoneStrength *= 0.98;
+            if (this.timeWithOutFood > 150) {
+                this.pheromoneStrength *= 0.97;
             } 
             this.followFood(foodPositions);
         } else {
             this.timeWithOutFood++;
-            if (this.timeWithOutFood > 200) {
-                this.pheromoneStrength *= 0.98;
+            if (this.timeWithOutFood > 150) {
+                this.pheromoneStrength *= 0.97;
             }
             this.followHome();
         }
 
-        // 1 - это стена
-        if (this.x > 0 && this.x < canvas.width && this.y > 0 && this.y < canvas.height) {
-            if (map[Math.floor(this.x / 10)][Math.floor(this.y / 10)] === 1){
-                if (this.direction < 0) {
-                    this.direction = Math.PI - this.direction;
-                }
-                else {
-                    this.direction = -this.direction;
-                }
-            }
-        }
-
+        //if (this.x < 0 || this.x > canvas.width) {
+        //    this.direction = Math.PI - this.direction;
+        //}
+//
+        //if (this.y < 0 || this.y > canvas.height) {
+        //    this.direction = -this.direction;
+        //}
+//
+        //// 1 - это стена
+        //if (this.x > 0 && this.x < canvas.width && this.y > 0 && this.y < canvas.height) {
+        //    if (map[Math.floor(this.x / 10)][Math.floor(this.y / 10)] === 1){
+        //        if (this.direction < 0) {
+        //            this.direction = Math.PI - this.direction;
+        //        }
+        //        else {
+        //            this.direction = -this.direction;
+        //        }
+        //    }
+        //}
+//
         for (let i = 0; i < this.pheromones.length; i++) {
             this.pheromones[i].time--;
             if (this.pheromones[i].time <= 0) {
@@ -73,9 +71,6 @@ export class Ant {
         }
     }
 
-    getRandomDirection(){
-        this.direction += (Math.random() - 0.5) * 0.5;
-    }
 
     draw() {
         ctx.fillStyle = this.isCarryingFood ? "green" : "red";
@@ -108,6 +103,17 @@ export class Ant {
         return closestFood;
     }
 
+    resetAnt(){
+        this.x = antColony.x;
+        this.y = antColony.y;
+        this.direction = Math.random() * 2 * Math.PI;
+        this.pheromones = [];
+        this.isCarryingFood = false;
+        this.timeWithOutFood = 1;
+        this.pheromoneStrength = 2;
+        this.pheromoneWay = [];
+    }
+
     followFood(foodPositions) {
         let food = this.findFood(foodPositions);
         let currentCellX = Math.floor(this.x / 10);
@@ -120,13 +126,16 @@ export class Ant {
             this.pheromoneStrength = 2;
             this.direction = Math.atan2(dy, dx);
         } else {
-            let searchRadius = 10;
+            let searchRadius = 20;
             let startX = Math.max(0, currentCellX - searchRadius);
             let endX = Math.min(size - 1, currentCellX + searchRadius);
             let startY = Math.max(0, currentCellY - searchRadius);
             let endY = Math.min(size - 1, currentCellY + searchRadius);
+
             let maxPheromone = 0;
             let bestDirection = null;
+            let possibbleDirection = null;
+            let newCoordinate = null;
 
             for (let x = startX; x <= endX; x++) {
                 for (let y = startY; y <= endY; y++) {
@@ -136,13 +145,35 @@ export class Ant {
                         let dx = x - currentCellX;
                         let dy = y - currentCellY;
                         bestDirection = Math.atan2(dy, dx);
+                        newCoordinate = {x: Math.floor((this.x + speed * Math.cos(bestDirection)) / 10), y: Math.floor((this.y + speed * Math.sin(bestDirection)) / 10)};
+                        if (!checker(newCoordinate, this.pheromoneWay)){
+                            possibbleDirection = bestDirection;
+                        }
                     }
                 }
             }
-            if (bestDirection === null || maxPheromone < 0.01 || Math.random() < 0.1) {
-                this.direction += (Math.random() - 0.5) * 0.5;
+            if (possibbleDirection === null || Math.random() < 0.1) {
+                let index = 0;
+                do {
+                    index++;
+                    possibbleDirection = this.direction + (Math.random() - 0.5) * 0.5;
+                    newCoordinate = {x: Math.floor((this.x + speed * Math.cos(possibbleDirection)) / 10), y: Math.floor((this.y + speed * Math.sin(possibbleDirection)) / 10)};
+                    if (!checkWalls(newCoordinate)){
+                        this.direction = possibbleDirection;
+                        break;
+                    }
+                        
+                    else if (index === 200){
+                        if (this.direction < 0) {
+                            this.direction = Math.PI - this.direction;
+                        } else {
+                            this.direction = -this.direction;
+                        }
+                        break;
+                    }
+                } while(true);
             } else {
-                this.direction = bestDirection;
+                this.direction = possibbleDirection;
             }
         }
 
@@ -153,28 +184,25 @@ export class Ant {
                 this.isCarryingFood = true;
                 this.timeWithOutFood = 1;
                 this.pheromoneStrength = 1;
-                this.path = [];
+                this.pheromoneWay = [];
             } 
         }   
     } 
 
     followHome() {
-        // Определить ячейку в массиве pheromoneMap, соответствующую текущему положению муравья
         let currentCellX = Math.floor(this.x / 10);
         let currentCellY = Math.floor(this.y / 10);
 
-         // Определить область вокруг муравья, где будут искаться феромоны
         let searchRadius = 10;
         let startX = Math.max(0, currentCellX - searchRadius);
         let endX = Math.min(size - 1, currentCellX + searchRadius);
         let startY = Math.max(0, currentCellY - searchRadius);
         let endY = Math.min(size - 1, currentCellY + searchRadius);
          
-         // Найти направление, ведущее к муравейнику, с учетом феромонов
         let maxPheromone = 0;
         let bestDirection = null;
         let possibbleDirection = null;
-        let newCoordinate;
+        let newCoordinate = null;
         for (let x = startX; x <= endX; x++) {
             for (let y = startY; y <= endY; y++) {
                 if (x === currentCellX && y === currentCellY) {
@@ -188,16 +216,33 @@ export class Ant {
                     let dy = y - currentCellY;
                     bestDirection = Math.atan2(dy, dx);
                     newCoordinate = {x: Math.floor((this.x + speed * Math.cos(bestDirection)) / 10), y: Math.floor((this.y + speed * Math.sin(bestDirection)) / 10)};
-                    if (!checker(newCoordinate, this.path)){
+                    if (!checker(newCoordinate, this.pheromoneWay)){
                         possibbleDirection = bestDirection;
                     }
                 }
             }
         }     
 
-         // Если рядом нет феромонов, то выбрать направление наугад
         if (possibbleDirection === null || Math.random() < 0.1) {
-            this.direction += (Math.random() - 0.5) * 0.5;
+            let index = 0;
+            do {
+                index++;
+                possibbleDirection = this.direction + (Math.random() - 0.5) * 0.5;
+                newCoordinate = {x: Math.floor((this.x + speed * Math.cos(possibbleDirection)) / 10), y: Math.floor((this.y + speed * Math.sin(possibbleDirection)) / 10)};
+                if (!checkWalls(newCoordinate)){
+                    this.direction = possibbleDirection;
+                    break;
+                }
+
+                else if (index === 200){
+                    if (this.direction < 0) {
+                        this.direction = Math.PI - this.direction;
+                    } else {
+                        this.direction = -this.direction;
+                    }
+                    break;
+                }
+            } while(true);
         }
         else {
             this.direction = possibbleDirection;
@@ -206,18 +251,30 @@ export class Ant {
        if (findDistance(Math.floor(antColony.x / 10), Math.floor(antColony.y / 10), currentCellX, currentCellY) < 2){
            this.isCarryingFood = false;
            this.timeWithOutFood = 1;
-           this.path = [];
+           this.pheromoneWay = [];
            this.direction += (Math.random() - 0.5) * 0.5;
         }
     }
     
 }
 
+function checkWalls(newCoordinate){
+    if (newCoordinate.x < 0 || newCoordinate.y < 0 || newCoordinate.y >= size || newCoordinate.x >= size){
+        return true;
+    }
+    if (map[newCoordinate.x][newCoordinate.y] === 1) {
+        return true;
+    }
+    return false;
+}
+
 function checker(newCoordinate, path){
-    console.log("lox");
     if (path.length != 0){
         for (let i = 0; i < path.length; i++) { 
-            if (path[i].x === newCoordinate.x && path[i].y === newCoordinate.y) {
+            if (newCoordinate.x < 0 || newCoordinate.y < 0 || newCoordinate.y >= size || newCoordinate.x >= size){
+                return true;
+            }
+            if (path[i].x === newCoordinate.x && path[i].y === newCoordinate.y || map[newCoordinate.x][newCoordinate.y] === 1) {
                 return true;
             }
         }
