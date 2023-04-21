@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link href="./antProStyles.css" rel="stylesheet">
+    <link href="../../css/nav.css" rel="stylesheet">
+    <link href="../../css/appearanceAnimation.css" rel="stylesheet">
+    <title>Муравьиный алгоритм для настоящих профессионалов</title>
+</head>
+
+<body> 
+    <input type="checkbox" id="nav-toggle" hidden>
+    <nav class="nav">
+        <label for="nav-toggle" class="nav-toggle" onclick></label>
+        <div>
+            <a href="../../index.html"><img class='img' src="../../assets/home.png" width="60px"/></a>
+        </div>
+        <div>
+            <a><img src="../../assets/path.png" width="60px"/></a>
+        </div>
+        <div>
+            <a href="../../clustering/cluster.html"><img src="../../assets/clust.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../../genetic/genetic.html"><img src="../../assets/gen.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a><img class='img alreadyHere' src="../../assets/ant.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../../decision_tree/decision_tree.html"><img src="../../assets/tree.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../../neural_network/neural_network.html"><img src="../../assets/brain.png" class='img' width="60px"/></a>
+        </div>
+    </nav>
+    <label id = "name"> Муравьиный алгоритм для настоящих профессионалов (альфа-тестирование)</label>
+    <a class='button' href="../antBased/ant.html">Перейти в режим для базированных</a>
+    <div id = "buttons">
+        <button id = "startButton">Запуск!</button>
+        <button id = "addAnthillButton">Добавить колонию муравьев</button>
+        <button id = "addWallsButton">Нарисовать стены</button>
+        <button id = "addFoodButton">Покормить</button>
+        <button id = "eraseButton">Ластик</button>
+        <button id = "clearButton">Стереть все</button>
+        <button id = "debugButton">debugMode</button>
+    </div>
+    
+    <canvas id = "canvas" width = "800" height = "800"></canvas>
+    
+    <div id = "input">
+        <div id = "antCountLabel">Количество муравьев:</div>
+        <span id = "antCount">200</span>
+        <input type = "range" id = "antRange" value = "200" min = "100" max = "800" step = "50">
+    </div>
+    
+    <div id = "input">
+        <div id = "speedCountLabel">Скорость муравьев:</div>
+        <span id = "speedCount">5</span>
+        <input type = "range" id = "speedRange" value = "5" min = "3" max = "15" step = "1">
+    </div>
+    <script src="antMain.js" type = "module"></script>
+</body>
+</html>
