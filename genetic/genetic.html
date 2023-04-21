@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700&display=swap" rel="stylesheet">
     <link href="./css/genetic.css" rel="stylesheet">
+    <link href="../css/nav.css" rel="stylesheet">
+    <link href="../css/appearanceAnimation.css" rel="stylesheet">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
     <title>Генетический алгоритм</title>
 </head>
 
@@ -23,13 +26,13 @@
             <a href="../clustering/cluster.html"><img src="../assets/clust.png" class='img' width="60px"/></a>
         </div>
         <div>
-            <a href="../genetic/genetic.html"><img src="../assets/gen.png" class='img' width="60px"/></a>
+            <a><img src="../assets/gen.png" class='img alreadyHere' width="60px"/></a>
         </div>
         <div>
             <a href="../antAlgorithm/antBased/ant.html"><img src="../assets/ant.png" class='img' width="60px"/></a>
         </div>
         <div>
-            <a><img src="../assets/tree.png" class='img alreadyHere' width="60px"/></a>
+            <a href="../decision_tree/decision_tree.html"><img src="../assets/tree.png" class='img' width="60px"/></a>
         </div>
         <div>
             <a href="../neural_network/neural_network.html"><img src="../assets/brain.png" class='img' width="60px"/></a>
@@ -38,26 +41,29 @@
     </nav>
     
     <div id = "wholeContent">
+        <label class="title">Генетический алгоритм</label>
+        <div id ="canvasDiv">
+            <canvas id = "canvas" width = "800" height = "500"></canvas>
+        </div>
+
         <div id ="settings">
-            <input type="checkbox" id ="fullGraph">
-            <label for ="fullGraph" id = "fullGraphLabel">Построить полный граф</label>
 
             <div id = "input">
-                <div id = "rangeLabel">Задержка работы алгоритма в мс:</div>
-                <span id = "counter">10</span>
-                <input type = "range" id = "inputRange" value = "0" min = "10" max = "500" step = "10">
+                <div id = "rangeLabel">Скорость анимации:</div>
+                <span id = "counter">100%</span>
+                <input type = "range" id = "inputRange" value = "100" min = "10" max = "100" step = "5">
             </div>
 
             <div id = "population">
                 <div id = "populationLabel">Кол-во решений в популяции:</div>
                 <span id = "populationCounter">1500</span>
-                <input type = "range" id = "populationRange" value = "1500" min = "100" max = "1500" step = "10">
+                <input type = "range" id = "populationRange" value = "1500" min = "100" max = "2000" step = "10">
             </div>
 
             <div id = "childs">
                 <div id = "childsLabel">Кол-во детей при скрещивании:</div>
                 <span id = "childsCounter">1500</span>
-                <input type = "range" id = "childsRange" value = "1500" min = "100" max = "1500" step = "10">
+                <input type = "range" id = "childsRange" value = "1500" min = "100" max = "2000" step = "10">
             </div>
 
             <div id = "mutation">
@@ -65,18 +71,17 @@
                 <span id = "mutationCounter">70</span>
                 <input type = "range" id = "mutationRange" value = "70" min = "0" max = "100" step = "1">
             </div>
-        </div>
-
-        <div id ="canvasDiv">
-            <div id = "buttons">
-                <button id = "findPathButton">Найти путь</button>
-                <button id = "deleteVertexButton">Удаление вершин: ВЫКЛ</button>
-                <button id = "clearButton">Очистить поле</button>
+            <div id="fullGraphBox">
+                <input type="checkbox" id ="fullGraph">
+                <label for ="fullGraph" id = "fullGraphLabel">Построить полный граф</label>
             </div>
-
-            <canvas id = "canvas" width = "800" height = "500"></canvas>
+        </div>
+        <div id = "buttons">
+            <button id = "findPathButton">Найти путь</button>
+            <button id = "deleteVertexButton">Удаление вершин: ВЫКЛ</button>
+            <button id = "clearButton">Очистить поле</button>
+        </div>
     </div>
-</div>
     
     <script src="geneticPage.js" type = "module"></script>
     <script src="settings.js" type = "module"></script>

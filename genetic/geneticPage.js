@@ -7,17 +7,24 @@ let canv = document.getElementById("canvas");
 export let vertexes = [];       // Массив вершин
 export let solves = [];         // Решения
 let interval = null;            // Интервал работы алгоритма
-const RADIUS = 10;              // Радиус вершины
+const RADIUS = 12;              // Радиус вершины
 let iterations = 0;             // Кол-во итераций
 
 // Отображение всех вершин графа
 export function drawVertexes() {
     let ctx = canv.getContext('2d');
+    let index = 0;
 
     vertexes.forEach(element => {
+        ctx.fillStyle = "black";
         ctx.beginPath();
         ctx.arc(element.x, element.y, RADIUS, 0, 2 * Math.PI);
         ctx.fill();
+        ctx.fillStyle = "white";
+        ctx.font = "12px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText(index, element.x, element.y + 5);
+        index++;
     });
 }
 
@@ -75,12 +82,10 @@ let deleteMode = false;
 deleteVertexButton.addEventListener('click', (e) => {
     if (!deleteMode) {
         deleteVertexButton.innerHTML = "Удаление вершин: ВКЛ"
-        deleteVertexButton.style.border = "2px #f9f6ee inset";
         deleteMode = true;
     }
     else {
         deleteVertexButton.innerHTML = "Удаление вершин: ВЫКЛ"
-        deleteVertexButton.style.border = "2px #f9f6ee outset";
         deleteMode = false;
     }
 })
@@ -107,6 +112,11 @@ function deleteVertex(e) {
 
         // Сброс текущего решения
         resetSolve();
+
+        // Отображение полного графа
+        if (drawFullGraph) {
+            drawLines();
+        }
     }
 }
 
@@ -116,9 +126,9 @@ canv.addEventListener('click', (e) => {
         return;
     }
 
-    if (vertexes.length == 30)
+    if (vertexes.length == 60)
     {
-        alert("Куда разогнался? 30-ти городов хватит!");
+        alert("Куда разогнался? 60-ти городов хватит!");
         return;
     }
 
@@ -139,9 +149,14 @@ canv.addEventListener('click', (e) => {
 
         // Отображение новой вершины графа
         let ctx = canv.getContext('2d');
+        ctx.fillStyle = "black";
         ctx.beginPath();
         ctx.arc(xPos, yPos, RADIUS, 0, 2 * Math.PI);
         ctx.fill();
+        ctx.fillStyle = "white";
+        ctx.font = "12px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText(vertexes.length, xPos, yPos + 5);
 
         // Добавление в массив вершин
         vertexes.push({x: xPos, y: yPos});
@@ -150,6 +165,8 @@ canv.addEventListener('click', (e) => {
         if (drawFullGraph) {
             drawLines();
         }
+        
+        drawVertexes();
     }
 });
 
@@ -194,7 +211,7 @@ export function showSolve(solve) {
             ctx.strokeStyle = "white";
         }
         else {
-            ctx.strokeStyle = "lemonchiffon";
+            ctx.strokeStyle = "#20b9e5";
         }
 //lemonchiffon
 //lightgoldenrodyellow
@@ -212,7 +229,7 @@ export function showSolve(solve) {
         ctx.strokeStyle = "white";
     }
     else {
-        ctx.strokeStyle = "lemonchiffon";
+        ctx.strokeStyle = "#20b9e5";
 
         clearInterval(interval);
         interval = null;
@@ -266,6 +283,7 @@ function getPath() {
 // Перезапуск алгоритма нажатием кнопки Найти путь
 findPathButton.addEventListener('click', (e) => {
     solves = [];
+    iterations = 0;
     getPath();
 });
 
@@ -294,8 +312,8 @@ inputRange.addEventListener('input', (e) => {
     inputRange.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
 
     let counter = document.getElementById("counter");
-    counter.innerHTML = inputRange.value;
-    timeout = inputRange.value;
+    counter.innerHTML = inputRange.value + "%";
+    timeout = 510 - inputRange.value * 5;
 
     // Изменение скорости выполнения текущего запущенного алгоритма
     if (interval) {
