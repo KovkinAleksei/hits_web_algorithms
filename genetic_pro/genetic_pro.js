@@ -11,16 +11,20 @@ let fibonacci = [];
 
 // Заполнение массива чисел Фибоначи
 function getFibonacciNumbers() {
-    for (let a = 0, b = 1, i = 0; i < FIBAMOUNT; i++, [a, b] = [b, a + b]){
-        fibonacci.push(a);
+    let result = 0;
+    let nextNumber = 1;
+
+    for (let i = 0; i < FIBAMOUNT; i++){
+        let temp = nextNumber;
+        nextNumber = result;
+        result += temp;
+
+        fibonacci.push(result);
     }
 }   
 
 // Генерация случайного числа в диапозоне min-max
 function randInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.ceil(max);
-
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
@@ -167,8 +171,14 @@ let display = document.getElementById("container");
 // Запуск генетического алгоритма
 const startButton = document.getElementById("startButton");
 
+let interval = null;
+
 startButton.addEventListener('click', (e) => {
     solves = [];
+    const n = randInt(1, 20);
+    clearInterval(interval);
+    interval = null;
+    
 
     // Нахождение чисел Фибоначи для проверки алгоритмов
     getFibonacciNumbers();
@@ -176,7 +186,7 @@ startButton.addEventListener('click', (e) => {
     // Генерация начальной популяции
     generateSolve();
 
-    const interval = setInterval(function() {
+    interval = setInterval(function() {
         // Добавление детей в популяцию
         for (let j = 0; j < CHILDS; j++) {
             cross();
@@ -190,6 +200,6 @@ startButton.addEventListener('click', (e) => {
             solves.pop();
         }
     
-        display.innerHTML = `let a = 0;<br>let b = 0;<br>let c = 1;<br>let result = 0;<br>` + solves[0].code.replace(/\n/gi, '<br>') + `result = a + b;<br>`;
+        display.innerHTML = `const n = ${n};<br>let a = 0;<br>let b = 0;<br>let c = 1;<br>` + solves[0].code.replace(/\n/gi, '<br>') + `const result = a + b;<br>`;
     }, 10);
 });
