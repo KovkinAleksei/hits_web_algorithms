@@ -1,15 +1,40 @@
-html {
+body {
     padding: 16px;
-    background-color: #f9f6ee;
+    background:
+      radial-gradient(circle at 50% 0,
+      #a6a8cf,
+        rgba(255,0,0,0) 70.71%),
+      radial-gradient(circle at 6.7% 75%,
+      #b5cef5,
+        rgba(0,0,255,0) 70.71%),
+      radial-gradient(circle at 93.3% 75%,
+      #dbcce7,
+        rgba(0,255,0,0) 70.71%) beige;
+
+        font-family: 'Montserrat', 'sans-serif';
+}
+
+.title {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
 }
 
 #name {
-    font-size: 32px;
+    font-size: 40px;
     font-weight: 700;
-    width: 100%;
     margin: 10px;
     text-align: center;
-    color: rgb(0, 0, 0);
+    color: rgb(1, 1, 8);
+}
+
+.navBase {
+    white-space: nowrap;
+    margin: 0px 10px;
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+    color: rgb(10, 10, 226);
 }
 
 #buttons {
