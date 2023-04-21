@@ -4,7 +4,16 @@ const CHILDS = 200;
 const MIN_LEN = 1;
 const MAX_LEN = 70;
 
-const INF = 999999999;
+const FIBAMOUNT = 10;
+
+// Числа Фибоначи
+let fibonacci = [];
+
+function getFibonacciNumbers() {
+    for (let a = 0, b = 1, i = 0; i < FIBAMOUNT; i++, [a, b] = [b, a + b]){
+        fibonacci.push(a);
+    }
+}
 
 // Генерация случайного числа в диапозоне min-max
 function randInt(min, max) {
@@ -28,8 +37,32 @@ const operations = [
 let solves = [];
 
 // Нахождение приспособленности решения
-function calculateFitness() {
+function calculateFitness(currentSolve) {
+    let result = 0;
+    let summ = 0;
 
+    let fitness = 0;
+
+    try{
+        for (let i = 0; i < FIBAMOUNT; i++) {
+            let n = 0;
+            let a = 0; 
+            let b = 0;
+            let c = 0;
+            result = 0;
+
+            let fullCode = `n = ${i + 1};\na = 0;\nb = 0;\nc = 1;\n result = 0;\n` + currentSolve.code + `result = a + b;\n`;
+            eval(fullCode);
+            summ += Math.abs(fibonacci[i] - result);
+        }
+
+        fitness = summ;
+    }
+    catch{
+        fitness = Infinity;
+    }
+
+    return fitness;
 }
 
 // Генерация случайного решения
@@ -37,7 +70,7 @@ function generateSolve() {
     for (let i = 0; i < POPULATION; i++) {
         let currentSolve = {
             operationIndexes: new Array(randInt(MIN_LEN, MAX_LEN)),
-            fitness: INF,
+            fitness: Infinity,
             code: ""
         };
 
@@ -46,7 +79,22 @@ function generateSolve() {
             currentSolve.code += operations[currentSolve.operationIndexes[j]];
         }
 
+        currentSolve.fitness = calculateFitness(currentSolve);
+
         solves.push(currentSolve);
+    }
+}
+
+// Сортировка решений в популяции по их приспособленности
+function sortSolves() {
+    for (let i = 0; i < solves.length; i++) {
+        for (let j = i + 1; j < solves.length; j++) {
+            if (solves[i].fitness > solves[j].fitness) {
+                let temp = solves[i];
+                solves[i] = solves[j];
+                solves[j] = temp;
+            }
+        }
     }
 }
 
@@ -59,7 +107,15 @@ const startButton = document.getElementById("startButton");
 startButton.addEventListener('click', (e) => {
     solves = [];
 
+    // Нахождение чисел Фибоначи для проверки алгоритмов
+    getFibonacciNumbers();
+
+    // Генерация начальной популяции
     generateSolve();
+
+    // Сортировка решений в популяции по их приспособленности
+    sortSolves();
+
     console.log(solves);
     display.innerHTML = solves[0].code.replace(/\n/gi, '<br>');
 });
