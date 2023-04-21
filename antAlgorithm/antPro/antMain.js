@@ -111,6 +111,7 @@ function setFood(x, y) {
 	y = Math.floor(y / sizePixel);
     if (map[x][y] === 0) {
         map[x][y] = 3;
+        pheromoneWithFoodMap[x][y] = 10;
         foodPositions.push({x: x, y: y});
         updateMap();
     }
@@ -204,6 +205,13 @@ function updatePheromones(){
             ctx.beginPath();
             ctx.arc(i * 10, j * 10, 1, 0, 2 * Math.PI);
             ctx.fill();
+
+            if (pheromoneMap[i][j] < 0.01){
+                pheromoneMap[i][j] = 0;
+            }
+            if (pheromoneWithFoodMap[i][j] < 0.01){
+                pheromoneWithFoodMap[i][j] = 0;
+            }
         }
     }
 }
