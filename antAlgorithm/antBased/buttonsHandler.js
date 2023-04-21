@@ -1,16 +1,16 @@
 export function returnToOriginalStage(){
-    document.getElementById("addVertexButton").style.backgroundColor = "";
-    document.getElementById("deleteVertexButton").style.backgroundColor = "";
+    document.getElementById("addVertexButton").textContent = "Добавить вершину ВЫКЛ";
+    document.getElementById("deleteVertexButton").textContent = "Удалить вершину ВЫКЛ";
 }
 
 export function changeAddButton(){
-    document.getElementById("deleteVertexButton").style.backgroundColor = "";
-    document.getElementById("addVertexButton").style.backgroundColor = "#acaaa6";
+    document.getElementById("deleteVertexButton").textContent = "Удалить вершину ВЫКЛ";
+    document.getElementById("addVertexButton").textContent = "Добавить вершину ВКЛ";
 }
 
 export function changeDeleteButton(){
-    document.getElementById("addVertexButton").style.backgroundColor = "";
-    document.getElementById("deleteVertexButton").style.backgroundColor = "#acaaa6";
+    document.getElementById("addVertexButton").textContent = "Добавить вершину ВЫКЛ";
+    document.getElementById("deleteVertexButton").textContent = "Удалить вершину ВКЛ";
 }
 
 export function offAllButtons() {
@@ -25,7 +25,7 @@ export function offAllButtons() {
     document.getElementById("warning").style.display = "block";
 }
 
-export function onAllButtons() {
+export function onAllButtons(flag) {
     document.getElementById("findPathButton").disabled = false;
     document.getElementById("addVertexButton").disabled = false;
     document.getElementById("deleteVertexButton").disabled = false;
@@ -35,8 +35,10 @@ export function onAllButtons() {
     document.getElementById("iterationRange").disabled = false;
     document.getElementById("rhoRange").disabled = false;
     document.getElementById("warning").style.display = "none";
-    document.getElementById("done").style.display = "block";
-    setTimeout(() => {
-        document.getElementById("done").style.display = "none";
-    }, 3000);
+    if(!flag) {
+        document.getElementById("done").style.display = "block";
+        setTimeout(() => {
+            document.getElementById("done").style.display = "none";
+        }, 1500);
+    }
 }
