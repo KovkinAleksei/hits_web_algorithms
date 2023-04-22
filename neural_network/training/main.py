@@ -54,11 +54,11 @@ class Network():
             random.shuffle(training_data)
             mini_batches = [training_data[k:k + mini_batch_size] for k in range(0, n, mini_batch_size)]
             for mini_batch in mini_batches:
-                self.updateCoeffs(mini_batch, grad_step)
+                self.update(mini_batch, grad_step)
             print("Epoch {0}".format(j))
         print("Training completed")
 
-    def updateCoeffs(self, mini_batch, grad_step):
+    def update(self, mini_batch, grad_step):
         # для партии вычисляем градиент как сумму градиентов отдельных элементов, деленную на количество элементов в партии
         grad_b = [np.zeros(np.array(b).shape) for b in self.biases]
         grad_w = [np.zeros(np.array(w).shape) for w in self.weights]

@@ -169,7 +169,10 @@ function selectNextVertex(ant, visited, pheromones, distances, vertexes) {
         }
     }
 
-    probabilities.forEach(function (p) { p.probability /= denominator; });
+    probabilities.forEach(function (p) { 
+        p.probability /= denominator; 
+    });
+    
     let selected = probabilities[0].vertex;
     let rand = Math.random();
 
