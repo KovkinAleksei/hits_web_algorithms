@@ -6,7 +6,8 @@ export const canv = document.getElementById("canvas");
 export const ctx = canv.getContext('2d');
 
 export let vertexes = [];
-export let nowButton = 0;
+export let nowButton = 1;
+changeAddButton();
 
 export let ANTS = 50;
 export let ITERATIONS = 200;

@@ -1,7 +1,8 @@
 import { drawer, startDrawing, stopDrawing, getAllPointsBlack, returnToOriginalStage, changeAddButton, changeDeleteButton, startAllAlgorithms, resetSolve} from "./drawFunctions.js";
 export { pointCoordinates, ctx, ctx2, ctx3, canvasKMeans };
 
-export let nowButton = 0;
+export let nowButton = 1;
+changeAddButton();
 export let nowDistance = 1;
 export let countClusters = 3;
 export let countClustersHierarchical = 3;
