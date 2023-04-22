@@ -172,21 +172,12 @@ let display = document.getElementById("container");
 const startButton = document.getElementById("startButton");
 
 let interval = null;
+const n = randInt(1, 20);
 
-startButton.addEventListener('click', (e) => {
-    solves = [];
-    const n = randInt(1, 20);
-    clearInterval(interval);
-    interval = null;
+// Итерации генетического алгоритма
+function algorithmIterations() {
     let noChangeIt = 0;
     let prevFitness = 0;
-    
-
-    // Нахождение чисел Фибоначи для проверки алгоритмов
-    getFibonacciNumbers();
-
-    // Генерация начальной популяции
-    generateSolve();
 
     interval = setInterval(function() {
         // Добавление детей в популяцию
@@ -215,7 +206,35 @@ startButton.addEventListener('click', (e) => {
             clearInterval(interval);
             interval = null;
         }
-
-        display.innerHTML = `const n = ${n};<br>let a = 0;<br>let b = 0;<br>let c = 0;<br>` + solves[0].code.replace(/\n/gi, '<br>') + `const result = a + b;<br>`;
+        document.getElementById('best').innerHTML = `const n = ${n};<br>let a = 0;<br>let b = 0;<br>let c = 0;<br>` + solves[0].code.replace(/\n/gi, '<br>') + `const result = a + b;<br>`;
     }, 10);
+}
+
+// Запуск генетического алгоритма
+startButton.addEventListener('click', (e) => {
+    solves = [];
+    clearInterval(interval);
+    interval = null;
+    
+    // Нахождение чисел Фибоначчи для проверки алгоритмов
+    getFibonacciNumbers();
+
+    // Генерация начальной популяции
+    generateSolve();
+
+    // Запуск итераций алгоритма
+    algorithmIterations();
+});
+
+let navigationButton = document.getElementById("nav");
+
+// Прерывание работы алгоритма при открытии боковой панели
+navigationButton.addEventListener('click', (e) => {
+    if (interval == null) {
+        algorithmIterations();
+    }
+    else {
+        clearInterval(interval);
+        interval = null;
+    }
 });

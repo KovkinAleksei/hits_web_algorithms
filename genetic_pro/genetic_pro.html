@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="./genetic_pro.css" rel="stylesheet">
     <link href="../css/nav.css" rel="stylesheet">
     <link href="../css/appearanceAnimation.css" rel="stylesheet">
@@ -12,7 +15,7 @@
 </head>
 <body>
     <input type="checkbox" id="nav-toggle" hidden>
-    <nav class="nav">
+    <nav class="nav" id = "nav">
         <label for="nav-toggle" class="nav-toggle" onclick></label>
         <div>
             <a href="../index.html"><img class='img' src="../assets/home.png" width="60px"/></a>
@@ -37,10 +40,16 @@
         </div>
         
     </nav>
-    <button id = "startButton">Пуск</button>
-
-    <div id = "container"></div>
-    <div id = "best"></div>
+    <div class="container">
+        <div class="title">
+            <label id="name">Генетический алгоритм для настоящих профессионалов</label>
+            <a class='proLink' href="../genetic/genetic.html">перейти в базированный режим</a>
+        </div>
+        <div class="geneticBlock">
+            <button id = "startButton">Пуск</button>
+            <div id = "best"></div>
+        </div>
+    </div>
 
     <script src="genetic_pro.js" type = "module"></script>
 </body>
