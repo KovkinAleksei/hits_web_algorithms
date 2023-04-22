@@ -178,6 +178,8 @@ startButton.addEventListener('click', (e) => {
     const n = randInt(1, 20);
     clearInterval(interval);
     interval = null;
+    let noChangeIt = 0;
+    let prevFitness = 0;
     
 
     // Нахождение чисел Фибоначи для проверки алгоритмов
@@ -200,6 +202,20 @@ startButton.addEventListener('click', (e) => {
             solves.pop();
         }
     
+        // Кол-во итераций без изменения алгоритма
+        if (prevFitness == solves[0].fitness) {
+            noChangeIt++;
+        }
+        else {
+            noChangeIt = 0;
+        }
+
+        // Прерывание работы генетического алгоритма
+        if (solves[0].fitness == 0 || noChangeIt == 100) {
+            clearInterval(interval);
+            interval = null;
+        }
+
         display.innerHTML = `const n = ${n};<br>let a = 0;<br>let b = 0;<br>let c = 0;<br>` + solves[0].code.replace(/\n/gi, '<br>') + `const result = a + b;<br>`;
     }, 10);
 });
