@@ -209,6 +209,7 @@ function updatePheromones(){
 /*---------------------------------------Просто отработчики нажатий-------------------------------------------*/
 
 document.getElementById("startButton").addEventListener('click', (e) => {
+    onAllButtons();
     if (isColonySet){
         updateAnts();
         document.getElementById("startButton").disabled = true;
@@ -218,6 +219,7 @@ document.getElementById("startButton").addEventListener('click', (e) => {
     } 
 });
 document.getElementById("stopButton").addEventListener('click', (e) => {
+    onAllButtons();
     cancelAnimationFrame(requestId);
     ants = [];
     isColonySet = false;
@@ -241,6 +243,7 @@ document.getElementById("clearButton").addEventListener('click', (e) => {
     initializeMap();
     isColonySet = false;
     document.getElementById("startButton").disabled = false;
+    onAllButtons();
 }); 
 
 document.getElementById("antRange").addEventListener('input', (e) => {
@@ -261,36 +264,48 @@ document.getElementById("speedRange").addEventListener('input', (e) => {
 document.getElementById("addAnthillButton").addEventListener('click', (e) => {
     if (nowButton !== 1){
         nowButton = 1;
+        onAllButtons();
+        document.getElementById("addAnthillButton").style.opacity = 0.6;
     }
     else if (nowButton === 1){
         nowButton = 0;
+        document.getElementById("addAnthillButton").style.opacity = 1;
     }
 });
 
 document.getElementById("addWallsButton").addEventListener('click', (e) => {
     if (nowButton !== 2){
         nowButton = 2;
+        onAllButtons();
+        document.getElementById("addWallsButton").style.opacity = 0.6;
     }
     else if (nowButton === 2){
         nowButton = 0;
+        document.getElementById("addWallsButton").style.opacity = 1;
     }
 });
 
 document.getElementById("addFoodButton").addEventListener('click', (e) => {
     if (nowButton !== 3){
         nowButton = 3;
+        onAllButtons();
+        document.getElementById("addFoodButton").style.opacity = 0.6;
     }
     else if (nowButton === 3){
         nowButton = 0;
+        document.getElementById("addFoodButton").style.opacity = 1;
     }
 });
 
 document.getElementById("eraseButton").addEventListener('click', (e) => {
     if (nowButton !== 4){
         nowButton = 4;
+        onAllButtons();
+        document.getElementById("eraseButton").style.opacity = 0.6;
     }
     else if (nowButton === 4){
         nowButton = 0;
+        document.getElementById("eraseButton").style.opacity = 1;
     }
 });
 
@@ -304,4 +319,11 @@ function startDrawing() {
 
 function stopDrawing() {
     document.getElementById('canvas').removeEventListener('mousemove', handler);
+}
+
+function onAllButtons(){
+    document.getElementById("addAnthillButton").style.opacity = 1;
+    document.getElementById("addWallsButton").style.opacity = 1;
+    document.getElementById("addFoodButton").style.opacity = 1;
+    document.getElementById("eraseButton").style.opacity = 1;
 }
