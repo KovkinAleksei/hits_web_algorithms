@@ -7,7 +7,11 @@ let context = canvas.getContext("2d");
 canvas.width = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
 let brushSize = document.getElementById("brushSize");
-brushSize.addEventListener('change', function() { context.lineWidth = brushSize.value; })
+brushSize.addEventListener('input', (e) => {
+    brushSize.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
+    
+    context.lineWidth = brushSize.value; 
+});
 
 context.lineWidth = brushSize.value;
 
@@ -165,3 +169,4 @@ function clearCanvas() {
 
 let clearButton = document.getElementById('clearButton');
 clearButton.addEventListener('click', function() { clearCanvas(); });
+

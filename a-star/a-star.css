@@ -10,13 +10,13 @@ body {
     color: #16161a;
     background:
       radial-gradient(circle at 50% 0,
-      #C1C8E4,
+      #d8dce9,
         rgba(255,0,0,0) 70.71%),
       radial-gradient(circle at 6.7% 75%,
-      #5592aa,
+      #73c3e2,
         rgba(0,0,255,0) 70.71%),
       radial-gradient(circle at 93.3% 75%,
-      #947ac4,
+      #ae8fe9,
         rgba(0,255,0,0) 70.71%) beige;
     justify-content: center;
 }
@@ -130,7 +130,7 @@ button {
     margin: 0px auto;
     width: 85%;
     height: 10px;
-    background-image: linear-gradient(#532b819a, #532b819a);
+    background-image: linear-gradient(#8f4cdc9a, #8e4bda9a);
     background-repeat: no-repeat;
     background-size: 25% 100%;
     border-radius: 5px;
