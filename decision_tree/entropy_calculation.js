@@ -34,7 +34,7 @@ function getProbability(element, column) {
 
     // Нахождение кол-ва вхождений класса в колонку
     for (let i = 0; i < column.length; i++) {
-        if (element == column[i]) {
+        if (element === column[i]) {
             count++;
         }
     }
@@ -64,7 +64,7 @@ function getUniqueMatrix(columnIndex, columnValue) {
     let uniqueMatrix = [];
 
     for (let i = 0; i < data.length; i++) {
-        if (data[i][columnIndex] == columnValue || i == 0) {
+        if (data[i][columnIndex] === columnValue || i === 0) {
             uniqueMatrix.push(data[i]);
         }
     }
@@ -146,7 +146,7 @@ export function getTreeNodes(input) {
     let deletedCount = 0;
 
     for (let j = 0; j < informationGains.length; j++) {
-        if (informationGains[j - deletedCount] == -999){
+        if (informationGains[j - deletedCount] === -999){
             informationGains.splice(j - deletedCount, 1);
             deletedCount++;
         }

@@ -16,10 +16,10 @@ export function readFile(text) {
         }
 
         // Сохранение строки файла
-        if (divider == ",") {
+        if (divider === ",") {
             data.push(line.split(/,(?=[^\s])/));
         }
-        else if (divider == ";") {
+        else if (divider === ";") {
             data.push(line.split(/;(?=[^\s])/));
         }
         else {
