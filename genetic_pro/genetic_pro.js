@@ -194,7 +194,7 @@ function algorithmIterations() {
         }
     
         // Кол-во итераций без изменения алгоритма
-        if (prevFitness == solves[0].fitness) {
+        if (prevFitness === solves[0].fitness) {
             noChangeIt++;
         }
         else {
@@ -202,7 +202,7 @@ function algorithmIterations() {
         }
 
         // Прерывание работы генетического алгоритма
-        if (solves[0].fitness == 0 || noChangeIt == 100) {
+        if (solves[0].fitness === 0 || noChangeIt === 100) {
             clearInterval(interval);
             interval = null;
         }
@@ -230,7 +230,7 @@ let navigationButton = document.getElementById("nav");
 
 // Прерывание работы алгоритма при открытии боковой панели
 navigationButton.addEventListener('click', (e) => {
-    if (interval == null) {
+    if (interval === null) {
         algorithmIterations();
     }
     else {
