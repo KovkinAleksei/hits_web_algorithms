@@ -50,7 +50,6 @@ body {
 #inputBlock {
     display: flex;
     flex-wrap: wrap;
-    margin: 10px;
     width: 100%;
     justify-content: center;
 }
@@ -76,7 +75,7 @@ body {
 .buttons {
     max-width: 550px;
     height: 120px;
-    margin: 32px 15px;
+    margin: 30px 15px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
