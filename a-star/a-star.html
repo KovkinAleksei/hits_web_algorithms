@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./a-star.css">
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/appearanceAnimation.css">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+    <title>А-звёздочка</title>
+</head>
+<body>
+    <input type="checkbox" id="nav-toggle" hidden>
+    <nav class="nav">
+        <label for="nav-toggle" class="nav-toggle" onclick></label>
+        <div>
+            <a href="../index.html"><img class='img' src="../assets/home.png" width="60px"/></a>
+        </div>
+        <div>
+            <a><img class='img alreadyHere' src="../assets/path.png" width="60px"/></a>
+        </div>
+        <div>
+            <a href="../clustering/cluster.html"><img src="../assets/clust.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../genetic/genetic.html"><img src="../assets/gen.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../antAlgorithm/antBased/ant.html"><img src="../assets/ant.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../decision_tree/decision_tree.html"><img src="../assets/tree.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../neural_network/neural_network.html"><img src="../assets/brain.png" class='img' width="60px"/></a>
+        </div>
+        
+    </nav>
+    <div id="titleBlock">
+        <p id="title">Алгоритм поиска пути А-звёздочка</p>
+    </div>
+    <div class = "mainList">
+
+        <div id="tableBlock">
+            <button id="primmButton" type="button">Сгенерировать лабиринт</button>
+        </div>
+
+        <div id="inputBlock">
+            <div class="inputDiv">
+                <button id="aStar" type="button">Запустить алгоритм поиска</button>
+            </div>
+            <div class="inputDiv">
+                <p class="extraLabel">Размер поля:</p>
+                <input id="tableSize" type="number" autofocus step = "2" min = "5" max = "99" value = "21"/>
+            </div>
+            <div class="inputDiv speedDiv">
+                <input id="animationSpeed" type="range" min="10" max="100" value="30"/>
+                <p  class="extraLabel" id="showAnimationSpeed">Скорость анимации поиска: 30</p>
+            </div>
+            <div class="inputDiv">
+                <button id="setStartFinish" type="button">Поставить старт и финиш</button> 
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./js/handler.js"></script>
+
+</body>
+</html>

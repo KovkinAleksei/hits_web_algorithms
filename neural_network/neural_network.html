@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link href="./neural_network.css" rel="stylesheet">
+    <link href="../css/nav.css" rel="stylesheet">
+    <link href="../css/appearanceAnimation.css" rel="stylesheet">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+    <title>Нейронная сеть</title>
+</head>
+<body>
+    <input type="checkbox" id="nav-toggle" hidden>
+    <nav class="nav">
+        <label for="nav-toggle" class="nav-toggle" onclick></label>
+        <div>
+            <a href="../index.html"><img class='img' src="../assets/home.png" width="60px"/></a>
+        </div>
+        <div>
+            <a href="../a-star/a-star.html"><img class='img' src="../assets/path.png" width="60px"/></a>
+        </div>
+        <div>
+            <a href="../clustering/cluster.html"><img src="../assets/clust.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../genetic/genetic.html"><img src="../assets/gen.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../antAlgorithm/antBased/ant.html"><img src="../assets/ant.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../decision_tree/decision_tree.html"><img src="../assets/tree.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a><img src="../assets/brain.png" class='img alreadyHere' width="60px"/></a>
+        </div>
+    </nav>
+    <div class="container">
+        <p class="title">Нейронная сеть</p>
+        <div class="containerInner">
+            <canvas id="drawField" style="width: 400px; height: 400px; border:2px solid rgb(22, 22, 22); border-radius: 10px;"></canvas>
+        </div>
+        <div class="containerInner">
+            <label class="brushSizeLabel">Размер кисти: </label>
+            <input id="brushSize" type="range" min="5" max="30" value="13"/>
+        </div>
+        <div class="containerInner">
+            <canvas id="cnv" style="width: 150px; height: 150px; border:2px solid rgb(22, 22, 22); border-radius: 10px;"></canvas>
+        </div>
+        <div class="containerInner">
+            <button class="button" id="clearButton">Стереть рисунок</button>
+        </div>
+        <div class="containerInner">
+            <p id="answerLabel"></p>
+        </div>
+    </div>
+    <div class="pictures">
+        <img class="leftWow" src="./nn_assets/dasas.png">
+        <img class="rightWow" src="./nn_assets/dd9a365453a2cd058a9af58a1150aa1c.png">
+    </div>
+    <script type="module" src="./neural_network.js"></script>
+</body>
+</html>

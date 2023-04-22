@@ -1,0 +1,115 @@
+body {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #25251c;
+
+    min-width: 1000px;
+    background-image: radial-gradient(circle at center, #f3f3ee, #ffffff);
+
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px auto;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 40px;
+    margin: 0px auto;
+    font-weight: 700;
+}
+
+#answerLabel {
+    font-size: 60px;
+    min-width: 100px;
+    min-height: 100px;
+    font-weight: 700;
+    margin: 0px;
+    text-align: center;
+}
+
+.containerInner {
+    margin: 5px auto;
+}
+
+.button {
+    display: inline-block;
+    width: 190px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #eeeeee;
+    background-color: #252525;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.button:hover {
+    background-color: #555555;
+}
+
+.brushSizeLabel {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+#brushSize {
+    -webkit-appearance: none;
+    background-image: linear-gradient(#101f24, rgb(13, 24, 29));
+    background-size: 40% 100%;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    height: 7px;
+    
+    border: 2px solid #091013;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #091013;
+    cursor: ew-resize;
+ }
+
+.pictures {
+    position: absolute;
+    bottom: 0;
+
+    z-index: -10;
+    display: flex;
+    justify-content: space-between;
+
+    pointer-events: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
+}
+
+.leftWow {
+    margin-right: 660px;
+    z-index: -10;
+}
+
+.rightWow {
+    margin-left: 660px;
+    z-index: -10;
+}

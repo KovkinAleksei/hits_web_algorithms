@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="./genetic_pro.css" rel="stylesheet">
+    <link href="../css/nav.css" rel="stylesheet">
+    <link href="../css/appearanceAnimation.css" rel="stylesheet">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+    <title>Генетический про алгоритм</title>
+</head>
+<body>
+    <input type="checkbox" id="nav-toggle" hidden>
+    <nav class="nav" id = "nav">
+        <label for="nav-toggle" class="nav-toggle" onclick></label>
+        <div>
+            <a href="../index.html"><img class='img' src="../assets/home.png" width="60px"/></a>
+        </div>
+        <div>
+            <a href="../a-star/a-star.html"><img class='img' src="../assets/path.png" width="60px"/></a>
+        </div>
+        <div>
+            <a href="../clustering/cluster.html"><img src="../assets/clust.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a><img src="../assets/gen.png" class='img alreadyHere' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../antAlgorithm/antBased/ant.html"><img src="../assets/ant.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../decision_tree/decision_tree.html"><img src="../assets/tree.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../neural_network/neural_network.html"><img src="../assets/brain.png" class='img' width="60px"/></a>
+        </div>
+        
+    </nav>
+    <div class="container">
+        <div class="title">
+            <label id="name">Генетический алгоритм для настоящих профессионалов</label>
+            <a class='proLink' href="../genetic/genetic.html">перейти в базированный режим</a>
+        </div>
+        <div class="geneticBlock">
+            <button id = "startButton">Пуск</button>
+            <div id = "best"></div>
+        </div>
+    </div>
+
+    <script src="genetic_pro.js" type = "module"></script>
+</body>
+</html>

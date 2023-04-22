@@ -1,0 +1,221 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #16161a;
+    background:
+      radial-gradient(circle at 50% 0,
+      #d8dce9,
+        rgba(255,0,0,0) 70.71%),
+      radial-gradient(circle at 6.7% 75%,
+      #73c3e2,
+        rgba(0,0,255,0) 70.71%),
+      radial-gradient(circle at 93.3% 75%,
+      #ae8fe9,
+        rgba(0,255,0,0) 70.71%) beige;
+    justify-content: center;
+}
+
+.mainList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    vertical-align: middle;
+    margin: 0px 100px;
+}
+
+#titleBlock {
+    text-align: center;
+    width: 100%;
+    
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#title {
+    margin: 30px 0px 0px 0px;
+}
+
+#inputBlock {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 20px;
+    height: 790px;
+    /* padding: 60px 0px 30px 0px; */
+    text-align: center;
+    align-items: center;
+    
+    border-radius: 25px;
+    border: none;
+
+    background-color: #879dd11a ;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+button {
+    cursor: pointer;
+    width: 170px;
+    height: 170px;
+
+    font-size: 20px;
+
+    text-align: center;
+
+    margin: 10px 20px;
+    padding: auto;
+    background-color: #b387d118;
+
+    /* box-shadow: 5px 5px 10px rgba(0,0,0,0.5); */
+
+    border: 2px solid #1e1920a8;
+    border-radius: 20px;
+    transition: opacity .2s ease-in-out;
+}
+
+#tableSize {
+    font-size: 16px;
+
+    width: 60px;
+    height: 40px;
+    background-color: #b387d118 ;
+
+    border: 2px solid #1e1920a8;
+    border-radius: 5px;
+
+    padding: 5px 10px;
+    margin: 0px 10px;
+
+    box-sizing: border-box;
+}
+
+#tableSize:focus {
+    outline: none;
+    border: 2px solid #000000;
+}
+
+.extraLabel {
+    justify-content: center;
+    margin: 2px 2px;
+}
+
+.inputDiv {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    min-width: 295px;
+    margin: 40px 10px;
+    font-weight: 600;
+}
+
+.speedDiv {
+    flex-direction: column;
+}
+
+.sizeDiv {
+    justify-content: center;
+    align-items: baseline;
+    display: flex;
+    margin: 0px 10px;
+}
+
+
+#animationSpeed {
+    -webkit-appearance: none;
+    margin: 0px auto;
+    width: 85%;
+    height: 10px;
+    background-image: linear-gradient(#8f4cdc9a, #8e4bda9a);
+    background-repeat: no-repeat;
+    background-size: 25% 100%;
+    border-radius: 5px;
+    border: 2px solid #1e1920e0;
+}
+
+#animationSpeed::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #252525;
+    background-color: #252525;
+    cursor: ew-resize;
+}
+
+button:disabled, button:hover {
+    opacity: 0.5;
+}
+
+#primmButton {
+    width: 700px;
+    height: 50px;
+    margin: 10px 10px;
+    border: none;
+
+    background-color: #879dd167; 
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.6);
+}
+
+#tableBlock {
+    border-radius: 25px;
+    border: none;
+
+    background-color: #879dd15d ;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.6);
+
+    width: 720px;
+    height: 790px;
+}
+
+table {
+    margin: 10px auto;
+    width: 700px;
+    height: 700px;
+    border-collapse: collapse;
+}
+
+td[data-mode = "empty"] {
+    background-color: #e7eff8;
+}
+
+td[data-mode = "wall"] {
+    background-color: #181817;
+}
+
+td[data-mode = "start"] {
+    background-color: #56b33a;
+}
+
+td[data-mode = "finish"] {
+    background-color: #830418;
+}
+
+td[data-mode = "path"] {
+    background-color: rgb(15, 18, 156);
+}
+
+td[data-mode = "checked"] {
+    background-color: rgb(114, 247, 202);
+}
+
+td[data-mode = "checking"] {
+    background-color: rgb(70, 183, 235);
+}
+
+td[data-mode = "empty"]:hover {
+    background-color: rgb(87, 87, 87);
+}
+
+td[data-mode = "empty"]:hover {
+    background-color: rgb(146, 146, 146);
+}
+
+td:hover {
+    opacity: 0.5;
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="./css/antStyle.css" rel="stylesheet">
+    <link href="../../css/nav.css" rel="stylesheet">
+    <link href="../../css/appearanceAnimation.css" rel="stylesheet">
+    <link rel="icon" href="../../assets/favicon.ico" type="image/x-icon">
+    <title>Муравьиный алгоритм</title>
+</head>
+
+<body> 
+    <input type="checkbox" id="nav-toggle" hidden>
+    <nav class="nav">
+        <label for="nav-toggle" class="nav-toggle" onclick></label>
+        <div>
+            <a href="../../index.html"><img class='img' src="../../assets/home.png" width="60px"/></a>
+        </div>
+        <div>
+            <a href="../../a-star/a-star.html"><img class='img' src="../../assets/path.png" width="60px"/></a>
+        </div>
+        <div>
+            <a href="../../clustering/cluster.html"><img src="../../assets/clust.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../../genetic/genetic.html"><img src="../../assets/gen.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a><img class='img alreadyHere' src="../../assets/ant.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../../decision_tree/decision_tree.html"><img src="../../assets/tree.png" class='img' width="60px"/></a>
+        </div>
+        <div>
+            <a href="../../neural_network/neural_network.html"><img src="../../assets/brain.png" class='img' width="60px"/></a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="title">
+            <label id = "name"> Муравьиный алгоритм</label>
+            <a class='proLink' href="../antPro/antPro.html">Перейти в про режим</a>
+        </div>
+
+        <canvas id = "canvas" width = "1200px" height = "600px"></canvas>
+        <div id = "inputBlock">
+            
+        <div id = "interface">
+            <div id = "input">
+                <div id = "rangeLabel">Количество муравьев:</div>
+                <input type = "range" id = "inputRange" value = "50" min = "10" max = "1000" step = "10">
+                <span id = "counter">50</span>
+                
+            </div>
+            <div id = "input">
+                <div id = "iterationLabel">Количество итераций:</div>
+                <input type = "range" id = "iterationRange" value = "200" min = "50" max = "2000" step = "50">
+                <span id = "counterIteration">200</span>
+                
+            </div>
+            <div id = "input">
+                <div id = "rhoLabel">Скорость испарения феромонов:</div>
+                <input type = "range" id = "rhoRange" value = "0.5" min = "0.1" max = "0.7" step = "0.1">
+                <span id = "counterRHO">0.5</span>
+                
+            </div>
+            <div id = "input">
+                <div id = "linesLable">Отображение всех ребер графа:</div>
+                <input type="checkbox" id="getLines">
+            </div>
+        </div>
+        <div class="buttons">
+            <button id = "findPathButton">Найти путь</button>
+            <button id = "addVertexButton">Добавить вершину <b>ВЫКЛ</b></button>
+            <button id = "deleteVertexButton">Удалить вершину <b>ВЫКЛ</b></button>
+            <button id = "clearButton">Очистить поле</button>
+        </div>
+    </div>
+    <div class="blink red" id = "done" style="display: none; ">
+        МАРШРУТ НАЙДЕН!
+    </div>
+
+    <div class="blink red" id = "warning" style="display: none; ">
+        WARNING! ИДЕТ ВЫПОЛНЕНИЕ АЛГОРИТМА!
+        <div>
+            ИТЕРАЦИЯ: 
+            <span id = "nowIteration">1</span>
+            /
+            <span id = "allIterations">200</span>
+        </div>
+    </div>
+    <script src="antPage.js" type = "module"></script>
+</body>
+</html>

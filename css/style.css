@@ -1,0 +1,107 @@
+body {
+    display: flex;
+    justify-content: space-around;
+    min-width: 350px;
+    padding: 10px auto;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    overflow: hidden;
+    background: rgb(20, 20, 20);
+}
+
+*,
+*:after,
+*:before{
+    box-sizing: border-box;
+}
+
+  
+.container {
+    display: block;
+    margin: 0px auto;
+    padding-top: 100px;
+    justify-content: center;
+
+    position: absolute;
+    width: 90%;
+    height: 100%;
+}
+
+.title {
+    font-size: 5vw;
+    color: rgb(255, 247, 247);
+    font-weight: 800;
+    text-align: center;
+}
+
+.algsContainer {
+    justify-content: space-between;
+    text-align: center;
+    margin: 40px auto;
+}
+
+.navLink {
+    display: inline-block;
+    font-weight: 800;
+    font-size: 18px;
+    color: #fffef9;
+    text-decoration: none;
+    margin: 0px 25px;
+    position: relative;
+}
+
+.link {
+    display: flex;
+    flex-wrap: wrap;
+    height: 30px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #f4fbfff3;
+    opacity: 0.9;
+    text-decoration: none;
+    margin: 0px 25px;
+    position: relative;
+    white-space: nowrap;
+}
+  
+  .navLink::before, .link::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: #fffef9;
+    transition: width 0.4s ease-in-out;
+  }
+  
+  .navLink:hover::before, .link:hover::before {
+    width: 100%;
+  }
+
+.ref {
+    font-size: 18px;
+    color: #fffef9;
+}
+
+.links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 30px;
+}
+
+.refContainer {
+    justify-content: space-between;
+    text-align: center;
+    margin-bottom: 70px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+canvas {
+    width: 100%;
+}
