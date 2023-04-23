@@ -165,7 +165,14 @@ let display = document.getElementById("best");
 // Запуск генетического алгоритма
 const startButton = document.getElementById("startButton");
 
+// Интервал для итераций алгоритма
+let interval;
+
 startButton.addEventListener('click', (e) => {
+    // Сброс работы запущенного ранее интервала
+    clearInterval(interval);
+    interval = null;
+
     // В сгенерированном алгоритме находится n-ое число Фибоначчи
     let n = randInt(0, FIBAMOUNT);
 
@@ -178,7 +185,7 @@ startButton.addEventListener('click', (e) => {
     // Генерация начальной популяции
     generateSolve();
 
-    const interval = setInterval(function() {
+    interval = setInterval(function() {
         // Добавление детей в популяцию
         for (let j = 0; j < CHILDS; j++) {
             cross();
