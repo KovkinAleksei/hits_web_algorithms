@@ -49,7 +49,7 @@ function mutate(child) {
     let firstGen = Math.floor(Math.random() * child.length);
     let secondGen = firstGen;
 
-    while (secondGen == firstGen) {
+    while (secondGen === firstGen) {
         secondGen = Math.floor(Math.random() * child.length);
     }
 
@@ -138,7 +138,7 @@ export function getSolves(vertexArray, solvesArray) {
         let firstParent = Math.floor(Math.random() * POPULATION);
         let secondParent = firstParent;
 
-        while (secondParent == firstParent){
+        while (secondParent === firstParent){
             secondParent = Math.floor(Math.random() * POPULATION);
         }
 

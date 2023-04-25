@@ -24,7 +24,7 @@ function displayTree(currentNode, treeElement) {
     treeElement.appendChild(newNode);
 
     // На листе продление ветки останавливается
-    if (currentNode.branches.length == 0) {
+    if (currentNode.branches.length === 0) {
         return;
     }
 
@@ -54,7 +54,7 @@ makeTreeButton.addEventListener('click', (e) => {
     if (file.value === '' && !chosenFileIndex){
         alert('Файл не загружен');
     }
-    else if (file.value != '') {
+    else if (file.value !== '') {
         // Открытие файла
         fileInput = file.files[0];
 
@@ -104,7 +104,7 @@ let bypassInterval;
 // Обход дерева
 function bypassTree(currentNode, data) {
     // Конец обхода
-    if (bypassIndex == data.length) {
+    if (bypassIndex === data.length) {
         clearInterval(bypassInterval);
         bypassInterval = null;
 
@@ -112,7 +112,7 @@ function bypassTree(currentNode, data) {
     }
 
     // Проход через корень дерева
-    if (currentNode == null) {
+    if (currentNode === null) {
         treeRoot.isVisited = true;
         clearPath(treeRoot);
 
@@ -129,7 +129,7 @@ function bypassTree(currentNode, data) {
     // Продолжение обхода
     for (let j = 0; j < currentNode.branches.length; j++) {
         // Нахождение следующей вершины
-        if (data[bypassIndex][currentNode.attribute.index] == currentNode.branches[j].atrValue ||
+        if (data[bypassIndex][currentNode.attribute.index] === currentNode.branches[j].atrValue ||
             currentNode.branches.length == 1) {
             currentNode = currentNode.branches[j];
             currentNode.isVisited = true;
@@ -173,7 +173,7 @@ const reduceTreeButton = document.getElementById("reduceTree");
 // Сокращение размера дерева
 reduceTreeButton.addEventListener('click', (e) => {
     // Отмена сокращения невыведенного дерева
-    if (document.getElementById("root").innerHTML == '') {
+    if (document.getElementById("root").innerHTML === '') {
         return;
     }
 
@@ -190,7 +190,7 @@ reduceTreeButton.addEventListener('click', (e) => {
 // Сокращение высоты дерева
 function reduceTree(currentNode) {
     // Возврат значения листа
-    if (currentNode.branches.length == 1) {
+    if (currentNode.branches.length === 1) {
         let arr = [];
         arr.push(currentNode.branches[0].atrValue);
 
@@ -209,7 +209,7 @@ function reduceTree(currentNode) {
     }
 
     // Сокращение вершины до листа, если значения листьев всех её ветвей одинаковые
-    if (getUniqueElements(answers).length == 1) {
+    if (getUniqueElements(answers).length === 1) {
         currentNode.branches = [currentNode.branches[0].branches[0]];
     }
 
@@ -287,13 +287,13 @@ speciesButton.addEventListener('click', (e) => {
 const selectionButton = document.getElementById("select");
 
 selectionButton.addEventListener('change', (e) => {
-    if (selectionButton.selectedIndex == 0) {
+    if (selectionButton.selectedIndex === 0) {
         divider = ",";
     }
-    else if (selectionButton.selectedIndex == 1) {
+    else if (selectionButton.selectedIndex === 1) {
         divider = ";";
     }
-    else if (selectionButton.selectedIndex == 2) {
+    else if (selectionButton.selectedIndex === 2) {
         divider = " ";
     }
 });

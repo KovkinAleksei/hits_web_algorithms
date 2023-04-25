@@ -43,13 +43,16 @@
             <canvas id="drawField" style="width: 400px; height: 400px; border:2px solid rgb(22, 22, 22); border-radius: 10px;"></canvas>
         </div>
         <div class="containerInner">
-            <input id="brushSize" type="range" min="5" max="20" value="13"/>
+            <label class="brushSizeLabel">Размер кисти: </label>
+            <input id="brushSize" type="range" min="5" max="30" value="13"/>
+        </div>
+        <div class="containerInner">
+            <canvas id="cnv" style="width: 150px; height: 150px; border:2px solid rgb(22, 22, 22); border-radius: 10px;"></canvas>
         </div>
         <div class="containerInner">
             <button class="button" id="clearButton">Стереть рисунок</button>
         </div>
         <div class="containerInner">
-            <canvas id="cnv" style="width: 200px; height: 200px; border:2px solid rgb(22, 22, 22); border-radius: 10px;"></canvas>
             <p id="answerLabel"></p>
         </div>
     </div>

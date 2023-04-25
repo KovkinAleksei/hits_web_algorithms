@@ -70,7 +70,7 @@ function findNearestPointIndex(x, y) {
 function drawPossibility(x, y) {
     let index = findNearestPointIndex(x, y);
 
-    return (index == MAXVALUE || 
+    return (index === MAXVALUE || 
         findDistance(vertexes[index].x, vertexes[index].y, x, y) > 2 * RADIUS + 2 &&
         x > RADIUS && x < canv.clientWidth - RADIUS && y > RADIUS && y < canv.clientHeight - RADIUS);
 }
@@ -126,7 +126,7 @@ canv.addEventListener('click', (e) => {
         return;
     }
 
-    if (vertexes.length == 60)
+    if (vertexes.length === 60)
     {
         alert("Куда разогнался? 60-ти городов хватит!");
         return;
@@ -272,7 +272,7 @@ function getPath() {
         solves = getSolves(vertexes, solves);
         showSolve(solves[0]);
 
-        if (prevSolve != solves[0]){
+        if (prevSolve !== solves[0]){
             iterations = 0;
         }
 

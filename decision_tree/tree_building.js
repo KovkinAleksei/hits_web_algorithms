@@ -19,7 +19,7 @@ const leafAttr = {name: "leafAttr", index: -1};
 
 // Нахождение результата прохода по дереву
 function getAnswer(atr, result, currentData) {
-    if (currentData.length == 0) {
+    if (currentData.length === 0) {
         return "leafAttr";
     }
 
@@ -33,7 +33,7 @@ function getAnswer(atr, result, currentData) {
 
     for (let j = 0; j < currentData.length; j++) {
         for (let k = 0; k < uniqueAnswers.length; k++) {
-            if (currentData[j][atr.index] == result && currentData[j][currentData[0].length - 1] == uniqueAnswers[k]) {
+            if (currentData[j][atr.index] === result && currentData[j][currentData[0].length - 1] === uniqueAnswers[k]) {
                 answersCount[k]++;
             }
         }
@@ -73,7 +73,7 @@ function sortBranches(column) {
 
     for (let j = 0; j < column.length; j++) {
         for (let k = 0; k < results.length; k++) {
-            if (column[j] == results[k]) {
+            if (column[j] === results[k]) {
                 count[k]++;
             }
         }
@@ -110,7 +110,7 @@ function growBranch(queue) {
         let branches = sortBranches(getColumn(data, currentNode.attribute.index));
 
         // Добавление веток без уникальных атрибутов
-        if (currentNode.branches.length == 0 && attributeNodes.length - currentIndex < branches.length) {
+        if (currentNode.branches.length === 0 && attributeNodes.length - currentIndex < branches.length) {
             for (let i = 0; i < branches.length - 1; i++) {
                 attributeNodes.push(leafAttr);
             }
@@ -151,7 +151,7 @@ function addLeaves(currentNode, currentData) {
     }
     // Добавление листьев
     else {
-        if (data.length == 0) {
+        if (data.length === 0) {
             return;
         }
 

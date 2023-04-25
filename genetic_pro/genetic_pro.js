@@ -1,30 +1,26 @@
-const MUTPROB = 70;
-const POPULATION = 10;
-const CHILDS = 10;
-const MIN_LEN = 1;
-const MAX_LEN = 100;
+const MUTPROB = 70;      // Вероятность мутации
+const POPULATION = 10;   // Кол-во особей в популяции
+const CHILDS = 10;       // Кол-во детей при скрещивании
+const MIN_LEN = 1;       // Минимальное кол-во строк кода
+const MAX_LEN = 100;     // Максимальное кол-во строк кода
 
-const FIBAMOUNT = 100;
+const FIBAMOUNT = 20;    // Кол-во первых чисел Фибоначчи, с которыми сравнивается результат работы сгенерированного алгоритма
 
 // Числа Фибоначи
 let fibonacci = [];
 
 // Заполнение массива чисел Фибоначи
 function getFibonacciNumbers() {
-    let result = 0;
-    let nextNumber = 1;
-
-    for (let i = 0; i < FIBAMOUNT; i++){
-        let temp = nextNumber;
-        nextNumber = result;
-        result += temp;
-
-        fibonacci.push(result);
+    for (let a = 0, b = 1, i = 0; i < FIBAMOUNT; i++, [a, b] = [b, a + b]){
+        fibonacci.push(a);
     }
 }   
 
 // Генерация случайного числа в диапозоне min-max
 function randInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.ceil(max);
+
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
@@ -45,18 +41,16 @@ let solves = [];
 function calculateFitness(currentSolve) {
     let result = 0;
     let summ = 0;
+    let n = 0;
+    let a = 0; 
+    let b = 0;
+    let c = 0;
 
     let fitness = 0;
 
     try{
         for (let i = 0; i < FIBAMOUNT; i++) {
-            let n = 0;
-            let a = 0; 
-            let b = 0;
-            let c = 0;
-            result = 0;
-
-            let fullCode = `n = ${i + 1};\na = 0;\nb = 0;\nc = 1;\n result = 0;\n` + currentSolve.code + `result = a + b;\n`;
+            let fullCode = `n = ${i + 1};\na = 0;\nb = 0;\nc = 0;\n result = 0;\n` + currentSolve.code + `result = a + b;\n`;
             eval(fullCode);
             summ += Math.abs(fibonacci[i] - result);
         }
@@ -165,22 +159,27 @@ function cross() {
     solves.push(secondChild);
 }
 
-// Экран вывода алгоритма
-let display = document.getElementById("container");
+// Экран вывода наиболее приспособленного алгоритма
+let display = document.getElementById("best");
 
 // Запуск генетического алгоритма
 const startButton = document.getElementById("startButton");
 
-let interval = null;
+// Интервал для итераций алгоритма
+let interval;
 
 startButton.addEventListener('click', (e) => {
-    solves = [];
-    const n = randInt(1, 20);
+    // Сброс работы запущенного ранее интервала
     clearInterval(interval);
     interval = null;
-    
 
-    // Нахождение чисел Фибоначи для проверки алгоритмов
+    // В сгенерированном алгоритме находится n-ое число Фибоначчи
+    let n = randInt(0, FIBAMOUNT);
+
+    // Обновление популяции решений
+    solves = [];
+
+    // Нахождение чисел Фибоначи для проверки сгенерированных алгоритмов
     getFibonacciNumbers();
 
     // Генерация начальной популяции
@@ -200,6 +199,12 @@ startButton.addEventListener('click', (e) => {
             solves.pop();
         }
     
-        display.innerHTML = `const n = ${n};<br>let a = 0;<br>let b = 0;<br>let c = 0;<br>` + solves[0].code.replace(/\n/gi, '<br>') + `const result = a + b;<br>`;
+        // Вывод результата
+        display.innerHTML = `let n = ${n};<br>let a = 0;<br>let b = 0;<br>let c = 0;<br>let result = 0;<br>` + 
+        solves[0].code.replace(/\n/gi, '<br>') + `result = a + b;<br>`;
+
+        // Вывод в консоли приспособленности сгенерированного алгоритма
+        // 0 означает нахождение идеального алгоритма для генерации перывх FIBAMOUNT чисел Фибоначчи
+        console.log(solves[0].fitness);
     }, 10);
 });

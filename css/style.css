@@ -1,6 +1,7 @@
 body {
     display: flex;
     justify-content: space-around;
+    min-width: 350px;
     padding: 10px auto;
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
@@ -52,14 +53,17 @@ body {
 }
 
 .link {
-    display: inline-block;
+    display: flex;
+    flex-wrap: wrap;
+    height: 30px;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 20px;
     color: #f4fbfff3;
     opacity: 0.9;
     text-decoration: none;
     margin: 0px 25px;
     position: relative;
+    white-space: nowrap;
 }
   
   .navLink::before, .link::before {
@@ -78,7 +82,15 @@ body {
   }
 
 .ref {
+    font-size: 18px;
     color: #fffef9;
+}
+
+.links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 30px;
 }
 
 .refContainer {

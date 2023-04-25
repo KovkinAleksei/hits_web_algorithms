@@ -1,11 +1,15 @@
 body {
-    padding: 16px;
+    margin: 0px;
     background-image: radial-gradient(circle at 50% 50%, #c5d5db, #9ec7d6d5);
     /* background-color: #C6DAE1; */
     font-family: Montserrat, sans-serif;
     font-size: 16px;
     font-weight: 600;
     min-width: 500px;
+}
+
+.fileInputDiv {
+    display: none;
 }
 
 .container {
@@ -19,13 +23,7 @@ body {
     text-align: center;
     font-weight: 900;
     font-size: 40px;
-    margin: 10px;
-}
-
-.container {
-     display: flex;
-     flex-wrap: wrap;
-     justify-content: space-around;
+    margin: 15px 10px 10px 10px;
 }
 
 ul {
