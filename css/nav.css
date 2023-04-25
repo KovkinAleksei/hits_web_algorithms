@@ -25,6 +25,8 @@
 
 .nav-toggle {
     position: absolute;
+    font-weight: 700;
+    font-size: 25px;
     right: 110px;
     top: 10px;
     padding: 0.5em;
