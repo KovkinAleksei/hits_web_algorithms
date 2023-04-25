@@ -1,4 +1,5 @@
-import {weights, biases } from "./weights.js"
+import { weights } from "./weights.js"
+import { biases } from "./biases.js"
 
 // Сигмоида
 function sigmoid(x) {

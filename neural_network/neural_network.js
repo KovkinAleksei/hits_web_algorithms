@@ -95,7 +95,6 @@ function imageCenterig(imgData, image) {
 
 // Функция запускающая работу нн
 function neuralNetwork() {
-    let canvas = document.getElementById('drawField');
     let image = new Image();
     image.src = canvas.toDataURL();
 
@@ -124,6 +123,7 @@ function neuralNetwork() {
     }
 }
 
+// Поиск границ цифры
 function scanX(fromLeft, imgData) {
     var offset = fromLeft? 1 : -1;
 
